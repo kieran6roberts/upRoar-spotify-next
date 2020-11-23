@@ -1,0 +1,15 @@
+@import "src/styles/tailwind.css";
+
+:root {
+  --clr-pr: #FBBF24;
+  --clr-sec: #34D399;
+  --clr-txt: #161515;
+  --clr-bg: #fffbfb;
+  --font-head: "Raleway", sans-serif;
+  --font-reg: "Source Sans Pro", sans-serif;
+}
+
+[data-theme="dark"] {
+  --clr-txt: #fffbfb;
+  --clr-bg: #161515;
+}
