@@ -7,7 +7,7 @@ const FormInput = ({ id, type, name, value }) => {
     type={type} 
     name={name} 
     value={value}
-    className="py-1 px-4 mb-8 border rounded" />
+    className="py-2 px-4 mb-8 ring-2 ring-gray-500 ring-opacity-50 rounded focus:outline-none focus:ring-pri" />
   )
 };
 
