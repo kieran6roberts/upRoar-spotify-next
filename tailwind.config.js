@@ -11,25 +11,17 @@ module.exports = {
       xl: "var(--fxl)",
       xxl: "var(--fxxl)",
     },
-    screens: {
-      "mobile": "350px",
-      "mobile-wide": "480px",
-      "tablet": "768px",
-      "tablet-wide": "976px",
-      "desktop": "1200px",
-      "desktop-large": "1440px"
-    },
     extend: {
       colors: {
-        primary: "var(--clr-pr)",
-        secondary: "var(--clr-sc)",
+        pri: "var(--clr-pr)",
+        sec: "var(--clr-sec)",
         light: {
-          "text-clr": "var(--clr-txt)",
-          "bg-clr": "var(--clr-bg)"
+          text: "var(--clr-txt)",
+          bg: "var(--clr-bg)"
         },
         dark: {
-          "text-clr": "var(--clr-txt)",
-          "bg-clr": "var(--clr-bg)"
+          text: "var(--clr-txt)",
+          bg: "var(--clr-bg)"
         }
       }
     },
@@ -37,7 +29,7 @@ module.exports = {
   variants: {
     extend: {
       backgroundColor: ["hover", "focus", "dark"],
-      textColor: ["hover", "focus", "dark"]
+      textColor: ["hover", "focus", "dark"],
     },
   },
   plugins: [],

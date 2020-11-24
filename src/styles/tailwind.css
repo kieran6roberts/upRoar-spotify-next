@@ -81,10 +81,10 @@
 }
 
 :root {
-  --clr-pr: #FBBF24;
+  --clr-pr: #FBBf24;
   --clr-sec: #34D399;
   --clr-txt: #161515;
-  --clr-bg: #fffbfb;
+  --clr-bg: #fff;
 
   --font-head: "Raleway", sans-serif;
   --font-reg: "Source Sans Pro", sans-serif;
