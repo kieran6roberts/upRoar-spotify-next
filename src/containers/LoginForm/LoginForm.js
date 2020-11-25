@@ -1,11 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import FormInput from "../../components/FormInput/FormInput";
+import useForm from "../../hooks/useForm";
+import formValidation from "../../formValidation";
+import { route } from "next/dist/next-server/server/router";
 
 const LoginForm = () => {
+  const router = useRouter();
+
+  const stateInit = {
+    username: "",
+    password: ""
+  };
+
+  const handleSuccessfulSubmit = () => {
+    router.push("/profile/user");
+  };
+
+  const [ 
+    inputValues, 
+    errors, 
+    submitting, 
+    inputChangeHandler, 
+    submitHandler, ] = useForm({ stateInit, submitFunc: handleSuccessfulSubmit });
+
   return (
     <form
-    className="flex flex-col w-full max-w-lg"
+    onSubmit={submitHandler}
+    className="flex flex-col w-full max-w-xl"
     data-testid="login-form">
       <label 
       htmlFor="username" 
@@ -15,7 +38,9 @@ const LoginForm = () => {
       <FormInput
       id="username"
       type="text"
-      name="username" />
+      name="username"
+      value={inputValues.username}
+      onChange={inputChangeHandler} />
       <label 
       htmlFor="password" 
       className="mb-1 capitalize">
@@ -24,7 +49,9 @@ const LoginForm = () => {
       <FormInput
       id="password"
       type="password"
-      name="password" />
+      name="password" 
+      value={inputValues.password}
+      onChange={inputChangeHandler} />
       <p className="mb-8">
         Don't have an account? 
           <Link href="/register">
