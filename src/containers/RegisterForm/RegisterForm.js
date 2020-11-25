@@ -3,8 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
-import formValidation from "../../formValidation";
-
+import registerValidation from "../../registerValidation";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -26,7 +25,7 @@ const RegisterForm = () => {
     errors, 
     submitting, 
     inputChangeHandler, 
-    submitHandler ] = useForm({ stateInit, validate: formValidation, submitFunc: handleSuccessfulSubmit });
+    submitHandler ] = useForm({ stateInit, validate: registerValidation, submitFunc: handleSuccessfulSubmit });
 
   return (
     <form 

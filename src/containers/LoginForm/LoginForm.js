@@ -3,8 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
-import formValidation from "../../formValidation";
-import { route } from "next/dist/next-server/server/router";
+import loginValidation from "../../loginValidation";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -15,6 +14,7 @@ const LoginForm = () => {
   };
 
   const handleSuccessfulSubmit = () => {
+    console.log("change page");
     router.push("/profile/user");
   };
 
@@ -23,7 +23,7 @@ const LoginForm = () => {
     errors, 
     submitting, 
     inputChangeHandler, 
-    submitHandler, ] = useForm({ stateInit, submitFunc: handleSuccessfulSubmit });
+    submitHandler, ] = useForm({ stateInit, validate: loginValidation, submitFunc: handleSuccessfulSubmit });
 
   return (
     <form
@@ -33,7 +33,7 @@ const LoginForm = () => {
       <label 
       htmlFor="username" 
       className="mb-1 capitalize">
-        username
+        username  {errors.username && <p className="text-xs text-red-500">{errors.username}</p>}
       </label>
       <FormInput
       id="username"
@@ -44,7 +44,7 @@ const LoginForm = () => {
       <label 
       htmlFor="password" 
       className="mb-1 capitalize">
-        password
+        password  {errors.password && <p className="text-xs text-red-500">{errors.password}</p>}
       </label>
       <FormInput
       id="password"

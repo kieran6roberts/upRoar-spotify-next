@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const useForm = ({ stateInit = {}, validate = null, submitFunc }) => {
+const useForm = ({ stateInit = {}, validate, submitFunc }) => {
   const [ inputValues, setInputValues ] = useState(stateInit);
-  const [ buttonEnabled, setButtonEnabled ] = useState(false);
   const [ errors, setErrors ] = useState({});
   const [ submitting, setSubmitting ] = useState(false);
 
@@ -12,7 +11,6 @@ const useForm = ({ stateInit = {}, validate = null, submitFunc }) => {
       ...inputValues,
       [name]: value
     });
-    setErrors(validate(inputValues));
   };
 
   const isObjectEmpty = obj => Object.keys(obj).length === 0;
@@ -27,7 +25,7 @@ const useForm = ({ stateInit = {}, validate = null, submitFunc }) => {
     if (isObjectEmpty(errors) && submitting) {
       submitFunc();
     }
-  }, [submitting]);
+  }, [submitting, errors]);
 
   return [
     inputValues, 
@@ -35,7 +33,6 @@ const useForm = ({ stateInit = {}, validate = null, submitFunc }) => {
     submitting, 
     inputChangeHandler, 
     submitHandler,
-    setSubmitting
   ];
 };
 

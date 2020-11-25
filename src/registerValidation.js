@@ -1,4 +1,4 @@
-const formValidation = values => {
+const registerValidation = values => {
   let errors = {};
   const emailExpPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const passwordExpPattern = /^(?=.*\d)()(?=.*[A-Z]).{6,16}$/;
@@ -39,4 +39,4 @@ const formValidation = values => {
   return errors;
 };
 
-export default formValidation;
+export default registerValidation;

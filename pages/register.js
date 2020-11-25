@@ -10,7 +10,7 @@ const Register = () => {
       id="login"
       className="pt-8">
         <h2 className="text-md mb-4">
-          Welcome to upRoar
+          Welcome to upRoar!
         </h2>
         <p className="text-md mb-2">
           Create a free account with us below.
