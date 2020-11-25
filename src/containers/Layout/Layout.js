@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Head from "src/components/Head/Head";
-import Footer from "src/components/Footer/Footer";
-import Sidebar from "src/components/Sidebar/Sidebar";
+import Head from "../../components/Head/Head";
+import Footer from "../../components/Footer/Footer";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const Layout = ({ children, title }) => {
   const [ theme, setTheme ] = useState(false);

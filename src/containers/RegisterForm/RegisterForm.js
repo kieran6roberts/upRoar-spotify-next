@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import FormInput from "src/components/FormInput/FormInput";
+import FormInput from "../../components/FormInput/FormInput";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   return (
-    <form className="flex flex-col w-full max-w-lg">
+    <form 
+    className="flex flex-col w-full max-w-lg"
+    data-testid="register-form">
       <label 
       htmlFor="name" 
       className="mb-1 capitalize">
@@ -54,9 +56,9 @@ const LoginForm = () => {
       type="submit"
       name="submit"
       value="submit"
-      className="py-2 px-4 rounded text-light-bg font-bold capitalize bg-pri cursor-pointer focus:outline-none focus:ring-2 focus:ring-pri focus:ring-opacity-50" />
+      className="py-2 px-4 rounded text-pri font-bold capitalize bg-light-bg cursor-pointer hover:bg-light-bg focus:outline-none focus:ring-2 focus:ring-pri focus:ring-opacity-50" />
     </form>
   )
 };
 
-export default LoginForm;
+export default RegisterForm;

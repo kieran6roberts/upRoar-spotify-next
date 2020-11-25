@@ -1,5 +1,5 @@
-import Button from "src/components/Button/Button";
-import Layout from "src/containers/Layout/Layout";
+import Button from "../src/components/Button/Button";
+import Layout from "../src/containers/Layout/Layout";
 
 const Home = () => (
   <Layout title="Home">

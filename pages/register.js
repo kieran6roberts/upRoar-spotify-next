@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "src/containers/Layout/Layout";
-import RegisterForm from "src/containers/RegisterForm/RegisterForm";
+import Layout from "../src/containers/Layout/Layout";
+import RegisterForm from "../src/containers/RegisterForm/RegisterForm";
 
 const Register = () => {
   return(

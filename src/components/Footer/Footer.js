@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="border border-gray-100 mt-16 p-8">
+    <footer className="border-t-2 border-gray-100 mt-16 p-8">
       <p className="text-md font-bold text-center">
         upRoar Music App
       </p>
