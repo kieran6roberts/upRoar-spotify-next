@@ -85,14 +85,14 @@ const RegisterForm = () => {
       value={inputValues.password}
       onChange={inputChangeHandler} />
       <label 
-      htmlFor="confirm-password" 
+      htmlFor="confirm password" 
       className="mb-1 capitalize">
         confirm password  {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword}</p>}
       </label>
       <FormInput
-      id="confirmPassword"
+      id="confirm password"
       type="password"
-      name="confirmPassword"
+      name="confirm password"
       value={inputValues.confirmPassword}
       onChange={inputChangeHandler} />
       <p className="mb-8">

@@ -14,7 +14,6 @@ const LoginForm = () => {
   };
 
   const handleSuccessfulSubmit = () => {
-    console.log("change page");
     router.push("/profile/user");
   };
 
