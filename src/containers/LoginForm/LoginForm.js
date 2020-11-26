@@ -1,9 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import getConfig from "next/config";
+import { setCookie } from "nookies";
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
 import loginValidation from "../../loginValidation";
+
+const { publicRuntimeConfig } = getConfig();
 
 const LoginForm = () => {
   const router = useRouter();
@@ -13,8 +17,40 @@ const LoginForm = () => {
     password: ""
   };
 
-  const handleSuccessfulSubmit = () => {
-    router.push("/profile/user");
+  const fetchUser = async () => {
+    const userLoginInfo = {
+      identifier: inputValues.username,
+      password: inputValues.password
+    }
+
+    try {
+      const login = await fetch(`${publicRuntimeConfig.API_URL}/auth/local`, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userLoginInfo)
+      });
+  
+      const loginResponse = await login.json();
+
+      if(loginResponse.statusCode === 400) {
+        const error = loginResponse.message[0].messages[0].message;
+        return alert(error);
+      }
+        else {
+          setCookie(null, "jwt", loginResponse.jwt, {
+            maxAge: 30 * 24 * 60 * 60,
+            path: "/"
+          });
+          router.push("/profile/user");
+        }
+    }
+      catch(err) {
+        console.error("there was a problem fetching the data", err);
+      }
+    
   };
 
   const [ 
@@ -22,17 +58,21 @@ const LoginForm = () => {
     errors, 
     submitting, 
     inputChangeHandler, 
-    submitHandler, ] = useForm({ stateInit, validate: loginValidation, submitFunc: handleSuccessfulSubmit });
+    submitHandler, ] = useForm({ stateInit, validate: loginValidation, submitFunc: fetchUser });
 
   return (
     <form
-    onSubmit={submitHandler}
+    onSubmit={() => {
+      loginResponseHandler();
+      submitHandler();
+    }}
     className="flex flex-col w-full max-w-xl"
     data-testid="login-form">
       <label 
       htmlFor="username" 
       className="mb-1 capitalize">
-        username  {errors.username && <p className="text-xs text-red-500">{errors.username}</p>}
+        username  
+        {errors.username && <p className="text-xs text-red-500">{errors.username}</p>}
       </label>
       <FormInput
       id="username"
