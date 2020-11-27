@@ -2,17 +2,17 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import getConfig from "next/config";
-import Cookies from "js-cookie";
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
 import loginValidation from "../../loginValidation";
 import { useAuth } from "../../context/AuthContext";
+import { setCookie } from "nookies";
 
 const { publicRuntimeConfig } = getConfig();
 
 const LoginForm = () => {
   const router = useRouter();
-  const { authUser, setAuthUser } = useAuth();
+  const { setAuthUser } = useAuth();
 
   const stateInit = {
     username: "",
@@ -42,15 +42,21 @@ const LoginForm = () => {
         return alert(error);
       }
         else {
-          Cookies.set("token", loginResponse.jwt, {expires: 7});
-          setAuthUser(loginResponse.user);
-          router.push("/dashboard/users/me");
+          setCookie(null, "jwt", loginResponse.jwt, {
+            maxAge: 30 * 24 * 60 * 60,
+            path: '/'
+          });
+          setCookie(null, "user", loginResponse.user.username, {
+            maxAge: 30 * 24 * 60 * 60,
+            path: '/'
+          });
+          setAuthUser(loginResponse);
+          router.push(`/dashboard/users/${loginResponse.user.username}`);
         }
     }
       catch(err) {
         console.error("there was a problem fetching the data", err);
       }
-    
   };
 
   const [ 

@@ -1,7 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import Cookies from "js-cookie";
+import { parseCookies, destroyCookie } from "nookies";
 import getConfig from "next/config";
 import fetch from "isomorphic-fetch";
+import { useRouter } from "next/router";
+import { validPublicPaths } from "../containers/AuthRoutes/routes";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -14,27 +16,40 @@ const AuthProvider = ({ children }) => {
   const [ authUser, setAuthUser ] = useState(null);
   const [ isAuth, setIsAuth ] = useState(false);
 
-  const checkIsUserAuth = async () => {
-    const token = Cookies.get("token");
+  const router = useRouter();
+  const { pathname, query } = router;
 
-    if (token) {
+  const checkIsUserAuth = async () => {
+    if(typeof window === "undefined") return;
+
+    const user = parseCookies("user");
+    console.log(user);
+    console.log(authUser);
+
+    if (Object.keys(user).length === 0) {
+      if (!validPublicPaths.includes(pathname)) {
+        router.push("/login");
+      }
+    } 
+        else {
       const response = await fetch(`${publicRuntimeConfig.API_URL}/users/me`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${user.jwt}`
         }
-      })
+      });
+
       const data = await response.json();
       console.log(data);
 
       if(!data) {
-        Cookies.remove("token");
+        destroyCookie("jwt");
         setIsAuth(false);
         setAuthUser(null);
         return null;
       }
         else {
           setIsAuth(true);
-          setAuthUser(data);
+          setAuthUser(data.username);
         }
     }
   };
@@ -42,10 +57,10 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     checkIsUserAuth();
     console.log(authUser);
-  }, []);
+  }, [authUser]);
 
   return (
-    <AuthContext.Provider value={{ authUser, setAuthUser }}>
+    <AuthContext.Provider value={{ authUser, isAuth, setAuthUser }}>
       {children}
     </AuthContext.Provider>
   )

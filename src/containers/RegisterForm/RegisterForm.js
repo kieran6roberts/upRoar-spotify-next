@@ -1,18 +1,18 @@
 import React from "react";
 import Link from "next/link";
 import getConfig from "next/config";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
 import registerValidation from "../../registerValidation";
 import { useAuth } from "../../context/AuthContext";
+import { setCookie } from "nookies";
 
 const { publicRuntimeConfig } = getConfig();
 
 const RegisterForm = () => {
   const router = useRouter();
-  const { authUser, setAuthUser } = useAuth();
+  const { setAuthUser } = useAuth();
 
   const stateInit = {
     name: "",
@@ -50,8 +50,11 @@ const RegisterForm = () => {
         return alert(error);
       }
         else {
-          Cookies.set("token", registerResponse.jwt, {expires: 7});
-          setAuthUser(registerResponse.user);
+          setCookie(null, "jwt", registerResponse.jwt, {
+            maxAge: 30 * 24 * 60 * 60,
+            path: '/'
+          })
+          setAuthUser(registerResponse);
           router.push("/dashboard/users/me");
         }
     }
