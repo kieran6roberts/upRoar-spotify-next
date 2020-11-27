@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
   const [ isAuth, setIsAuth ] = useState(false);
 
   const router = useRouter();
-  const { pathname, query } = router;
+  const { pathname } = router;
 
   const checkIsUserAuth = async () => {
     if(typeof window === "undefined") return;
@@ -37,7 +37,6 @@ const AuthProvider = ({ children }) => {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if(!data) {
         destroyCookie("jwt");
@@ -54,7 +53,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     checkIsUserAuth();
-    console.log(authUser);
   }, [authUser]);
 
   return (

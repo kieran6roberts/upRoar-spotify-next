@@ -1,6 +1,5 @@
 import Button from "../src/components/Button/Button";
 import Layout from "../src/containers/Layout/Layout";
-import { useAuth } from "../src/context/AuthContext";
 
 const Home = () => {
   return (

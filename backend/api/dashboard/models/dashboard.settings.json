@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "dashboards",
+  "info": {
+    "name": "Dashboard"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "profile.profile"
+      ]
+    }
+  }
+}

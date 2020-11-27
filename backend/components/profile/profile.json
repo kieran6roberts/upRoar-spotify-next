@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_profile_profiles",
+  "info": {
+    "name": "profile",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    }
+  }
+}

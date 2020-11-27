@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import getConfig from "next/config";
@@ -51,13 +51,17 @@ const LoginForm = () => {
             path: '/'
           });
           setAuthUser(loginResponse);
-          router.push(`/dashboard/users/${loginResponse.user.username}`);
+          router.push(`/dashboard`);
         }
     }
       catch(err) {
         console.error("there was a problem fetching the data", err);
       }
   };
+
+  useEffect(() => {
+    router.prefetch("/dashboard");
+  }, []);
 
   const [ 
     inputValues, 

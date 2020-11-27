@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { destroyCookie } from "nookies";
 import Link from "next/link";
+import Router from "next/router";
 import Head from "../../components/Head/Head";
 import Footer from "../../components/Footer/Footer";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useAuth } from "src/context/AuthContext";
-import { destroyCookie } from "nookies";
-import Router from "next/router";
 
 const Layout = ({ children, title }) => {
   const [ theme, setTheme ] = useState(false);
@@ -21,19 +21,19 @@ const Layout = ({ children, title }) => {
     destroyCookie(null, "user");
     delete window.__user;
     window.localStorage.setItem("logout", Date.now());
-    setAuthUser(null);
+    console.log(authUser);
+    setAuthUser("");
+    Router.reload();
   };
 
-  useEffect(() => {
-    console.log(authUser);
-    console.log("use effect");
-  }, [authUser]);
+  useEffect(() => console.log(authUser), [authUser]);
 
   return(
     <>
       <Head title={title}/>
       <nav role="navigation">
         <div className="flex items-center py-2 md:py-4 px-8 md:px-16 border-b-2 border-gray-50">
+          {!authUser ? 
           <Link href="/">
             <a className="block">
               <Image
@@ -44,6 +44,18 @@ const Layout = ({ children, title }) => {
               />
             </a>
           </Link>
+          : 
+          <Link href="/dashboard">
+            <a className="block">
+              <Image
+              src="/images/uproar-logo.svg"
+              alt="musical notes logo"
+              width={30}
+              height={30}
+              />
+            </a>
+          </Link>}
+
           <div className="ml-4 md:ml-8">
             <h2 className="text-sm font-bold">
               upRoar
@@ -79,7 +91,7 @@ const Layout = ({ children, title }) => {
                 </Link>
               </li>
               <li className="">
-                <Link href="/">
+                <Link href="/register">
                   <button
                   className="block text-sm px-4 md:px-6 py-1  border border-light-text ml-4 rounded transition duration-150 ease-in hover:bg-light-text hover:text-light-bg">
                     signUp
@@ -90,14 +102,14 @@ const Layout = ({ children, title }) => {
             : 
             <ul className="hidden md:flex mr-8">
               <li>
-                <Link href="login">
+                <Link href={`/dashboard/users/${authUser}`}>
                   <a className="block text-sm px-4 md:px-6 py-1 border border-light-text ml-4 rounded transition duration-150 ease-in hover:bg-light-text hover:text-light-bg">
                     profile
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href="login">
+                <Link href="/login">
                   <a 
                   role="link"
                   onClick={LogoutHandler}
