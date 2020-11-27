@@ -53,9 +53,13 @@ const RegisterForm = () => {
           setCookie(null, "jwt", registerResponse.jwt, {
             maxAge: 30 * 24 * 60 * 60,
             path: '/'
-          })
+          });
+          setCookie(null, "user", registerResponse.user.username, {
+            maxAge: 30 * 24 * 60 * 60,
+            path: '/'
+          });
           setAuthUser(registerResponse);
-          router.push("/dashboard/users/me");
+          router.push(`dashboard/users/${registerResponse.user.username}`);
         }
     }
       catch(err) {

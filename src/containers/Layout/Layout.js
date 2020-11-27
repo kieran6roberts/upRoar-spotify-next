@@ -1,18 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "../../components/Head/Head";
 import Footer from "../../components/Footer/Footer";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useAuth } from "src/context/AuthContext";
+import { destroyCookie } from "nookies";
+import Router from "next/router";
 
 const Layout = ({ children, title }) => {
   const [ theme, setTheme ] = useState(false);
   const [ sidebarOpen, setSidebarOpen ] = useState(false);
-  const { authUser } = useAuth();
+  const { authUser, setAuthUser } = useAuth();
 
   const toggleSidebarOpen = () => setSidebarOpen(!sidebarOpen);
   const toggleTheme = () => setTheme(!theme);
+
+  const LogoutHandler = () => {
+    destroyCookie(null, "jwt");
+    destroyCookie(null, "user");
+    delete window.__user;
+    window.localStorage.setItem("logout", Date.now());
+    setAuthUser(null);
+  };
+
+  useEffect(() => {
+    console.log(authUser);
+    console.log("use effect");
+  }, [authUser]);
 
   return(
     <>
@@ -38,7 +53,7 @@ const Layout = ({ children, title }) => {
             </h2>
           </div>
           <div 
-          onClick={() => toggleTheme()}
+          onClick={toggleTheme}
           className="group w-16 h-8 ml-auto bg-gray-200 cursor-pointer select-none border rounded p-1 relative">
             <div
             className={`w-8 h-6 cursor-pointer bg-white py-2 px-3 rounded flex justify-center items-center absolute top-0.5 left-0.5
@@ -64,11 +79,11 @@ const Layout = ({ children, title }) => {
                 </Link>
               </li>
               <li className="">
-                <Link href="/register">
-                  <a   
+                <Link href="/">
+                  <button
                   className="block text-sm px-4 md:px-6 py-1  border border-light-text ml-4 rounded transition duration-150 ease-in hover:bg-light-text hover:text-light-bg">
                     signUp
-                  </a>
+                  </button>
                 </Link>
               </li>
             </ul>
@@ -76,14 +91,17 @@ const Layout = ({ children, title }) => {
             <ul className="hidden md:flex mr-8">
               <li>
                 <Link href="login">
-                  <a className="block text-sm px-4 md:px-6 py-1  border border-light-text ml-4 rounded transition duration-150 ease-in hover:bg-light-text hover:text-light-bg">
+                  <a className="block text-sm px-4 md:px-6 py-1 border border-light-text ml-4 rounded transition duration-150 ease-in hover:bg-light-text hover:text-light-bg">
                     profile
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="login">
-                  <a className="block text-sm px-4 md:px-6 py-1  border border-light-text ml-4 rounded transition duration-150 ease-in hover:bg-light-text hover:text-light-bg">
+                  <a 
+                  role="link"
+                  onClick={LogoutHandler}
+                  className="block text-sm px-4 md:px-6 py-1 border border-light-text ml-4 rounded transition duration-150 ease-in hover:bg-light-text hover:text-light-bg">
                     Logout
                   </a>
                 </Link>
