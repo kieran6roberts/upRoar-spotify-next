@@ -23,7 +23,7 @@ const MyApp = ({ Component, pageProps }) => {
 
     return () => {
       router.events.off("routeChangeStart", handleLoadStart);
-      router.events.off("routeChangeComplete", handleLoadStart);
+      router.events.off("routeChangeComplete", handleLoadEnd);
       router.events.off("routeChangeError", handleLoadEnd);
     }
   }, []);
