@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import getConfig from "next/config";
 import { useRouter } from "next/router";
@@ -59,15 +59,17 @@ const RegisterForm = () => {
             path: '/'
           });
           setAuthUser(registerResponse);
-          router.push(`dashboard/users/${registerResponse.user.username}`);
+          router.push("/dashboard");
         }
     }
       catch(err) {
         console.error("there was a problem creating user", err);
       }
-
-    //router.push("/profile/user");
   };
+
+  useEffect(() => {
+    router.prefetch("/dashboard");
+  }, []);
 
   const [ 
     inputValues, 
