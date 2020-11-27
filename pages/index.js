@@ -1,7 +1,11 @@
 import Button from "../src/components/Button/Button";
 import Layout from "../src/containers/Layout/Layout";
+import { useAuth } from "../src/context/AuthContext";
 
-const Home = () => (
+const Home = () => {
+  const { authUser } = useAuth();
+  console.log(authUser);
+  return (
   <Layout title="Home">
     <main>
       <section 
@@ -46,6 +50,13 @@ const Home = () => (
       </section>
     </main>
   </Layout>
-);
+  )
+};
+
+export async function getServerSideProps(context) {
+  return {
+    props: {}
+  }
+}
 
 export default Home;

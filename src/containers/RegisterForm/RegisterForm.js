@@ -1,12 +1,18 @@
 import React from "react";
 import Link from "next/link";
+import getConfig from "next/config";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
 import registerValidation from "../../registerValidation";
+import { useAuth } from "../../context/AuthContext";
+
+const { publicRuntimeConfig } = getConfig();
 
 const RegisterForm = () => {
   const router = useRouter();
+  const { authUser, setAuthUser } = useAuth();
 
   const stateInit = {
     name: "",
@@ -16,8 +22,44 @@ const RegisterForm = () => {
     confirmPassword: ""
   }
 
-  const handleSuccessfulSubmit = () => {
-    router.push("/profile/user");
+  const userRegistrationHandler = async () => {
+    const userRegisterInfo = {
+      name: inputValues.name,
+      email: inputValues.email,
+      username: inputValues.username,
+      password: inputValues.password,
+      profile: inputValues.username,
+      user: inputValues.username
+    };
+
+    try {
+      const register = await fetch(`${publicRuntimeConfig.API_URL}/auth/local/register`, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userRegisterInfo)
+      })
+
+      const registerResponse = await register.json();
+
+
+      if (registerResponse.statusCode === 400) {
+        const error = registerResponse.message[0].messages[0].message;
+        return alert(error);
+      }
+        else {
+          Cookies.set("token", registerResponse.jwt, {expires: 7});
+          setAuthUser(registerResponse.user);
+          router.push("/dashboard/users/me");
+        }
+    }
+      catch(err) {
+        console.error("there was a problem creating user", err);
+      }
+
+    //router.push("/profile/user");
   };
 
   const [ 
@@ -25,7 +67,7 @@ const RegisterForm = () => {
     errors, 
     submitting, 
     inputChangeHandler, 
-    submitHandler ] = useForm({ stateInit, validate: registerValidation, submitFunc: handleSuccessfulSubmit });
+    submitHandler ] = useForm({ stateInit, validate: registerValidation, submitFunc: userRegistrationHandler });
 
   return (
     <form 
@@ -92,7 +134,7 @@ const RegisterForm = () => {
       <FormInput
       id="confirm password"
       type="password"
-      name="confirm password"
+      name="confirmPassword"
       value={inputValues.confirmPassword}
       onChange={inputChangeHandler} />
       <p className="mb-8">

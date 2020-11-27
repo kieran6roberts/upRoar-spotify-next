@@ -2,15 +2,17 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import getConfig from "next/config";
-import { setCookie } from "nookies";
+import Cookies from "js-cookie";
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
 import loginValidation from "../../loginValidation";
+import { useAuth } from "../../context/AuthContext";
 
 const { publicRuntimeConfig } = getConfig();
 
 const LoginForm = () => {
   const router = useRouter();
+  const { authUser, setAuthUser } = useAuth();
 
   const stateInit = {
     username: "",
@@ -40,11 +42,9 @@ const LoginForm = () => {
         return alert(error);
       }
         else {
-          setCookie(null, "jwt", loginResponse.jwt, {
-            maxAge: 30 * 24 * 60 * 60,
-            path: "/"
-          });
-          router.push("/profile/user");
+          Cookies.set("token", loginResponse.jwt, {expires: 7});
+          setAuthUser(loginResponse.user);
+          router.push("/dashboard/users/me");
         }
     }
       catch(err) {
@@ -62,10 +62,7 @@ const LoginForm = () => {
 
   return (
     <form
-    onSubmit={() => {
-      loginResponseHandler();
-      submitHandler();
-    }}
+    onSubmit={submitHandler}
     className="flex flex-col w-full max-w-xl"
     data-testid="login-form">
       <label 

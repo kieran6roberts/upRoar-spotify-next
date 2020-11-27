@@ -1,8 +1,14 @@
 import "src/App.css";
+import React from "react";
+import AuthProvider from "src/context/AuthContext";
+
 
 const MyApp = ({ Component, pageProps }) => {
+  
   return (
-      <Component {...pageProps} />
+    <AuthProvider>
+        <Component {...pageProps} />
+    </AuthProvider>
   )
 }
 

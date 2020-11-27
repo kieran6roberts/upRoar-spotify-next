@@ -23,6 +23,21 @@
       "plugin": "users-permissions",
       "model": "user",
       "via": "profile"
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "username": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "password": {
+      "type": "password",
+      "required": true,
+      "private": true
     }
   }
 }
