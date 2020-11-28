@@ -4,7 +4,7 @@ import getConfig from "next/config";
 import { useRouter } from "next/router";
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
-import registerValidation from "../../registerValidation";
+import registerValidation from "../../validation/registerValidation";
 import { useAuth } from "../../context/AuthContext";
 import { setCookie } from "nookies";
 
@@ -71,12 +71,13 @@ const RegisterForm = () => {
     router.prefetch("/dashboard");
   }, []);
 
-  const [ 
+  const {
     inputValues, 
     errors, 
     submitting, 
     inputChangeHandler, 
-    submitHandler ] = useForm({ stateInit, validate: registerValidation, submitFunc: userRegistrationHandler });
+    submitHandler 
+  } = useForm({ stateInit, validate: registerValidation, submitFunc: userRegistrationHandler });
 
   return (
     <form 
@@ -136,7 +137,7 @@ const RegisterForm = () => {
       value={inputValues.password}
       onChange={inputChangeHandler} />
       <label 
-      htmlFor="confirm password" 
+      htmlFor="confirmPassword" 
       className="mb-1 capitalize">
         confirm password  {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword}</p>}
       </label>

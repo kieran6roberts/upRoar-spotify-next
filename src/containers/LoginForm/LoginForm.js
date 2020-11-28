@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import getConfig from "next/config";
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
-import loginValidation from "../../loginValidation";
+import loginValidation from "../../validation/loginValidation";
 import { useAuth } from "../../context/AuthContext";
 import { setCookie } from "nookies";
 
@@ -63,15 +63,17 @@ const LoginForm = () => {
     router.prefetch("/dashboard");
   }, []);
 
-  const [ 
+  const {
     inputValues, 
     errors, 
     submitting, 
     inputChangeHandler, 
-    submitHandler, ] = useForm({ stateInit, validate: loginValidation, submitFunc: fetchUser });
+    submitHandler
+  } = useForm({ stateInit, validate: loginValidation, submitFunc: fetchUser });
 
   return (
     <form
+    method="POST"
     onSubmit={submitHandler}
     className="flex flex-col w-full max-w-xl"
     data-testid="login-form">
@@ -90,7 +92,8 @@ const LoginForm = () => {
       <label 
       htmlFor="password" 
       className="mb-1 capitalize">
-        password  {errors.password && <p className="text-xs text-red-500">{errors.password}</p>}
+        password  
+        {errors.password && <p className="text-xs text-red-500">{errors.password}</p>}
       </label>
       <FormInput
       id="password"
@@ -98,6 +101,13 @@ const LoginForm = () => {
       name="password" 
       value={inputValues.password}
       onChange={inputChangeHandler} />
+      <span className="inline-block text-pri text-sm ml-auto">
+        <Link href="/reset">
+          <a className="">
+            Forgot your password or username
+          </a>
+        </Link>
+      </span>
       <p className="mb-8">
         Don't have an account? 
           <Link href="/register">

@@ -27,13 +27,14 @@ const useForm = ({ stateInit = {}, validate, submitFunc }) => {
     }
   }, [submitting, errors]);
 
-  return [
-    inputValues, 
-    errors, 
-    submitting, 
-    inputChangeHandler, 
-    submitHandler,
-  ];
+  return {
+    inputValues: inputValues,
+    errors: errors,
+    submitting: submitting,
+    inputChangeHandler: inputChangeHandler,
+    submitHandler: submitHandler
+
+  }
 };
 
 export default useForm;
