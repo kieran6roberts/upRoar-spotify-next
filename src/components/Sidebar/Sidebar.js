@@ -10,7 +10,7 @@ const Sidebar = ({ active }) => {
         <h2 className="text-lg text-center text-pri py-2">
           upRoar
         </h2>
-        <div className="h-0.5 w-4/5 bg-gray-100 my-1 mx-auto "/>
+        <div className="h-0.5 w-4/5 bg-gray-100 my-1 mx-auto"/>
         <p className="text-sm text-center py-2">
           the place to get lost in the music
         </p>

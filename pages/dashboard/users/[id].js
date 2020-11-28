@@ -7,24 +7,44 @@ import getConfig from "next/config";
 
 const { publicRuntimeConfig } = getConfig();
 
-const User = ({ data: { username, name, created_at } }) => {
+const User = ({ data: { username, name, created_at, email } }) => {
   return (
     <Layout>
       <main>
-        <section className="">
-          <h1 className="text-md mt-8">
-            Hi, {name}.
-          </h1>
-          <div className="h-64 w-2/4 m-auto p-4 bg-light-bg">
-            <p className="mb-4">
-              user since: {created_at}
+        <section className="pt-8">
+        <h2 className="text-md mb-4">
+              Hi {name}
+            </h2>
+            <p className="text-md text-gray-400 mb-2">
+              Your Profile
             </p>
-            <p className="mb-4">
-              username: {username}
-            </p>
-            <p className="mb-4">
-              email: {username}
-            </p>
+          <div className="h-64 w-3/5 p-4 capitalize text-sm">
+            <div className="flex justify-between">
+              <p className="text-gray-400">
+                user since
+              </p>
+              <span>
+                {created_at.substring(0, 10)}
+              </span>
+            </div>
+            <div className="h-0.5 w-full bg-gray-100 my-8 mx-auto" />
+            <div className="flex justify-between">
+              <p className="text-gray-400">
+                username
+              </p>
+              <span>
+                {username}
+              </span>
+            </div>
+            <div className="h-0.5 w-full bg-gray-100 my-8 mx-auto" />
+            <div className="flex justify-between">
+              <p className="text-gray-400">
+                email
+              </p>
+              <span>
+                {email}
+              </span>
+            </div>
           </div>
         </section>
       </main>

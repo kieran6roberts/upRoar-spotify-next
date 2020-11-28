@@ -104,7 +104,7 @@ const LoginForm = () => {
       <span className="inline-block text-pri text-sm ml-auto">
         <Link href="/reset">
           <a className="">
-            Forgot your password or username
+            Forgot your password?
           </a>
         </Link>
       </span>

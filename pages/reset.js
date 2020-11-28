@@ -9,7 +9,7 @@ const Reset = () => {
         id="reset"
         className="pt-8">
           <h2 className="text-md mb-4">
-            Forgotten your login information? 
+            Forgotten your password? 
           </h2>
           <p className="text-md mb-2">
             Reset it below

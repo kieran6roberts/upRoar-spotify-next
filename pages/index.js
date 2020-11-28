@@ -19,30 +19,20 @@ const Home = () => {
         </h2>
         <div className="">
           <Button
-          route="/login"
-          width="w-full"
-          bg="bg-light-text"
-          clr="text-light-bg"
-          hovBg="hover:bg-light-bg"
-          hovClr="hover:text-light-text">
+          extra="w-2/5 bg-green-400 text-light-bg hover:bg-green-500"
+          route="/login">
             sign in with spotify
           </Button>
-          <div className="flex justify-between mt-4">
             <Button
             route="/login"
-            width="w-2/5"
-            hovBg="hover:bg-gray-50">
+            extra="w-2/5 text-light-text hover:bg-light-bg hover:text-light-text">
               login
             </Button>
             <Button
             route="/register"
-            width="w-2/4"
-            clr="text-light-text"
-            hovBg="hover:bg-pri"
-            hovClr="hover:text-light-bg">
+            extra="w-2/5 text-light-text hover:bg-light-bg hover:text-light-text">
               sign up
             </Button>
-          </div>
         </div>
       </section>
     </main>
