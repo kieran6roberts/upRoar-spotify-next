@@ -17,7 +17,7 @@ const Discover = () => {
   )
 };
 
-export async function getStaticProps(cxt) {
+export async function getServerSideProps(cxt) {
 
 }
 

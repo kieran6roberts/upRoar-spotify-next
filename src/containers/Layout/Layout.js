@@ -69,7 +69,7 @@ const Layout = ({ children, title }) => {
           <div className="">
             <ul className="hidden md:flex mr-8">
               <li className="">
-                <Link href={authUser ? "/profile" : "/login"}>
+                <Link href={authUser ? `/dashboard/users/${authUser}` : "/login"} passHref>
                   <a
                     className="block text-sm px-4 md:px-6 py-1 border border-transparent rounded transition duration-150 ease-in hover:bg-gray-50   ">
                       {!authUser ? "login" : "profile"}
@@ -77,12 +77,12 @@ const Layout = ({ children, title }) => {
                 </Link>
               </li>
               <li className="">
-                <Link href={authUser ? "/logout" : "/register"}>
-                  <button
+                <Link href={authUser ? "/logout" : "/register"} passHref>
+                  <a
                   onClick={authUser ? LogoutHandler : null}
                   className="block text-sm px-4 md:px-6 py-1  border border-light-text ml-4 rounded transition duration-150 ease-in hover:bg-light-text hover:text-light-bg">
                       {!authUser ? "signUp" : "logout"}
-                  </button>
+                  </a>
                 </Link>
               </li>
             </ul>
