@@ -1,7 +1,10 @@
 import React from "react";
 import Link from "next/link";
+import { useAuth } from "src/context/AuthContext";
 
 const Sidebar = ({ active }) => {
+  const { authUser } = useAuth();
+  console.log(authUser);
   return(
     <nav role="navigation">
       <div className={`fixed top-4 left-4 right-4 bottom-32 rounded z-10 bg-white border border-gray-400
@@ -16,20 +19,20 @@ const Sidebar = ({ active }) => {
         </p>
         <div className="px-8 py-2">
           <p className="ml-2 mb-4 uppercase">
-            new users
+            {authUser ? "dashboard" : "new users"}
           </p>
           <ul className="flex">
             <li>
-              <Link href="/login">
+              <Link href={authUser ? "/dashboard/discover" : "/login"} passHref>
                 <a className="py-1 px-2">
-                  login
+                {authUser ? "discover" : "login"}
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="/register">
+              <Link href={authUser ? `/dashboard/users/${authUser}` : "/register"} passHref>
                 <a className="py-1 px-2">
-                  sign up
+                {authUser ? "profile" : "sign up"}
                 </a>
               </Link>
             </li>

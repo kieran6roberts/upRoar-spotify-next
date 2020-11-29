@@ -81,7 +81,7 @@ const Layout = ({ children, title }) => {
                   <button
                   onClick={isLoggedIn ? LogoutHandler : null}
                   className="block text-sm px-4 md:px-6 py-1  border border-light-text ml-4 rounded transition duration-150 ease-in hover:bg-light-text hover:text-light-bg">
-                      {!isLoggedIn ? "signUp" : "logout"}
+                      {isLoggedIn ? "logout" : "signUp"}
                   </button>
               </li>
             </ul>
@@ -92,7 +92,7 @@ const Layout = ({ children, title }) => {
       <div className="w-full px-8 md:px-16 relative">
         {children}
         <div
-        onClick={() => toggleSidebarOpen()}
+        onClick={toggleSidebarOpen}
         className="group h-12 w-12 flex flex-col justify-center items-center rounded-full border-2 border-pri bg-pri fixed bottom-4 right-8 cursor-pointer hover:bg-white transition 150ms ease-in">
           <span className="block h-0.5 w-6 bg-white cursor-pointer group-hover:bg-pri" /> 
           <span className="block h-0.5 w-4 my-1 bg-white cursor-pointer group-hover:bg-pri" /> 

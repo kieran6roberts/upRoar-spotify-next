@@ -18,7 +18,9 @@ const Discover = () => {
 };
 
 export async function getServerSideProps(cxt) {
-
+  return {
+    props: {}
+  }
 }
 
 export default Discover;
