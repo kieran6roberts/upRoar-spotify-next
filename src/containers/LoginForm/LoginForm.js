@@ -51,7 +51,7 @@ const LoginForm = () => {
             path: '/'
           });
           setAuthUser(loginResponse);
-          router.push(`/dashboard`);
+          router.push(`/dashboard/auth`);
         }
     }
       catch(err) {
@@ -60,7 +60,7 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    router.prefetch("/dashboard");
+    router.prefetch("/dashboard/auth");
   }, []);
 
   const {

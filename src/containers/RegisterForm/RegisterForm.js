@@ -59,7 +59,7 @@ const RegisterForm = () => {
             path: '/'
           });
           setAuthUser(registerResponse);
-          router.push("/dashboard");
+          router.push("/dashboard/auth");
         }
     }
       catch(err) {
@@ -68,7 +68,7 @@ const RegisterForm = () => {
   };
 
   useEffect(() => {
-    router.prefetch("/dashboard");
+    router.prefetch("/dashboard/auth");
   }, []);
 
   const {

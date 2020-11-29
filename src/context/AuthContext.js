@@ -22,24 +22,26 @@ const AuthProvider = ({ children }) => {
   const checkIsUserAuth = async () => {
     if(typeof window === "undefined") return;
 
-    const jwt = parseCookies("jwt");
+    const jwt = parseCookies(null).jwt;
 
-    if (Object.keys(jwt).length === 0) {
+    if (!jwt) {
+      console.log("empty jwt");
       if (!validPublicPaths.includes(pathname)) {
+        console.log("not a valid public path");
         router.push("/login");
       }
     } 
         else {
       const response = await fetch(`${publicRuntimeConfig.API_URL}/users/me`, {
         headers: {
-          Authorization: `Bearer ${jwt.jwt}`
+          Authorization: `Bearer ${jwt}`
         }
       });
 
       const data = await response.json();
 
       if(!data) {
-        destroyCookie("jwt");
+        destroyCookie(null, "jwt");
         setIsAuth(false);
         setAuthUser(null);
         return null;
