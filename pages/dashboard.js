@@ -2,14 +2,14 @@ import { parseCookies } from "nookies";
 import fetch from "isomorphic-fetch";
 import getConfig from "next/config";
 import Image from "next/image";
+
 import Layout from "src/containers/Layout/Layout";
 import TrackList from "src/components/TrackList/TrackList";
+import { fetcher } from "src/hooks/useFetch";
 
 const { publicRuntimeConfig } =  getConfig();
 
 const Dashboard = ({ user, topTracks }) => {
-  console.log(user);
-  console.log(topTracks.items);
   const { items } = topTracks;
 
   return (
@@ -33,7 +33,7 @@ const Dashboard = ({ user, topTracks }) => {
             your current top tracks
           </h3>
           <div>
-          <TrackList tracks={items} />
+            {items && <TrackList tracks={items} />}
           </div>
         </section>
       </main>
@@ -45,77 +45,51 @@ export async function getServerSideProps(ctx) {
     const spAccess = parseCookies(ctx).spaccess;
     const spRefresh = parseCookies(ctx).sprefresh;
 
-    if (!spAccess) {
-      const refreshBody = {
-        grant_type: "refresh_token",
-        refresh_token: spRefresh,
-        client_id: publicRuntimeConfig.SPOTIFY_CLIENT_ID,
-        client_secret: publicRuntimeConfig.SPOTIFY_CLIENT_SECRET
-      };
+    let authToken;
 
-      const refreshResponse = await fetch(`${publicRuntimeConfig.SPOTIFY_AUTH_API}/api/token`, {
+    if (!spAccess) {
+      const userPostInfoOptions = {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify(refreshBody)
-      })
-  
-      const refreshData = await refreshResponse.json();
+        body: JSON.stringify({
+          grant_type: "refresh_token",
+          refresh_token: spRefresh,
+          client_id: publicRuntimeConfig.SPOTIFY_CLIENT_ID,
+          client_secret: publicRuntimeConfig.SPOTIFY_CLIENT_SECRET
+        })
+      };
 
-      const userResponse = await fetch(`${publicRuntimeConfig.SPOTIFY_API}/v1/me`, {
+      const userPostRefresh = await fetcher(`${publicRuntimeConfig.SPOTIFY_AUTH_API}/api/token`, userPostInfoOptions);
+
+      authToken = userPostRefresh.access_token;
+    }
+      else {
+        authToken = spAccess;
+      }
+
+      const userPostInfo = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}/v1/me`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${refreshData.access_token}`
+          Authorization: `Bearer ${authToken}`
         }
       });
-  
-      const userData = await userResponse.json();
 
-      const topTracksResponse = await fetch(`${publicRuntimeConfig.SPOTIFY_API}/v1/me/top/tracks?time_range=medium_term&limit=10&offset=5`, {
-        method: "GET",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${spAccess}`
-        }
-      });
-  
-      const topTracksData = await topTracksResponse.json();
+      const query = "v1/me/top/tracks?time_range=medium_term&limit=10&offset=5";
+
+      const topTracksPostInfo = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}/${query}`, {       
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`
+      }});
       
       return {
         props: {
-          user: userData,
-          topTracks: topTracksData
-        }
-      }
-    }
-      else {
-        const userResponse = await fetch(`${publicRuntimeConfig.SPOTIFY_API}/v1/me`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${spAccess}`
-          }
-        });
-    
-        const userData = await userResponse.json();
-
-        const topTracksResponse = await fetch(`${publicRuntimeConfig.SPOTIFY_API}/v1/me/top/tracks?time_range=medium_term&limit=10&offset=5`, {
-          method: "GET",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${spAccess}`
-          }
-        });
-    
-        const topTracksData = await topTracksResponse.json();
-        
-        return {
-          props: {
-            user: userData,
-            topTracks: topTracksData
-          }
+          user: userPostInfo,
+          topTracks: topTracksPostInfo
         }
       }
 }

@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import getConfig from "next/config";
+import { setCookie } from "nookies";
+
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
 import loginValidation from "../../validation/loginValidation";
 import { useAuth } from "../../context/AuthContext";
-import { setCookie } from "nookies";
+import { fetcher } from "src/hooks/useFetch";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -20,44 +22,39 @@ const LoginForm = () => {
   };
 
   const fetchUser = async () => {
-    const userLoginInfo = {
-      identifier: inputValues.username,
-      password: inputValues.password
+    const postLoginOptions = {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        identifier: inputValues.username,
+        password: inputValues.password
+      })
+    };
+
+    const postLoginUser = await fetcher(`${publicRuntimeConfig.API_URL}/auth/local`, postLoginOptions);
+
+    if (postLoginUser.statusCode === 400) {
+      const error = loginResponse.message[0].messages[0].message;
+      return alert(error);
     }
-
-    try {
-      const login = await fetch(`${publicRuntimeConfig.API_URL}/auth/local`, {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userLoginInfo)
-      });
-  
-      const loginResponse = await login.json();
-
-      if(loginResponse.statusCode === 400) {
-        const error = loginResponse.message[0].messages[0].message;
-        return alert(error);
-      }
         else {
-          setCookie(null, "jwt", loginResponse.jwt, {
+          setCookie(null, "jwt", postLoginUser.jwt, {
             maxAge: 30 * 24 * 60 * 60,
             path: '/'
           });
-          setCookie(null, "user", loginResponse.user.username, {
+          setCookie(null, "user", postLoginUser.user.username, {
             maxAge: 30 * 24 * 60 * 60,
             path: '/'
           });
-          setAuthUser(loginResponse);
+
+          setAuthUser(postLoginUser);
           router.push(`/dashboard/auth`);
         }
     }
-      catch(err) {
-        console.error("there was a problem fetching the data", err);
-      }
-  };
+  
 
   useEffect(() => {
     router.prefetch("/dashboard/auth");

@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import getConfig from "next/config";
 import { useRouter } from "next/router";
+import { setCookie } from "nookies";
+
 import FormInput from "../../components/FormInput/FormInput";
 import useForm from "../../hooks/useForm";
 import registerValidation from "../../validation/registerValidation";
 import { useAuth } from "../../context/AuthContext";
-import { setCookie } from "nookies";
+import { fetcher } from "../../hooks/useFetch";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -23,49 +25,41 @@ const RegisterForm = () => {
   }
 
   const userRegistrationHandler = async () => {
-    const userRegisterInfo = {
-      name: inputValues.name,
-      email: inputValues.email,
-      username: inputValues.username,
-      password: inputValues.password,
-      profile: inputValues.username,
-      user: inputValues.username
+    const postRegisterOptions = {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: inputValues.name,
+        email: inputValues.email,
+        username: inputValues.username,
+        password: inputValues.password,
+        profile: inputValues.username,
+        user: inputValues.username
+      })
     };
 
-    try {
-      const register = await fetch(`${publicRuntimeConfig.API_URL}/auth/local/register`, {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userRegisterInfo)
-      })
+    const postRegisterUser = await fetcher(`${publicRuntimeConfig.API_URL}/auth/local/register`, postRegisterOptions);
 
-      const registerResponse = await register.json();
-
-
-      if (registerResponse.statusCode === 400) {
-        const error = registerResponse.message[0].messages[0].message;
+      if (postRegisterUser.statusCode === 400) {
+        const error = postRegisterUser.message[0].messages[0].message;
         return alert(error);
       }
         else {
-          setCookie(null, "jwt", registerResponse.jwt, {
+          setCookie(null, "jwt", postRegisterUser.jwt, {
             maxAge: 30 * 24 * 60 * 60,
             path: '/'
           });
-          setCookie(null, "user", registerResponse.user.username, {
+          setCookie(null, "user", postRegisterUser.user.username, {
             maxAge: 30 * 24 * 60 * 60,
             path: '/'
           });
-          setAuthUser(registerResponse);
+          setAuthUser(postRegisterUser);
           router.push("/dashboard/auth");
         }
     }
-      catch(err) {
-        console.error("there was a problem creating user", err);
-      }
-  };
 
   useEffect(() => {
     router.prefetch("/dashboard/auth");

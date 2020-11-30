@@ -24,7 +24,6 @@ const Layout = ({ children, title }) => {
     delete window.__user;
     window.localStorage.setItem("logout", Date.now());
     setAuthUser("");
-    Router.reload();
   };
 
   useEffect(() => console.log(authUser), [authUser]);

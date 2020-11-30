@@ -1,8 +1,10 @@
 import fetch from "isomorphic-fetch";
 import { setCookie, parseCookies } from "nookies";
 import getConfig from "next/config";
+
 import Layout from "src/containers/Layout/Layout";
 import spotifyRedirect from "src/spotify";
+import { fetcher } from "src/hooks/useFetch";
 
 const Auth = () => {
   return (
@@ -45,30 +47,28 @@ export async function getServerSideProps(ctx) {
     else {
       const queryString = require("query-string");
 
-      const bodyParams = {
-        grant_type: "authorization_code",
-        code: code,
-        redirect_uri: "http://localhost:3000/dashboard/auth/",
-        client_id: publicRuntimeConfig.SPOTIFY_CLIENT_ID,
-        client_secret: publicRuntimeConfig.SPOTIFY_CLIENT_SECRET,
-      };
-
-      const response = await fetch(`https://accounts.spotify.com/api/token`, {
+      const postOptions = {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: queryString.stringify(bodyParams)
-      });
+        body: queryString.stringify({
+          grant_type: "authorization_code",
+          code: code,
+          redirect_uri: "http://localhost:3000/dashboard/auth/",
+          client_id: publicRuntimeConfig.SPOTIFY_CLIENT_ID,
+          client_secret: publicRuntimeConfig.SPOTIFY_CLIENT_SECRET,
+        })
+      };
 
-      const data = await response.json();
+      const postTokenSpotify = await fetcher(`${publicRuntimeConfig.SPOTIFY_AUTH_API}/api/token`, postOptions);
 
-      setCookie(ctx, "sprefresh", data.refresh_token, {
+      setCookie(ctx, "sprefresh", postTokenSpotify.refresh_token, {
         maxAge: 30 * 24 * 60 * 60,
         path: '/'
       });
 
-      setCookie(ctx, "spaccess", data.access_token, {
+      setCookie(ctx, "spaccess", postTokenSpotify.access_token, {
         maxAge: 3600,
         path: '/'
       });
