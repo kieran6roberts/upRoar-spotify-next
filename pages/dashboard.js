@@ -1,22 +1,39 @@
-import Layout from "src/containers/Layout/Layout";
 import { parseCookies } from "nookies";
 import fetch from "isomorphic-fetch";
 import getConfig from "next/config";
+import Image from "next/image";
+import Layout from "src/containers/Layout/Layout";
+import TrackList from "src/components/TrackList/TrackList";
 
 const { publicRuntimeConfig } =  getConfig();
 
-const Dashboard = ({ userData }) => {
+const Dashboard = ({ user, topTracks }) => {
+  console.log(user);
+  console.log(topTracks.items);
+  const { items } = topTracks;
+
   return (
     <Layout>
       <main>
         <section>
-          <h2 className="mt-8 mb-4 text-md">
+          <h2 className="mt-8 text-md">
             dashboard
           </h2>
+          <div className="flex items-center text-md text-gray-400 mb-4">
+            <Image 
+            src="/images/spotify-seeklogo.com.svg"
+            alt="spotify logo"
+            height={70}
+            width={70} />
+            <p className="ml-4">
+              {user.id}
+            </p>
+          </div>
+          <h3 className="text-md uppercase text-pri mb-8">
+            your current top tracks
+          </h3>
           <div>
-          <p className="text-md text-gray-400 mb-4">
-            {userData.id}
-          </p>
+          <TrackList tracks={items} />
           </div>
         </section>
       </main>
@@ -54,10 +71,22 @@ export async function getServerSideProps(ctx) {
       });
   
       const userData = await userResponse.json();
+
+      const topTracksResponse = await fetch(`${publicRuntimeConfig.SPOTIFY_API}/v1/me/top/tracks?time_range=medium_term&limit=10&offset=5`, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${spAccess}`
+        }
+      });
+  
+      const topTracksData = await topTracksResponse.json();
       
       return {
         props: {
-          userData: userData,
+          user: userData,
+          topTracks: topTracksData
         }
       }
     }
@@ -70,10 +99,22 @@ export async function getServerSideProps(ctx) {
         });
     
         const userData = await userResponse.json();
+
+        const topTracksResponse = await fetch(`${publicRuntimeConfig.SPOTIFY_API}/v1/me/top/tracks?time_range=medium_term&limit=10&offset=5`, {
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${spAccess}`
+          }
+        });
+    
+        const topTracksData = await topTracksResponse.json();
         
         return {
           props: {
-            userData: userData,
+            user: userData,
+            topTracks: topTracksData
           }
         }
       }

@@ -2,12 +2,9 @@ import fetch from "isomorphic-fetch";
 import { setCookie, parseCookies } from "nookies";
 import getConfig from "next/config";
 import Layout from "src/containers/Layout/Layout";
-
-const { publicRuntimeConfig } = getConfig();
-const spotifyUserUrl = publicRuntimeConfig.SPOTIFY_REDIRECT;
+import spotifyRedirect from "src/spotify";
 
 const Auth = () => {
-
   return (
     <Layout>
       <p className="w-2/4 text-sm">
@@ -19,7 +16,7 @@ const Auth = () => {
       Then we can personalize your experince to bring you the tracks and atrists you love.
     </p>
     <button
-      onClick={() => document.location.href = spotifyUserUrl}
+      onClick={() => document.location.href = spotifyRedirect}
       className="w-1/5 block text-xs uppercase text-center px-4 my-2 md:px-6 py-2 border border-light-text rounded transition duration-150 ease-in text-light-text hover:bg-light-bg hover:text-light-text">
         Allow us to access your spotify information
       </button>
@@ -31,7 +28,7 @@ export async function getServerSideProps(ctx) {
   const { publicRuntimeConfig } = getConfig();
   const { query: { code }} = ctx;
 
-  if (parseCookies(ctx).sprefresh) {
+  if (parseCookies(ctx).spaccess) {
     return {
       redirect: {
         destination: "/dashboard",
