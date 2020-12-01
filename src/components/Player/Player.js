@@ -11,8 +11,24 @@ const Player = ({ audioSrc }) => {
     currentPosition, 
     setClickedPosition } = usePlaying();
 
+  const currentPositionPercent = currentPosition / duration * 100;
+
+  const calculateClickedPosition = event => {
+    const coordX = event.pageX;
+    const progressEl = document.querySelector("#track-progress");
+    const progressElWidth = progressEl.offsetWidth;
+    const progressElStartPosition = progressEl.getBoundingClientRect().left + window.scrollX;
+    const clickedPositionTime = (coordX - progressElStartPosition) * (duration / progressElWidth);
+    return clickedPositionTime;
+  };
+
+
+  const trackProgressDragHandler = event => {
+    console.log("track change");
+  };
+
   return (
-    <div className={`w-full h-40 py-4 border fixed bottom-0 left-0 bg-pri`}>
+    <div className={`w-full h-40 m-2 border fixed bottom-0 left-0 bg-pri`}>
         <audio id="audio-player">
           <source src={audioSrc}/>
             <code>
@@ -22,13 +38,28 @@ const Player = ({ audioSrc }) => {
       <p className="text-md capitalize text-center">
         track
       </p>
-      <p className="text-sm uppercase text-center">
+      <p className="text-sm mb-4 uppercase text-center">
         artist
       </p>
-      <div className="relative w-4/5 mx-auto my-4 h-0.5 w-4/5 bg-gray-400" >
+      <div className="w-4/5 mx-auto h-0.5">
+        <div className="flex justify-between items-center">
+          <p>
+            0
+          </p>
+          <p className="inline-block ml-auto">
+            duration: {duration}
+          </p>
+        </div>
         <div 
-        className={`relative bottom-2 h-4 w-4 rounded-full bg-red-300 cursor-pointer`} />
+        id="track-progress"
+        className={`relative h-full mt-4 bg-blue-500`}
+        style={{ width: `${currentPositionPercent}%`}} >
+          <div 
+          onMouseDown={event => trackProgressDragHandler(event)}
+          className={`absolute h-4 w-4 rounded-full bg-red-300 cursor-pointer`} />
+          </div>
       </div>
+
       <div className="flex justify-center">
         <button>
           <BiSkipPrevious className="text-xl cursor-pointer"/>
