@@ -14,6 +14,7 @@ const Player = ({ audioSrc }) => {
 
   const calculateClickedPosition = event => {
     const coordX = event.pageX;
+    console.log(coordX);
     const progressEl = document.querySelector("#track-progress");
     const progressElWidth = progressEl.offsetWidth;
     const progressElStartPosition = progressEl.getBoundingClientRect().left + window.scrollX;
@@ -28,6 +29,19 @@ const Player = ({ audioSrc }) => {
     return `${hours !== 0 ? `${hours}:` : ""}
             ${mins !== 0 ? `${mins.toFixed(0)}:` : "0:"}
             ${seconds.toFixed(0)}`;
+  };
+
+  const inputChangeHandler = event => {
+    setClickedPosition(calculateClickedPosition(currentPosition));
+
+    const updateOnMouseEv = event => {
+      setClickedPosition(calculateClickedPosition(calculateClickedPosition))
+    };
+    
+    document.addEventListener("mousemove", updateOnMouseEv);
+    document.addEventListener("mouseup", () => {
+      document.removeEventListener("mousemove", updateOnMouseEv);
+    });
   };
 
   return (
@@ -56,7 +70,11 @@ const Player = ({ audioSrc }) => {
           max="300"
           step="1"
           value={currentPositionPercent}
-          onChange={event => console.log("change")}
+          onChange={(e) => {
+            e.target.value === calculateClickedPosition(currentPosition);
+            console.log(e.target.value);
+            return e.target.value === currentPositionPercent
+          }}
           className={`absolute h-2 w-full rounded-full bg-red-300 cursor-pointer`} />
         </div>
         <div className="flex justify-between items-center">

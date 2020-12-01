@@ -2,7 +2,9 @@ import { FiPlayCircle } from "react-icons/fi";
 import { FiPauseCircle } from "react-icons/fi";
 
 const bgGradients = [
-  "bg-gradient-to-r from-orange-400 via-red-500 to-pink-500"
+  "bg-gradient-to-r from-blue-500 to-purple-400 text-white",
+  "bg-gradient-to-r from-yellow-300 to-green-200",
+  "bg-gradient-to-r from-pink-400 to-red-500 text-white"
 ];
 
 const getRandomColor = () => bgGradients[Math.floor(Math.random() * bgGradients.length)];

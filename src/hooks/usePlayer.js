@@ -12,7 +12,7 @@ const usePlayer = ({ initDuration, initCurrentPosition }) => {
 
     const setAudioTime = () => {
       setCurrentPosition(audioPlayer.currentTime);
-      setCurrentPositionPercent(currentPosition / duration * 100);
+      setCurrentPositionPercent(currentPosition / duration * 300);
     };
     
     setDuration(audioPlayer.duration);
@@ -31,7 +31,7 @@ const usePlayer = ({ initDuration, initCurrentPosition }) => {
     }
      else audioPlayer.pause();
     
-    if (clickedPosition && clickedPosition !== currentPosition) {
+    if (clickedPosition !== currentPosition) {
       audioPlayer.currentPosition = clickedPosition;
       setClickedPosition(null);
     }
