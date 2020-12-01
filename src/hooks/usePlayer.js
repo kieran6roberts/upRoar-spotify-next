@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react";
 
-const usePlayer = () => {
+const usePlayer = ({ initDuration, initCurrentPosition }) => {
   const [ playing, setPlaying ] = useState(false);
-  const [ duration, setDuration ] = useState();
-  const [ currentPosition, setCurrentPosition ] = useState();
+  const [ duration, setDuration ] = useState(initDuration);
+  const [ currentPosition, setCurrentPosition ] = useState(initCurrentPosition);
   const [ clickedPosition, setClickedPosition ] = useState();
+  const [ currentPositionPercent, setCurrentPositionPercent ] = useState(0);
   
   useEffect(() => {
     const audioPlayer = document.querySelector("#audio-player");
 
-    const setAudioPlayerData = () => {
-      setDuration(audioPlayer.duration);
+    const setAudioTime = () => {
       setCurrentPosition(audioPlayer.currentTime);
+      setCurrentPositionPercent(currentPosition / duration * 100);
     };
-
-    const setAudioTime = () => setCurrentPosition(audioPlayer.currentTime);
-
-    audioPlayer.addEventListener("loadeddata", setAudioPlayerData);
+    
+    setDuration(audioPlayer.duration);
+    setCurrentPosition(audioPlayer.currentTime);
+    
     audioPlayer.addEventListener("timeupdate", setAudioTime);
     
     if (playing) {
@@ -29,7 +30,6 @@ const usePlayer = () => {
       }
     }
      else audioPlayer.pause();
-
     
     if (clickedPosition && clickedPosition !== currentPosition) {
       audioPlayer.currentPosition = clickedPosition;
@@ -37,7 +37,6 @@ const usePlayer = () => {
     }
     
     return () => {
-      audioPlayer.removeEventListener("loadeddata", setAudioPlayerData);
       audioPlayer.removeEventListener("timeupdate", setAudioTime);
     }
   });
@@ -47,7 +46,8 @@ const usePlayer = () => {
     setPlaying,
     duration,
     currentPosition,
-    setClickedPosition
+    setClickedPosition,
+    currentPositionPercent
   }
 };
 

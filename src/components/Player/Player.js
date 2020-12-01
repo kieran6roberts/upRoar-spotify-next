@@ -9,9 +9,8 @@ const Player = ({ audioSrc }) => {
     setPlaying, 
     duration, 
     currentPosition, 
-    setClickedPosition } = usePlaying();
-
-  const currentPositionPercent = currentPosition / duration * 100;
+    setClickedPosition,
+    currentPositionPercent } = usePlaying({ initDuration: 0, initCurrentPosition: 0 });
 
   const calculateClickedPosition = event => {
     const coordX = event.pageX;
@@ -22,43 +21,52 @@ const Player = ({ audioSrc }) => {
     return clickedPositionTime;
   };
 
-
-  const trackProgressDragHandler = event => {
-    console.log("track change");
+  const convertDurationFormat = (time = 0) => {
+    const mins = Math.floor(time / 60);
+    const seconds = time - mins * 60;
+    const hours = Math.floor(time / 3600);
+    return `${hours !== 0 ? `${hours}:` : ""}
+            ${mins !== 0 ? `${mins.toFixed(0)}:` : "0:"}
+            ${seconds.toFixed(0)}`;
   };
 
   return (
-    <div className={`w-full h-40 m-2 border fixed bottom-0 left-0 bg-pri`}>
+    <div className={`w-full h-40 border fixed bottom-0 left-0 bg-pri`}>
         <audio id="audio-player">
           <source src={audioSrc}/>
             <code>
               audio
             </code>
         </audio>
-      <p className="text-md capitalize text-center">
-        track
-      </p>
-      <p className="text-sm mb-4 uppercase text-center">
-        artist
-      </p>
-      <div className="w-4/5 mx-auto h-0.5">
-        <div className="flex justify-between items-center">
-          <p>
-            0
-          </p>
-          <p className="inline-block ml-auto">
-            duration: {duration}
-          </p>
-        </div>
+
+        <p className="text-md capitalize text-center">
+          track
+        </p>
+        <p className="text-sm uppercase text-center">
+          artist
+        </p>
+
+      <div className="w-3/5 mx-auto h-4 my-4">
         <div 
         id="track-progress"
-        className={`relative h-full mt-4 bg-blue-500`}
-        style={{ width: `${currentPositionPercent}%`}} >
-          <div 
-          onMouseDown={event => trackProgressDragHandler(event)}
-          className={`absolute h-4 w-4 rounded-full bg-red-300 cursor-pointer`} />
-          </div>
-      </div>
+        className={`flex items-center relative h-1/6 mb-2 bg-blue-500`} >
+          <input
+          type="range"
+          min="0"
+          max="300"
+          step="1"
+          value={currentPositionPercent}
+          onChange={event => console.log("change")}
+          className={`absolute h-2 w-full rounded-full bg-red-300 cursor-pointer`} />
+        </div>
+        <div className="flex justify-between items-center">
+          <p>
+            
+          </p>
+          <p className="inline-block ml-auto">
+            {convertDurationFormat(duration)}
+          </p>
+        </div>
 
       <div className="flex justify-center">
         <button>
@@ -78,6 +86,7 @@ const Player = ({ audioSrc }) => {
         </button>
       </div>
     </div>
+  </div>
   )
 };
 
