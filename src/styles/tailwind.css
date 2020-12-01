@@ -81,7 +81,7 @@
 }
 
 :root {
-  --clr-txt: #080808;
+  --clr-txt: #1F0A29;
   --clr-pri: #412dc0;
   --clr-sec: #282825;
   --clr-acc: #81e6d9;
@@ -102,28 +102,34 @@
   --fxxxl: clamp(4.5rem, 7vw, 8rem);
 }
 
-.light {
-  --clr-txt: #080808;
-  --clr-pri: #412dc0;
-  --clr-sec: #282825;
-  --clr-acc: #81e6d9;
-
-  --clr-bg-pri: #ffffff;
-  --clr-bg-sec: #fdfdfd;
-}
-
-.dark {
+:root.dark {
   --clr-txt: #ffffff;
   --clr-pri: #412dc0;
   --clr-sec: #fdfdfd;
   --clr-acc: #81e6d9;
 
-  --clr-bg-pri: #080808;
+  --clr-bg-pri: #1F0A29;
   --clr-bg-sec: #282825;
+}
+
+@media(prefers-color-scheme: dark) {
+  :root {
+    --clr-txt: #ffffff;
+    --clr-pri: #412dc0;
+    --clr-sec: #fdfdfd;
+    --clr-acc: #81e6d9;
+  
+    --clr-bg-pri: #1F0A29;
+    --clr-bg-sec: #282825;
+  }
 }
 
   html {
     font-family: var(--font-reg);
+  }
+
+  body {
+    background-color: var(--clr-bg-pri);
   }
 
   a {

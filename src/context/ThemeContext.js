@@ -1,47 +1,25 @@
-import { useState, createContext, useEffect, useContext } from "react";
+import { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
+import createPersistedState from "use-persisted-state";
 
-const ThemeContext = createContext();
-
-export const useTheme = useContext(ThemeContext);
-
-const getInitTheme = () => {
-  const persistedThemePreference = window.localStorage.getItem("theme");
-  if (typeof persistedThemePreference === "string") {
-    return persistedThemePreference && persistedThemePreference;
-  }
-
-  const userPrefersThemePreference = window.matchMedia(
-    "(prefers-color-scheme: dark)"
+const setTheme = () => {
+  const darkMode = "dark";
+  const useThemeState = createPersistedState("colorPerference");
+  const themeSettingPreference = useMediaQuery({
+    query: "(prefers-color-scheme: dark)"
+  },
+  undefined,
+  darkPreference => setIsDark(darkPreference)
   );
 
-  if (typeof userPrefersThemePreference === "boolean") {
-       return userPrefersThemePreference ? "dark" : "light";
-     }
+  const [ isDark, setIsDark ] = useThemeState(themeSettingPreference);
 
-  else return "light";
+  useEffect( () => {
+    if (isDark) document.documentElement.classList.add(darkMode);
+    if (!isDark) document.documentElement.classList.remove(darkMode);
+  }, [isDark])
+
+  return [ isDark, setIsDark ];
 };
 
-const ThemeProvider = ({ children }) => {
-  const [ theme, setTheme ] = useState(getInitTheme);
-
-  const toggleTheme = () => {
-    document.documentElement.classList.toggle("dark");
-
-    setTheme(prevTheme  => {
-      if (typeof prevTheme !== "string") throw new Error("theme must be string");
-      if (prevTheme === "light") return "dark";
-      else return "light";
-    });
-
-    window.localStorage.setItem("theme", themeValue);
-
-  };
-
-  return (
-    <ThemeProvider value={theme, toggleTheme}>
-      {children}
-    </ThemeProvider>
-  )
-};
-
-export default ThemeProvider;
+export default setTheme;

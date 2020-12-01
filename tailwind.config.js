@@ -21,7 +21,8 @@ module.exports = {
       },
       backgroundColor: {
         pri: "var(--clr-bg-pri)",
-        sec: "var(--clr-bg-sec)"
+        sec: "var(--clr-bg-sec)",
+        txt: "var(--clr-txt)"
       }
     },
   },

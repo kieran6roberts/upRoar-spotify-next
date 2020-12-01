@@ -17,7 +17,7 @@ const Dashboard = ({ user, topTracks }) => {
     <Layout>
       <main>
         <section>
-          <h2 className="mt-8 text-md">
+          <h2 className="mt-8 text-md text-txt">
             dashboard
           </h2>
           <div className="flex items-center text-md text-gray-400 mb-4">
@@ -30,7 +30,7 @@ const Dashboard = ({ user, topTracks }) => {
               {user.id}
             </p>
           </div>
-          <h3 className="text-md uppercase text-pri mb-8">
+          <h3 className="text-md uppercase text-txt mb-8">
             your current top tracks
           </h3>
           <div>
