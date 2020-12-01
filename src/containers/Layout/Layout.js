@@ -2,19 +2,16 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { destroyCookie, parseCookies } from "nookies";
 import Link from "next/link";
-import Router from "next/router";
 import Head from "../../components/Head/Head";
 import Footer from "../../components/Footer/Footer";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { useAuth } from "src/context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 const Layout = ({ children, title }) => {
-  const [ theme, setTheme ] = useState(false);
   const [ sidebarOpen, setSidebarOpen ] = useState(false);
   const { authUser, setAuthUser } = useAuth();
 
   const toggleSidebarOpen = () => setSidebarOpen(!sidebarOpen);
-  const toggleTheme = () => setTheme(!theme);
 
   const isLoggedIn = parseCookies(null).jwt;
 
@@ -52,13 +49,9 @@ const Layout = ({ children, title }) => {
             </h2>
           </div>
           <div 
-          onClick={toggleTheme}
           className="group w-16 h-8 ml-auto bg-gray-200 cursor-pointer select-none border rounded p-1 relative">
             <div
-            className={`w-8 h-6 cursor-pointer bg-white py-2 px-3 rounded flex justify-center items-center absolute top-0.5 left-0.5
-            ${theme ? "group-transition-transform duration-200 ease-in transform translate-x-6"
-                    : "group-transition-transform duration-200 ease-in transofrm -translate-x-6"}
-            `}>
+            className={`w-8 h-6 cursor-pointer bg-white py-2 px-3 rounded flex justify-center items-center absolute top-0.5 left-0.5 group-transition-transform duration-200 ease-in transform translate-x-6`}>
               <Image
               src="/images/toggle-dark.svg"
               alt="moon"
@@ -67,21 +60,24 @@ const Layout = ({ children, title }) => {
             </div>
           </div>
           <div className="">
-            <ul className="hidden md:flex mr-8">
+            <ul className="hidden md:flex mx-8">
               <li className="">
                 <Link href={isLoggedIn ? `/dashboard/users/${authUser}` : "/login"} passHref>
                   <a
-                    className="block text-sm px-4 md:px-6 py-1 border border-transparent rounded transition duration-150 ease-in hover:bg-gray-50   ">
+                    className="block text-sm px-4 md:px-6 py-1 border border-gray-500 rounded transition duration-150 ease-in hover:bg-sec hover:text-sec">
                       {!isLoggedIn ? "login" : "profile"}
                     </a>
                 </Link>
               </li>
               <li className="">
-                  <button
-                  onClick={isLoggedIn ? LogoutHandler : null}
-                  className="block text-sm px-4 md:px-6 py-1  border border-light-text ml-4 rounded transition duration-150 ease-in hover:bg-light-text hover:text-light-bg">
-                      {isLoggedIn ? "logout" : "signUp"}
-                  </button>
+                <Link href={isLoggedIn ? "/" : "/register"} passHref>
+                  <a
+                   onClick={isLoggedIn ? LogoutHandler : null}
+                   href={isLoggedIn ? null : "/register"}
+                   className="block text-sm px-4 md:px-6 py-1 border border-gray-500 ml-4 rounded transition duration-150 ease-in hover:bg-sec hover:text-sec" >
+                    {isLoggedIn ? "logout" : "signUp"}
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -92,10 +88,10 @@ const Layout = ({ children, title }) => {
         {children}
         <div
         onClick={toggleSidebarOpen}
-        className="group h-12 w-12 flex flex-col justify-center items-center rounded-full border-2 border-pri bg-pri fixed bottom-4 right-8 cursor-pointer hover:bg-white transition 150ms ease-in">
-          <span className="block h-0.5 w-6 bg-white cursor-pointer group-hover:bg-pri" /> 
-          <span className="block h-0.5 w-4 my-1 bg-white cursor-pointer group-hover:bg-pri" /> 
-          <span className="block h-0.5 w-6 bg-white cursor-pointer group-hover:bg-pri" /> 
+        className="group h-12 w-12 flex flex-col justify-center items-center rounded-full border-2 border-gray-500 bg-pri fixed bottom-4 right-8 cursor-pointer hover:bg-sec transition 150ms ease-in">
+          <span className="block h-0.5 w-6 bg-black cursor-pointer group-hover:bg-acc" /> 
+          <span className="block h-0.5 w-4 my-1 bg-black cursor-pointer group-hover:bg-acc" /> 
+          <span className="block h-0.5 w-6 bg-black cursor-pointer group-hover:bg-acc" /> 
         </div>
       </div>
       <Footer />

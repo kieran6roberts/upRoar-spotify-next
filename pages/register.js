@@ -15,7 +15,7 @@ const Register = () => {
         <p className="text-md mb-2">
           Create a free account with us below.
         </p>
-        <p className="text-sm text-pri mb-2">
+        <p className="text-sm text-sec mb-2">
           All fields required
         </p>
         <RegisterForm />

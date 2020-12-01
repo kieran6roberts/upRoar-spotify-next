@@ -1,7 +1,7 @@
 @import "src/styles/tailwind.css";
 
 :root {
-  --clr-pr: #FBBF24;
+  --clr-pri: #FBBF24;
   --clr-sec: #34D399;
   --clr-txt: #161515;
   --clr-bg: #fffbfb;

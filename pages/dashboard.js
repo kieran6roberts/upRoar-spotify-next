@@ -1,16 +1,17 @@
 import { parseCookies } from "nookies";
-import fetch from "isomorphic-fetch";
 import getConfig from "next/config";
 import Image from "next/image";
 
 import Layout from "src/containers/Layout/Layout";
 import TrackList from "src/components/TrackList/TrackList";
+import Player from "src/components/Player/Player";
 import { fetcher } from "src/hooks/useFetch";
 
 const { publicRuntimeConfig } =  getConfig();
 
 const Dashboard = ({ user, topTracks }) => {
   const { items } = topTracks;
+  console.log(items);
 
   return (
     <Layout>
@@ -35,6 +36,7 @@ const Dashboard = ({ user, topTracks }) => {
           <div>
             {items && <TrackList tracks={items} />}
           </div>
+          <Player audioSrc={items[0].preview_url}/>
         </section>
       </main>
     </Layout>
@@ -76,7 +78,7 @@ export async function getServerSideProps(ctx) {
         }
       });
 
-      const query = "v1/me/top/tracks?time_range=medium_term&limit=10&offset=5";
+      const query = "v1/me/top/tracks?time_range=medium_term&limit=3&offset=5";
 
       const topTracksPostInfo = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}/${query}`, {       
       method: "GET",

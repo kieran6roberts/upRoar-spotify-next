@@ -10,19 +10,18 @@ module.exports = {
       lg: "var(--flg)",
       xl: "var(--fxl)",
       xxl: "var(--fxxl)",
+      xxxl: "var(--fxxxl)",
     },
     extend: {
-      colors: {
-        pri: "var(--clr-pr)",
+      textColor: {
+        txt: "var(--clr-txt)",
+        pri: "var(--clr-pri)",
         sec: "var(--clr-sec)",
-        light: {
-          text: "var(--clr-txt)",
-          bg: "var(--clr-bg)"
-        },
-        dark: {
-          text: "var(--clr-txt)",
-          bg: "var(--clr-bg)"
-        }
+        acc: "var(--clr-acc)",
+      },
+      backgroundColor: {
+        pri: "var(--clr-bg-pri)",
+        sec: "var(--clr-bg-sec)"
       }
     },
   },

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Loading from "src/components/Loading/Loading";
 import AuthProvider from "src/context/AuthContext";
+import { AudioPlayerProvider } from "react-use-audio-player";
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -29,12 +30,14 @@ const MyApp = ({ Component, pageProps }) => {
   }, []);
 
   return (
-    <AuthProvider>
-      {isLoading ? <Loading></Loading> : 
-        <Component {...pageProps} />
-      }
-    </AuthProvider>
-  )
+      <AuthProvider>
+          <AudioPlayerProvider>
+            {isLoading ? <Loading></Loading> : 
+              <Component {...pageProps} />
+            }
+          </AudioPlayerProvider>
+      </AuthProvider>
+    )
 }
 
 export default MyApp

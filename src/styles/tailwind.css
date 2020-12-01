@@ -81,11 +81,14 @@
 }
 
 :root {
-  --clr-pr: #FBBf24;
-  --clr-sec: #34D399;
-  --clr-txt: #161515;
-  --clr-bg: #fff;
+  --clr-txt: #080808;
+  --clr-pri: #412dc0;
+  --clr-sec: #282825;
+  --clr-acc: #81e6d9;
 
+  --clr-bg-pri: #ffffff;
+  --clr-bg-sec: #fdfdfd;
+  
   --font-head: "Raleway", sans-serif;
   --font-reg: "Source Sans Pro", sans-serif;
 
@@ -96,11 +99,27 @@
   --flg: clamp(1.8rem, 1.8vw, 2.4rem);
   --fxl: clamp(2.4rem, 3vw, 4rem);
   --fxxl: clamp(3rem, 5vw, 7rem);
+  --fxxxl: clamp(4.5rem, 7vw, 8rem);
 }
 
-[data-theme="dark"] {
-  --clr-txt: #fffbfb;
-  --clr-bg: #161515;
+.light {
+  --clr-txt: #080808;
+  --clr-pri: #412dc0;
+  --clr-sec: #282825;
+  --clr-acc: #81e6d9;
+
+  --clr-bg-pri: #ffffff;
+  --clr-bg-sec: #fdfdfd;
+}
+
+.dark {
+  --clr-txt: #ffffff;
+  --clr-pri: #412dc0;
+  --clr-sec: #fdfdfd;
+  --clr-acc: #81e6d9;
+
+  --clr-bg-pri: #080808;
+  --clr-bg-sec: #282825;
 }
 
   html {

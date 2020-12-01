@@ -18,19 +18,14 @@ const Home = () => {
           get more from your music
         </h2>
         <div className="">
-          <Button
-          extra="w-2/5 bg-green-400 text-light-bg hover:bg-green-500"
-          route="/login">
-            sign in with spotify
-          </Button>
             <Button
             route="/login"
-            extra="w-2/5 text-light-text hover:bg-light-bg hover:text-light-text">
+            extra="w-2/5 text-txt hover:bg-sec hover:text-sec">
               login
             </Button>
             <Button
             route="/register"
-            extra="w-2/5 text-light-text hover:bg-light-bg hover:text-light-text">
+            extra="w-2/5 text-txt hover:bg-sec hover:text-sec">
               sign up
             </Button>
         </div>

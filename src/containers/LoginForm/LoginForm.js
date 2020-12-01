@@ -37,7 +37,7 @@ const LoginForm = () => {
     const postLoginUser = await fetcher(`${publicRuntimeConfig.API_URL}/auth/local`, postLoginOptions);
 
     if (postLoginUser.statusCode === 400) {
-      const error = loginResponse.message[0].messages[0].message;
+      const error = postLoginUser.message[0].messages[0].message;
       return alert(error);
     }
         else {
@@ -98,7 +98,7 @@ const LoginForm = () => {
       name="password" 
       value={inputValues.password}
       onChange={inputChangeHandler} />
-      <span className="inline-block text-pri text-sm ml-auto">
+      <span className="inline-block text-sec text-sm ml-auto">
         <Link href="/reset">
           <a className="">
             Forgot your password?
@@ -108,7 +108,7 @@ const LoginForm = () => {
       <p className="mb-8">
         Don't have an account? 
           <Link href="/register">
-            <a className="text-pri ml-1">
+            <a className="text-sec ml-1">
               Sign Up.
             </a>
           </Link>
@@ -118,7 +118,7 @@ const LoginForm = () => {
       type="submit"
       name="submit"
       value="submit"
-      className="py-2 px-4 rounded text-pri font-bold capitalize bg-light-bg cursor-pointer focus:outline-none focus:ring-2 focus:ring-pri focus:ring-opacity-50" />
+      className="py-2 px-4 rounded text-txt font-bold uppercase bg-pri border border-gray-500 rounded cursor-pointer hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50" />
     </form>
   )
 };

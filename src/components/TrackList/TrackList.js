@@ -12,11 +12,9 @@ const TrackList = spotifyTracks => {
       album={track.album.name}
       releaseDate={track.album.release_date}
       spotifyLink={track.external_urls.spotify}
-      preview={track.preview_url} />
+      audioSrc={track.preview_url} />
     </li>
     );
-  
-    console.log(mapTracks);
 
   return (
     <ul className="">

@@ -1,16 +1,36 @@
-import Image from "next/image";
+import { FiPlayCircle } from "react-icons/fi";
+import { FiPauseCircle } from "react-icons/fi";
 
-const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink, preview }) => {
+const bgGradients = [
+  "bg-gradient-to-r from-orange-400 via-red-500 to-pink-500"
+];
+
+const getRandomColor = () => bgGradients[Math.floor(Math.random() * bgGradients.length)];
+const color = getRandomColor();
+console.log(color);
+
+
+const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink, audioSrc }) => {
+
   return (
-    <div className="flex flex-col items-start md:flex-row py-4">
-      <div>
+    <div className={`${getRandomColor()} flex flex-col items-center md:flex-row py-4 px-2 my-2 w-full max-w-xl border rounded`}>
+      <div className="relative">
         <img
         src={trackImage}
         alt="album cover"
+        className="rounded"
         width={200}
         height={200} />
+        <button 
+        className="absolute flex justify-center top-0 w-32 left-2/4 top-2/4 -mt-12 -ml-16 cursor-pointer">
+        
+          <FiPauseCircle className="text-white text-opacity-50 text-xxxl hover:text-opacity-80" />
+          
+          <FiPlayCircle className="text-white text-opacity-50 text-xxxl hover:text-opacity-80" />
+        
+        </button>
       </div>
-      <div className="pl-8">
+      <div className="pl-8 ">
         <h3 className="text-lg capitalize">
           {trackName}
         </h3>
@@ -31,11 +51,6 @@ const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink,
             Spotify
           </a>
         </p>
-        <button 
-        className="block text-xs uppercase text-center px-4 my-2 md:px-6 py-2 border border-light-text rounded transition duration-150 ease-in">
-          <audio 
-          src={preview}/>
-        </button>
       </div>
     </div>
   )

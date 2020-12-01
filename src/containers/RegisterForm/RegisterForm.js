@@ -154,7 +154,7 @@ const RegisterForm = () => {
       type="submit"
       name="submit"
       value="submit"
-      className="py-2 px-4 rounded text-pri font-bold capitalize bg-light-bg cursor-pointer hover:bg-light-bg focus:outline-none focus:ring-2 focus:ring-pri focus:ring-opacity-50" />
+      className="py-2 px-4 rounded text-txt font-bold capitalize border border-gray-500 rounded bg-pri cursor-pointer hover:bg-sec focus:outline-none focus:ring-2 focus:ring-pri focus:ring-opacity-50" />
     </form>
   )
 };

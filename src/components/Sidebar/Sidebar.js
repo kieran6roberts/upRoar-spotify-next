@@ -17,7 +17,7 @@ const Sidebar = ({ active }) => {
         <p className="text-sm text-center py-2">
           the place to get lost in the music
         </p>
-        <div className="px-8 py-2">
+        <div className="px-32 py-2">
           <p className="ml-2 mb-4 uppercase">
             {authUser ? "dashboard" : "new users"}
           </p>

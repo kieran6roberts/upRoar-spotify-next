@@ -12,7 +12,7 @@ const Login = () => {
             <h2 className="text-md mb-4">
               Already have an account?
             </h2>
-            <p className="text-md mb-2">
+            <p className="text-md text-pri mb-4">
               Sign in below.
             </p>
             <LoginForm />
