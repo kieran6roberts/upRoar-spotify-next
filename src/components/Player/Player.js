@@ -2,10 +2,23 @@ import { FiPlayCircle } from "react-icons/fi";
 import { FiPauseCircle } from "react-icons/fi";
 import { BiSkipNext } from "react-icons/bi";
 import { BiSkipPrevious } from "react-icons/bi";
+import usePlaying from "src/hooks/usePlayer";
 
 const Player = ({ audioSrc }) => {
+  const { playing, 
+    setPlaying, 
+    duration, 
+    currentPosition, 
+    setClickedPosition } = usePlaying();
+
   return (
     <div className={`w-full h-40 py-4 border fixed bottom-0 left-0 bg-pri`}>
+        <audio id="audio-player">
+          <source src={audioSrc}/>
+            <code>
+              audio
+            </code>
+        </audio>
       <p className="text-md capitalize text-center">
         track
       </p>
@@ -20,23 +33,18 @@ const Player = ({ audioSrc }) => {
         <button>
           <BiSkipPrevious className="text-xl cursor-pointer"/>
         </button>
-        <button>
-              <FiPauseCircle 
-              className="text-xl mx-8 cursor-pointer" />
-              
-              <FiPlayCircle 
-              className="text-xl mx-8 cursor-pointer" />
-            
+        <button  onClick={() => setPlaying(!playing)}>
+          {playing ?
+            <FiPauseCircle
+            className="text-xl mx-8 cursor-pointer" />
+          :
+            <FiPlayCircle 
+            className="text-xl mx-8 cursor-pointer" />
+          }
         </button>
         <button>
           <BiSkipNext className="text-xl cursor-pointer"/>  
         </button>
-        <audio>
-          <source src={audioSrc} />
-          <code>
-            audio
-          </code>
-        </audio>
       </div>
     </div>
   )
