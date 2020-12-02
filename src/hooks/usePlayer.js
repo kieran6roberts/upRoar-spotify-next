@@ -9,34 +9,29 @@ const usePlayer = ({ initDuration, initCurrentPosition }) => {
   
   useEffect(() => {
     const audioPlayer = document.querySelector("#audio-player");
-    setDuration(audioPlayer.duration);
-    setCurrentPosition(audioPlayer.currentTime);
     
     const setAudioTime = () => {
+      setDuration(audioPlayer.duration);
       setCurrentPosition(audioPlayer.currentTime);
     };
     
-    
+    audioPlayer.addEventListener("loadeddata", setAudioTime);
     audioPlayer.addEventListener("timeupdate", setAudioTime);
     
     if (playing) {
-      let playPromise = audioPlayer.play();
-      if (playPromise) {
-        playPromise.then(() => {
-          
-        })
+      audioPlayer.play()
+        .then(() => {})
         .catch(err => console.error(err))
       }
-    }
-     else audioPlayer.pause();
+      else audioPlayer.pause();
     
     if (clickedPosition && clickedPosition !== currentPosition) {
       audioPlayer.currentTime = clickedPosition
-      console.log(audioPlayer.currentTime);
       setClickedPosition(null);
     }
     
     return () => {
+      audioPlayer.removeEventListener("loadeddata", setAudioTime);
       audioPlayer.removeEventListener("timeupdate", setAudioTime);
     }
   });

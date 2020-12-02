@@ -2,17 +2,12 @@ import { FiPlayCircle } from "react-icons/fi";
 import { FiPauseCircle } from "react-icons/fi";
 import { BiSkipNext } from "react-icons/bi";
 import { BiSkipPrevious } from "react-icons/bi";
-import usePlaying from "src/hooks/usePlayer";
+import usePlayer from "src/hooks/usePlayer";
+import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
 
 const Player = ({ audioSrc }) => {
-  const { 
-    playing, 
-    setPlaying, 
-    duration, 
-    currentPosition,
-    setClickedPosition,
-    playerOpen,
-    setPlayerOpen } = usePlaying({ initDuration: 0, initCurrentPosition: 0 });
+  const { playing, duration, currentPosition, playerOpen } = usePlaying();
+  const { setPlaying, setPlayerOpen, setClickedPosition } = useUpdatePlaying();
 
   const convertDurationFormat = (time = 0) => {
     const mins = Math.floor(time / 60);
@@ -38,7 +33,7 @@ const Player = ({ audioSrc }) => {
       </button>
       <div className={`w-full ${playerOpen ? "h-44" : "h-0"}`}>
           <audio id="audio-player">
-            <source src={audioSrc}/>
+            <source id="audio-player-src"/>
               <code>
                 audio
               </code>
