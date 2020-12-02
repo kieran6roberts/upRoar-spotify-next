@@ -4,19 +4,18 @@ const usePlayer = ({ initDuration, initCurrentPosition }) => {
   const [ playing, setPlaying ] = useState(false);
   const [ duration, setDuration ] = useState(initDuration);
   const [ currentPosition, setCurrentPosition ] = useState(initCurrentPosition);
-  const [ clickedPosition, setClickedPosition ] = useState();
-  const [ currentPositionPercent, setCurrentPositionPercent ] = useState(0);
+  const [ clickedPosition, setClickedPosition ] = useState(null);
   
   useEffect(() => {
     const audioPlayer = document.querySelector("#audio-player");
-
-    const setAudioTime = () => {
-      setCurrentPosition(audioPlayer.currentTime);
-      setCurrentPositionPercent(currentPosition / duration * 300);
-    };
-    
+    console.log(audioPlayer.currentTime)
     setDuration(audioPlayer.duration);
     setCurrentPosition(audioPlayer.currentTime);
+    
+    const setAudioTime = () => {
+      setCurrentPosition(audioPlayer.currentTime);
+    };
+    
     
     audioPlayer.addEventListener("timeupdate", setAudioTime);
     
@@ -31,8 +30,9 @@ const usePlayer = ({ initDuration, initCurrentPosition }) => {
     }
      else audioPlayer.pause();
     
-    if (clickedPosition !== currentPosition) {
-      audioPlayer.currentPosition = clickedPosition;
+    if (clickedPosition && clickedPosition !== currentPosition) {
+      audioPlayer.currentTime = clickedPosition
+      console.log(audioPlayer.currentTime);
       setClickedPosition(null);
     }
     
@@ -47,7 +47,6 @@ const usePlayer = ({ initDuration, initCurrentPosition }) => {
     duration,
     currentPosition,
     setClickedPosition,
-    currentPositionPercent
   }
 };
 

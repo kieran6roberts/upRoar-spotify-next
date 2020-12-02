@@ -5,22 +5,12 @@ import { BiSkipPrevious } from "react-icons/bi";
 import usePlaying from "src/hooks/usePlayer";
 
 const Player = ({ audioSrc }) => {
-  const { playing, 
+  const { 
+    playing, 
     setPlaying, 
     duration, 
-    currentPosition, 
-    setClickedPosition,
-    currentPositionPercent } = usePlaying({ initDuration: 0, initCurrentPosition: 0 });
-
-  const calculateClickedPosition = event => {
-    const coordX = event.pageX;
-    console.log(coordX);
-    const progressEl = document.querySelector("#track-progress");
-    const progressElWidth = progressEl.offsetWidth;
-    const progressElStartPosition = progressEl.getBoundingClientRect().left + window.scrollX;
-    const clickedPositionTime = (coordX - progressElStartPosition) * (duration / progressElWidth);
-    return clickedPositionTime;
-  };
+    currentPosition,
+    setClickedPosition } = usePlaying({ initDuration: 0, initCurrentPosition: 0 });
 
   const convertDurationFormat = (time = 0) => {
     const mins = Math.floor(time / 60);
@@ -28,20 +18,13 @@ const Player = ({ audioSrc }) => {
     const hours = Math.floor(time / 3600);
     return `${hours !== 0 ? `${hours}:` : ""}
             ${mins !== 0 ? `${mins.toFixed(0)}:` : "0:"}
-            ${seconds.toFixed(0)}`;
+            ${seconds <= 9 ? `0${seconds.toFixed(0)}` : seconds.toFixed(0)}`;
   };
 
   const inputChangeHandler = event => {
-    setClickedPosition(calculateClickedPosition(currentPosition));
-
-    const updateOnMouseEv = event => {
-      setClickedPosition(calculateClickedPosition(calculateClickedPosition))
-    };
-    
-    document.addEventListener("mousemove", updateOnMouseEv);
-    document.addEventListener("mouseup", () => {
-      document.removeEventListener("mousemove", updateOnMouseEv);
-    });
+      const audioInput = document.querySelector("#audio-player");
+      audioInput.currentTime = event.target.value;
+      setClickedPosition(audioInput.currentTime);
   };
 
   return (
@@ -65,21 +48,20 @@ const Player = ({ audioSrc }) => {
         id="track-progress"
         className={`flex items-center relative h-1/6 mb-2 bg-blue-500`} >
           <input
+          id="track-input"
           type="range"
           min="0"
-          max="300"
+          max="30"
+          value={currentPosition}
           step="1"
-          value={currentPositionPercent}
-          onChange={(e) => {
-            e.target.value === calculateClickedPosition(currentPosition);
-            console.log(e.target.value);
-            return e.target.value === currentPositionPercent
+          onInput={event => {
+            inputChangeHandler(event);
           }}
           className={`absolute h-2 w-full rounded-full bg-red-300 cursor-pointer`} />
         </div>
         <div className="flex justify-between items-center">
           <p>
-            
+            {convertDurationFormat(currentPosition)}
           </p>
           <p className="inline-block ml-auto">
             {convertDurationFormat(duration)}
