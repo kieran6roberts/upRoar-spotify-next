@@ -5,10 +5,10 @@ const usePlayer = ({ initDuration, initCurrentPosition }) => {
   const [ duration, setDuration ] = useState(initDuration);
   const [ currentPosition, setCurrentPosition ] = useState(initCurrentPosition);
   const [ clickedPosition, setClickedPosition ] = useState(null);
+  const [ playerOpen, setPlayerOpen ] = useState(false);
   
   useEffect(() => {
     const audioPlayer = document.querySelector("#audio-player");
-    console.log(audioPlayer.currentTime)
     setDuration(audioPlayer.duration);
     setCurrentPosition(audioPlayer.currentTime);
     
@@ -47,6 +47,8 @@ const usePlayer = ({ initDuration, initCurrentPosition }) => {
     duration,
     currentPosition,
     setClickedPosition,
+    playerOpen,
+    setPlayerOpen
   }
 };
 
