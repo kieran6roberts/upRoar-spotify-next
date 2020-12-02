@@ -10,9 +10,11 @@ import PlayingProvider from "src/context/PlayingContext";
 
 const { publicRuntimeConfig } =  getConfig();
 
-const Dashboard = ({ user, topTracks }) => {
+const Dashboard = ({ userInfo, topTracks, newReleases }) => {
   const { items } = topTracks;
-  console.log(items);
+  console.log(topTracks);
+  console.log(newReleases);
+  console.log(userInfo);
 
   return (
     <PlayingProvider>
@@ -29,7 +31,7 @@ const Dashboard = ({ user, topTracks }) => {
               height={70}
               width={70} />
               <p className="ml-4">
-                {user.id}
+                {userInfo.id}
               </p>
             </div>
             <h3 className="text-md uppercase text-txt mb-8">
@@ -82,20 +84,31 @@ export async function getServerSideProps(ctx) {
         }
       });
 
-      const query = "v1/me/top/tracks?time_range=medium_term&limit=3&offset=5";
+      const topTracksQuery = "v1/me/top/tracks?time_range=medium_term&limit=3&offset=5";
+      const newReleaseQuery = "/v1/browse/new-releases";
 
-      const topTracksPostInfo = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}/${query}`, {       
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`
-      }});
-      
+      const [ topTracks, newReleases ] = await Promise.all([
+        fetcher(`${publicRuntimeConfig.SPOTIFY_API}/${topTracksQuery}`, {       
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`
+          }}),
+          fetcher(`${publicRuntimeConfig.SPOTIFY_API}${newReleaseQuery}`, {       
+            method: "GET",
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authToken}`
+            }})
+      ]);
+
       return {
         props: {
-          user: userPostInfo,
-          topTracks: topTracksPostInfo
+          userInfo: userPostInfo,
+          topTracks: topTracks,
+          newReleases: newReleases
         }
       }
 }

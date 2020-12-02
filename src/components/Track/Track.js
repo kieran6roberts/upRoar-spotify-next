@@ -27,7 +27,7 @@ const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink,
   }
 
   return (
-    <div className={`flex flex-col items-center md:flex-row py-4 px-2 my-2 w-full max-w-xl border rounded`}>
+    <div className={`flex flex-col items-center text-txt md:flex-row py-4 px-2 my-2 w-full max-w-xl border rounded`}>
       <div className="relative">
         <img
         src={trackImage}
@@ -39,9 +39,9 @@ const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink,
         onClick={() => setAudioSrc(audioSrc)}
         className="absolute flex justify-center top-0 w-32 left-2/4 top-2/4 -mt-12 -ml-16 cursor-pointer">
 
-        <FiPauseCircle className="text-white text-opacity-50 text-xxxl hover:text-opacity-80" />
+        <FiPauseCircle className="text-opacity-50 text-xxxl hover:text-opacity-80" />
           
-        <FiPlayCircle className="text-white text-opacity-50 text-xxxl hover:text-opacity-80" />
+        <FiPlayCircle className="text-opacity-50 text-xxxl hover:text-opacity-80" />
         </button>
       </div>
       <div className="pl-8 ">
@@ -61,7 +61,7 @@ const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink,
           find the full version here
           <a 
           href={spotifyLink}
-          className="text-pri ml-1">
+          className="text-acc ml-1">
             Spotify
           </a>
         </p>
