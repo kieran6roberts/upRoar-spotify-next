@@ -9,10 +9,10 @@ const Register = () => {
       <section 
       id="login"
       className="pt-8">
-        <h2 className="text-md mb-4">
+        <h2 className="text-md text-txt mb-4">
           Welcome to upRoar!
         </h2>
-        <p className="text-md mb-2">
+        <p className="text-md text-acc mb-2">
           Create a free account with us below.
         </p>
         <p className="text-sm text-sec mb-2">

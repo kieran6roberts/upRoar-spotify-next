@@ -12,10 +12,10 @@ const User = ({ data: { username, name, created_at, email } }) => {
     <Layout>
       <main>
         <section className="pt-8">
-        <h2 className="text-md mb-4">
+        <h2 className="text-md text-txt mb-4">
               Hi {name}
             </h2>
-            <p className="text-md text-gray-400 mb-2">
+            <p className="text-md text-acc text-gray-400 mb-2">
               Your Profile
             </p>
           <div className="h-64 w-3/5 p-4 capitalize text-sm">
@@ -23,7 +23,7 @@ const User = ({ data: { username, name, created_at, email } }) => {
               <p className="text-gray-400">
                 user since
               </p>
-              <span>
+              <span className="text-sm text-txt">
                 {created_at.substring(0, 10)}
               </span>
             </div>
@@ -32,7 +32,7 @@ const User = ({ data: { username, name, created_at, email } }) => {
               <p className="text-gray-400">
                 username
               </p>
-              <span>
+              <span className="text-sm text-txt">
                 {username}
               </span>
             </div>
@@ -41,7 +41,7 @@ const User = ({ data: { username, name, created_at, email } }) => {
               <p className="text-gray-400">
                 email
               </p>
-              <span>
+              <span className="text-sm text-txt">
                 {email}
               </span>
             </div>

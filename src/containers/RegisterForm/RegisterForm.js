@@ -76,7 +76,7 @@ const RegisterForm = () => {
   return (
     <form 
     onSubmit={submitHandler}
-    className="flex flex-col w-full max-w-xl"
+    className="flex flex-col text-txt w-full max-w-xl"
     data-testid="register-form">
       <label 
       htmlFor="name" 
@@ -144,7 +144,7 @@ const RegisterForm = () => {
       <p className="mb-8">
         Already have an account? 
           <Link href="/login">
-            <a className="text-pri ml-1">
+            <a className="text-acc ml-1">
               Sign in.
             </a>
           </Link>

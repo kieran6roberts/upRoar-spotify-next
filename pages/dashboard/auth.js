@@ -9,17 +9,17 @@ import { fetcher } from "src/hooks/useFetch";
 const Auth = () => {
   return (
     <Layout>
-      <p className="w-2/4 text-sm">
+      <p className="w-2/4 mt-4 text-sm text-txt">
       For the best possible user experience we reccomend allowing us to access your spotify profile.
       This includes info such as your personal playlists and most listened to track.
     </p>
     <div className="h-0.5 w-3/5 bg-pri my-4" />
-    <p className="w-2/4 mb-8 text-sm">
+    <p className="w-2/4 mb-8 text-sm text-txt">
       Then we can personalize your experince to bring you the tracks and atrists you love.
     </p>
     <button
       onClick={() => document.location.href = spotifyRedirect}
-      className="w-1/5 block text-xs uppercase text-center px-4 my-2 md:px-6 py-2 border border-light-text rounded transition duration-150 ease-in text-light-text hover:bg-light-bg hover:text-light-text">
+      className="w-1/5 block text-xs text-txt uppercase text-center px-4 my-2 md:px-6 py-2 border border-light-text rounded transition duration-150 ease-in text-light-text hover:bg-light-bg hover:text-light-text">
         Allow us to access your spotify information
       </button>
     </Layout>

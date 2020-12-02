@@ -45,7 +45,7 @@ const Player = ({ audioSrc }) => {
   };
 
   return (
-    <div className={`w-full h-40 border fixed bottom-0 left-0 bg-pri`}>
+    <div className={`w-full h-40 text-txt border fixed bottom-0 left-0 bg-pri`}>
         <audio id="audio-player">
           <source src={audioSrc}/>
             <code>

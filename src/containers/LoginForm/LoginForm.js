@@ -72,7 +72,7 @@ const LoginForm = () => {
     <form
     method="POST"
     onSubmit={submitHandler}
-    className="flex flex-col w-full max-w-xl"
+    className="flex text-txt flex-col w-full max-w-xl"
     data-testid="login-form">
       <label 
       htmlFor="username" 
@@ -108,7 +108,7 @@ const LoginForm = () => {
       <p className="mb-8">
         Don't have an account? 
           <Link href="/register">
-            <a className="text-sec ml-1">
+            <a className="text-acc ml-1">
               Sign Up.
             </a>
           </Link>

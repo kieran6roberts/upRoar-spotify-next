@@ -8,13 +8,13 @@ const Home = () => {
       <section 
       id="home-hero"
       className="w-full flex flex-col justify-evenly pt-8">
-        <h2 className="text-lg mb-4">
+        <h2 className="text-lg text-txt mb-4">
           play your favourite songs
         </h2>
-        <h2 className="text-lg mb-4">
+        <h2 className="text-lg text-txt mb-4">
           find nearby events
         </h2>
-        <h2 className="text-lg mb-8">
+        <h2 className="text-lg text-txt mb-8">
           get more from your music
         </h2>
         <div className="">

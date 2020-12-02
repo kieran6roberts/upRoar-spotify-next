@@ -8,7 +8,7 @@ const FormInput = ({ id, type, name, value, onChange }) => {
     name={name} 
     value={value}
     onChange={onChange}
-    className="py-2 px-4 mb-8 ring-2 ring-gray-500 ring-opacity-50 rounded focus:outline-none focus:ring-pri" />
+    className="py-2 px-4 mb-8 text-black ring-2 ring-gray-500 ring-opacity-50 rounded focus:outline-none focus:ring-pri" />
   )
 };
 
