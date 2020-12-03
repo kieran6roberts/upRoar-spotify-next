@@ -7,6 +7,7 @@ const Albums =  albums  => {
             {newReleaseAlbums.map(album => 
             <li key={album.id} className="m-auto">
                 <Album
+                id={album.id}
                 name={album.name}
                 artist={album.artists[0].name}
                 image={album.images[0].url} />

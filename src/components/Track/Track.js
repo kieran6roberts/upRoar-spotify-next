@@ -48,8 +48,8 @@ const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink,
           find the full version here
           <a 
           href={spotifyLink}
-          className="text-acc ml-1">
-            Spotify
+          className="text-green-500 ml-1">
+            to spotify
           </a>
         </p>
       </div>

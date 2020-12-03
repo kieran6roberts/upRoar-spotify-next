@@ -19,7 +19,7 @@ const Dashboard = ({ userInfo, topTracks, newReleases }) => {
     <PlayingProvider>
       <Layout>
         <main>
-          <section className="px-24">
+          <section className="md:px-24">
             <h2 className="mt-8 text-sm text-right text-txt">
               dashboard
             </h2>
