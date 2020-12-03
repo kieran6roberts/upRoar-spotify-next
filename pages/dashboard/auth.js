@@ -1,6 +1,6 @@
-import fetch from "isomorphic-fetch";
 import { setCookie, parseCookies } from "nookies";
 import getConfig from "next/config";
+import Image from "next/image";
 
 import Layout from "src/containers/Layout/Layout";
 import spotifyRedirect from "src/spotify";
@@ -9,6 +9,14 @@ import { fetcher } from "src/hooks/useFetch";
 const Auth = () => {
   return (
     <Layout>
+      <h2 className=" text-md text-txt capitalize mt-4">
+        for your experience
+      </h2>
+      <Image 
+        src="/images/spotify-seeklogo.com.svg"
+        alt="spotify logo"
+        height={70}
+        width={70} />
       <p className="w-2/4 mt-4 text-sm text-txt">
       For the best possible user experience we reccomend allowing us to access your spotify profile.
       This includes info such as your personal playlists and most listened to track.
@@ -19,7 +27,7 @@ const Auth = () => {
     </p>
     <button
       onClick={() => document.location.href = spotifyRedirect}
-      className="w-1/5 block text-xs text-txt uppercase text-center px-4 my-2 md:px-6 py-2 border border-light-text rounded transition duration-150 ease-in text-light-text hover:bg-light-bg hover:text-light-text">
+      className="w-1/5 block text-xs text-green-500 uppercase text-center bg-txt px-4 my-2 md:px-6 py-2 border border-light-text rounded transition duration-150 ease-in text-light-text hover:bg-light-bg hover:text-light-text">
         Allow us to access your spotify information
       </button>
     </Layout>

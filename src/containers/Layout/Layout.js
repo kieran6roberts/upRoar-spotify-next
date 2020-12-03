@@ -31,7 +31,7 @@ const Layout = ({ children, title }) => {
     <>
       <Head title={title}/>
       <nav role="navigation">
-        <div className="flex items-center py-2 md:py-4 px-8 md:px-16 border-b-2 border-gray-50">
+        <div className="flex items-center py-2 md:py-4 px-8 md:px-24 border-b-2 border-gray-50">
           <Link href={isLoggedIn ? "/dashboard" : "/"} passHref>
             <a className="block">
               <Image
@@ -91,7 +91,7 @@ const Layout = ({ children, title }) => {
         {children}
         <div
         onClick={toggleSidebarOpen}
-        className="group h-12 w-12 flex flex-col justify-center items-center rounded-full border-2 border-gray-500 bg-pri fixed bottom-4 right-8 cursor-pointer hover:bg-sec transition 150ms ease-in">
+        className="group h-12 w-12 flex flex-col justify-center items-center rounded-full border-2 border-gray-500 bg-pri fixed bottom-4 right-8 cursor-pointer hover:bg-sec transition duration-150ms ease-in">
           <span className="block h-0.5 w-6 bg-txt cursor-pointer group-hover:bg-acc" /> 
           <span className="block h-0.5 w-4 bg-txt my-1 cursor-pointer group-hover:bg-acc" /> 
           <span className="block h-0.5 w-6 bg-txt cursor-pointer group-hover:bg-acc" /> 

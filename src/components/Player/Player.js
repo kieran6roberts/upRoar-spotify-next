@@ -5,7 +5,7 @@ import { BiSkipPrevious } from "react-icons/bi";
 import usePlayer from "src/hooks/usePlayer";
 import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
 
-const Player = ({ audioSrc }) => {
+const Player = () => {
   const { playing, duration, currentPosition, playerOpen } = usePlaying();
   const { setPlaying, setPlayerOpen, setClickedPosition } = useUpdatePlaying();
 
@@ -25,13 +25,13 @@ const Player = ({ audioSrc }) => {
   };
 
   return (
-    <div className={`w-2/5 text-txt border p-2 fixed bottom-0 right-0 bg-pri`}>
+    <div className={`w-2/5 text-txt border p-2 fixed bottom-0 left-0 bg-pri z-20`}>
       <button 
       onClick={() => setPlayerOpen(!playerOpen)}
-      className="ml-4 p-1 bg-txt text-acc">
+      className="ml-4 p-1 bg-pri text-acc">
         hide player
       </button>
-      <div className={`w-full ${playerOpen ? "h-44" : "h-0"}`}>
+      <div className={`w-full ${playerOpen ? "h-36" : "h-0"}`}>
           <audio id="audio-player">
             <source id="audio-player-src"/>
               <code>
