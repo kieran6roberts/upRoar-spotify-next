@@ -14,14 +14,14 @@ const Albums = ({ album }) => {
         <PlayingProvider>
             <Layout>
                 <main>
-                    <section>
-                        <h2 className="text-md text-txt my-4">
+                    <section className="md:px-24">
+                        <h2 className="text-md text-txt my-8">
                             {album ? album.name : <span>Unable to find album</span>}
                         </h2>
                         <p className="text-sm text-txt mb-4">
                             {album ? album.artists[0].name : null}
                         </p>
-                        <p className="text-xs text-txt mb-2">
+                        <p className="text-xs text-txt mb-2 capitalize">
                             {album ? album.album_type : null}
                         </p>
                         <TrackList tracks={albumTracks} image={album} />

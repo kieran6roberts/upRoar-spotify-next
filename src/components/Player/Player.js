@@ -1,4 +1,4 @@
-import { FiPlayCircle } from "react-icons/fi";
+import { BsFillPlayFill } from "react-icons/bs";
 import { FiPauseCircle } from "react-icons/fi";
 import { BiSkipNext } from "react-icons/bi";
 import { BiSkipPrevious } from "react-icons/bi";
@@ -19,18 +19,30 @@ const Player = () => {
   };
 
   const inputChangeHandler = event => {
-        const audioInput = document.querySelector("#audio-player");
-        audioInput.currentTime = event.target.value;
-        setClickedPosition(audioInput.currentTime);
-  };
+      const audioInput = document.querySelector("#audio-player");
+      audioInput.currentTime = event.target.value;
+      setClickedPosition(audioInput.currentTime);
+      };
+
+  const resetTrackHandler = time => {
+      const audioInput = document.querySelector("#audio-player");
+      audioInput.currentTime = time;
+      setClickedPosition(audioInput.currentTime);
+    };
+    
+    const volumeChangeHandler = event => {
+      const audioInput = document.querySelector("#audio-player");
+      audioInput.volume = event.target.value;
+  }
 
   return (
-    <div className={`w-2/5 text-txt border p-2 fixed bottom-0 left-0 bg-pri z-20`}>
+    <div className={`w-full max-w-2xl text-txt border p-2 fixed bottom-2 left-2 bg-pri z-20`}>
       <button 
       onClick={() => setPlayerOpen(!playerOpen)}
-      className="ml-4 p-1 bg-pri text-acc">
+      className="ml-4 p-1 bg-txt text-acc">
         hide player
       </button>
+      <div className="flex">
       <div className={`w-full ${playerOpen ? "h-36" : "h-0"}`}>
           <audio id="audio-player">
             <source id="audio-player-src"/>
@@ -39,10 +51,10 @@ const Player = () => {
               </code>
           </audio>
 
-          <p className="text-md capitalize text-center">
+          <p className="text-sm capitalize text-center">
             track
           </p>
-          <p className="text-sm uppercase text-center">
+          <p className="text-xs uppercase text-center">
             artist
           </p>
 
@@ -72,25 +84,33 @@ const Player = () => {
           </div>
 
         <div className="flex justify-center">
-          <button>
-            <BiSkipPrevious className="text-xl cursor-pointer"/>
+          <button onClick={() => resetTrackHandler(0)}>
+            <BiSkipPrevious className="text-lg cursor-pointer"/>
           </button>
           <button  onClick={() => setPlaying(!playing)}>
             {playing ?
               <FiPauseCircle
-              className="text-xl mx-8 cursor-pointer" />
+              className="text-lg mx-8 cursor-pointer" />
             :
-              <FiPlayCircle 
-              className="text-xl mx-8 cursor-pointer" />
+              <BsFillPlayFill 
+              className="text-lg mx-8 cursor-pointer" />
             }
           </button>
-          <button>
-            <BiSkipNext className="text-xl cursor-pointer"/>  
+          <button onClick={() => resetTrackHandler(30)}>
+            <BiSkipNext className="text-lg cursor-pointer"/>  
           </button>
         </div>
       </div>
-    </div>
-
+      </div>
+        <input
+        className="transform rotate-90"
+        id="input-volume"
+        type="range"
+        step="0.01"
+        min="0"
+        max="1"
+        onInput={event => volumeChangeHandler(event)} />
+      </div>
     </div>
   )
 };
