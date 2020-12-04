@@ -50,9 +50,9 @@ const Layout = ({ children, title }) => {
               Music App
             </h2>
           </div>
-          <div className="group w-16 h-8 ml-auto bg-gray-200 cursor-pointer select-none border rounded p-1 relative">
+          <div className="group w-16 h-8 ml-auto bg-gray-200 cursor-pointer select-none border rounded p-1 relative"
+          onClick={e => {setIsDark(!isDark)}}>
             <div 
-            onClick={e => {setIsDark(!isDark)}}
             className={`w-8 h-6 cursor-pointer bg-white py-2 px-3 rounded flex justify-center items-center absolute top-0.5 left-0.5
             ${isDark && "group-transition-transform duration-200 ease-in transform translate-x-6"}`}>
               <Image

@@ -4,7 +4,6 @@ import { useAuth } from "src/context/AuthContext";
 
 const Sidebar = ({ active }) => {
   const { authUser } = useAuth();
-  console.log(authUser);
   return(
     <nav role="navigation">
       <div className={`fixed text-txt top-4 left-4 right-4 bottom-32 rounded z-10 bg-pri border border-gray-400

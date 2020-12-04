@@ -36,14 +36,14 @@ const Player = () => {
   }
 
   return (
-    <div className={`w-full max-w-2xl text-txt border p-2 fixed bottom-2 left-2 bg-pri z-20`}>
+    <div className={`w-full max-w-2xl px-8 ${!playerOpen && "opacity-50"} text-txt p-2 fixed bottom-0 left-0 bg-pri`}>
       <button 
       onClick={() => setPlayerOpen(!playerOpen)}
       className="ml-4 p-1 bg-txt text-acc">
         hide player
       </button>
-      <div className="flex">
-      <div className={`w-full ${playerOpen ? "h-36" : "h-0"}`}>
+      <div className={`flex ${playerOpen ? "h-32" : "h-0"}`}>
+      <div className={"w-full"}>
           <audio id="audio-player">
             <source id="audio-player-src"/>
               <code>
@@ -69,6 +69,7 @@ const Player = () => {
             max="30"
             value={currentPosition}
             step="1"
+            className=""
             onInput={event => {
               inputChangeHandler(event);
             }}
