@@ -2,6 +2,8 @@ import { parseCookies } from "nookies";
 import getConfig from "next/config";
 import Image from "next/image";
 import { BsSearch } from "react-icons/bs";
+import { MdClear } from "react-icons/md";
+import { useState } from "react";
 
 import Layout from "src/containers/Layout/Layout";
 import TrackList from "src/components/TrackList/TrackList";
@@ -9,21 +11,44 @@ import Albums from "src/components/Albums/Albums";
 import Player from "src/components/Player/Player";
 import { fetcher } from "src/hooks/useFetch";
 import PlayingProvider from "src/context/PlayingContext";
-import FormInput from "src/components/FormInput/FormInput";
 import userSearchValidation from "src/validation/userSearch";
 import useForm from "src/hooks/useForm";
+import Track from "src/components/Track/Track";
 
 const { publicRuntimeConfig } =  getConfig();
 
-const Dashboard = ({ userInfo, topTracks, newReleases }) => {
+const Dashboard = ({ userInfo, topTracks, newReleases, token }) => {
   let topTracksItems;
   let newReleasesItems;
   if (!topTracks.error) topTracksItems = topTracks.items;
   if (!newReleases.error) newReleasesItems = newReleases.albums.items;
 
+  const [ results, setResults ] = useState([]);
+
+  const formatQuery = () => {
+    const { search } = inputValues;
+    return search.trim().replaceAll(" ", "%20");
+  }
+
+  const resetResultsHandler = () => {
+    setInputValues({ search: "" });
+    setResults([]);
+  };
+
   const fetchQuery = async () => {
-    console.log(inputValues.search);
-    //const data = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}/v1/search?q=${}`)
+    const type = "type=track,album";
+    const encodedQuery = formatQuery();
+
+    if (!token) return null;
+
+    const data = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}/v1/search?q=${encodedQuery}&${type}&limit=5&offset=0`, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+    }});
+    setResults(data);
   };
 
   const {
@@ -31,7 +56,8 @@ const Dashboard = ({ userInfo, topTracks, newReleases }) => {
     errors, 
     submitting, 
     inputChangeHandler, 
-    submitHandler
+    submitHandler,
+    setInputValues
   } = useForm({ stateInit: { search: "" }, validate: userSearchValidation, submitFunc: fetchQuery });
 
   return (
@@ -46,15 +72,29 @@ const Dashboard = ({ userInfo, topTracks, newReleases }) => {
                 onClick={submitHandler}>
                   <BsSearch />
                 </button>
+                <button 
+                className={`py-2 px-2 bg-txt text-pri ${inputValues.search ? "visible pointer-events-auto" : "invisible pointer-events-none"}`}
+                onClick={resetResultsHandler}>
+                <MdClear />
+                </button>
                 <input 
                 id="search"
                 name="search"
                 type="text"
                 value={inputValues.search}
-                className="w-5/6 py-2 px-4 bg-pri text-txt focus:outline-none"
+                className="w-5/6 mr-auto py-2 px-4 bg-pri text-txt focus:outline-none"
                 onChange={inputChangeHandler} />
-                <div className={`h-0 transition-all duration-200 ease-in-out bg-blue-500
-                ${inputValues.search && "h-80 bg-blue-200"}`}></div>
+                <div className={`h-0 transition-all duration-200 ease-in-out
+                ${results.length !== 0 && "h-auto p-8 border-t-2"}`}>
+                  <p className={`${results.length !== 0 ? "block" : "hidden" } text-md my-2`}>
+                    albums
+                  </p>
+                  <Albums albums={results.length !== 0 ? results.albums.items : results} />
+                  <p className={`${results.length !== 0 ? "block" : "hidden" } text-md my-2`}>
+                    tracks
+                  </p>
+                  <TrackList tracks={results.length !== 0 ? results.tracks.items : results} />
+                </div>
               </div>
             </div>
             <h2 className="text-sm text-right text-txt ml-auto mt-4">
@@ -93,7 +133,7 @@ const Dashboard = ({ userInfo, topTracks, newReleases }) => {
             <div>
               {!topTracks.error || !topTracks.error.status == 401 
               ?
-              <TrackList tracks={topTrackItems} />
+              <TrackList tracks={topTracksItems} />
               :
               <span className="text-sm text-txt capitalize">
                 no top tracks
@@ -168,7 +208,8 @@ export async function getServerSideProps(ctx) {
         props: {
           userInfo: userPostInfo,
           topTracks: topTracks,
-          newReleases: newReleases
+          newReleases: newReleases,
+          token: authToken
         }
       }
 }

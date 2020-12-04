@@ -32,7 +32,8 @@ const useForm = ({ stateInit = {}, validate, submitFunc }) => {
     errors: errors,
     submitting: submitting,
     inputChangeHandler: inputChangeHandler,
-    submitHandler: submitHandler
+    submitHandler: submitHandler,
+    setInputValues: setInputValues
 
   }
 };

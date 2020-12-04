@@ -3,6 +3,7 @@ import Track from "../Track/Track";
 const TrackList = spotifyTracks => {
   const { tracks } = spotifyTracks;
   let image;
+  
   if (spotifyTracks.image) image = spotifyTracks.image;
 
   const mapTracks = tracks.map(track => 
