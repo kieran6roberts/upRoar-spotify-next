@@ -1,5 +1,5 @@
-import { FiPlayCircle } from "react-icons/fi";
-import { FiPauseCircle } from "react-icons/fi";
+import { BsFillPlayFill } from "react-icons/bs";
+import { BsFillPauseFill } from "react-icons/bs";
 import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
 
 const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink, audioSrc }) => {
@@ -16,7 +16,7 @@ const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink,
   }
 
   return (
-    <div className={`flex items-center text-txt py-4 px-2 my-2 w-full max-w-xl border rounded`}>
+    <div className={`flex items-center text-txt py-4 px-2 my-2 w-full max-w-xl`}>
       <div className="relative">
         <img
         src={trackImage}
@@ -28,9 +28,9 @@ const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink,
         onClick={() => setAudioSrc(audioSrc)}
         className="absolute flex justify-center items-center top-0 w-16 h-16 left-2/4 top-2/4 -mt-8 -ml-8 cursor-pointer">
           {playing ?
-          <FiPauseCircle className="text-opacity-50 text-xl text-white hover:text-opacity-80" />
+          <BsFillPauseFill className="text-opacity-50 text-xl text-white hover:text-opacity-80" />
           :
-          <FiPlayCircle className="text-opacity-50 text-xl text-white hover:text-opacity-80" />
+          <BsFillPlayFill className="text-opacity-50 text-xl text-white hover:text-opacity-80" />
           }
         </button>
       </div>

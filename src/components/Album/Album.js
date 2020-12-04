@@ -4,7 +4,7 @@ const Album = ({ name, artist, image, id }) => {
     return (
         <Link href={`/dashboard/albums/${id}`} passHref>
           <a>
-            <div className="opacity-50 hover:opacity-80 h-60 w-60 p-8 relative flex flex-col items-center justify-center text-sm text-white font-bold text-center transition ">
+            <div className="opacity-70 hover:opacity-100 h-60 w-60 p-8 relative flex flex-col items-center justify-center text-sm text-white font-bold text-center transition">
                 <img
                 src={image}
                 alt="album cover"

@@ -1,4 +1,4 @@
-import { parseCookies } from "nookies";
+import { parseCookies, setCookie } from "nookies";
 import getConfig from "next/config";
 import Image from "next/image";
 import { BsSearch } from "react-icons/bs";
@@ -13,13 +13,15 @@ import { fetcher } from "src/hooks/useFetch";
 import PlayingProvider from "src/context/PlayingContext";
 import userSearchValidation from "src/validation/userSearch";
 import useForm from "src/hooks/useForm";
-import Track from "src/components/Track/Track";
+import Playlists from "src/components/Playlists/Playlists";
 
 const { publicRuntimeConfig } =  getConfig();
 
-const Dashboard = ({ userInfo, topTracks, newReleases, token }) => {
+const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists, userPostRefresh }) => {
   let topTracksItems;
   let newReleasesItems;
+  //console.log(token);
+  //console.log(userPostRefresh);
   if (!topTracks.error) topTracksItems = topTracks.items;
   if (!newReleases.error) newReleasesItems = newReleases.albums.items;
 
@@ -38,6 +40,11 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token }) => {
   const fetchQuery = async () => {
     const type = "type=track,album";
     const encodedQuery = formatQuery();
+
+
+    if (encodedQuery === "" || typeof(encodedQuery) !== "string") {
+      return alert("Search for something!");
+    }
 
     if (!token) return null;
 
@@ -69,11 +76,12 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token }) => {
               <div className="w-full border-b-2">
                 <button 
                 className="py-4 px-4 text-txt mr-2"
-                onClick={submitHandler}>
+                onClick={submitHandler}
+                onKeyPress={event => console.log(event)}>
                   <BsSearch />
                 </button>
                 <button 
-                className={`py-2 px-2 bg-txt text-pri ${inputValues.search ? "visible pointer-events-auto" : "invisible pointer-events-none"}`}
+                className={`py-2 px-2 bg-sec text-txt ${inputValues.search ? "visible pointer-events-auto" : "invisible pointer-events-none"}`}
                 onClick={resetResultsHandler}>
                 <MdClear />
                 </button>
@@ -83,7 +91,8 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token }) => {
                 type="text"
                 value={inputValues.search}
                 className="w-5/6 mr-auto py-2 px-4 bg-pri text-txt focus:outline-none"
-                onChange={inputChangeHandler} />
+                onChange={inputChangeHandler}
+                onKeyPress={event => event.code === "Enter" ? fetchQuery() : null} />
                 <div className={`h-0 transition-all duration-200 ease-in-out
                 ${results.length !== 0 && "h-auto p-8 border-t-2"}`}>
                   <p className={`${results.length !== 0 ? "block" : "hidden" } text-md my-2`}>
@@ -140,6 +149,10 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token }) => {
               </span>
               }
             </div>
+            <h3 className="text-sm text-lg uppercase uppercase text-txt my-16">
+              featured playlists
+            </h3>
+            <Playlists spotifyPlaylists={featuredPlaylists}/>
             <Player />
           </section>
         </main>
@@ -156,22 +169,27 @@ export async function getServerSideProps(ctx) {
     let authToken;
 
     if (!spAccess) {
-      const userPostInfoOptions = {
+      const queryString = require("query-string");
+      const userPostRefresh = await fetcher(`${publicRuntimeConfig.SPOTIFY_AUTH_API}/api/token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${publicRuntimeConfig.SPOTIFY_ENCODED}`
         },
-        body: JSON.stringify({
+        body: queryString.stringify({
           grant_type: "refresh_token",
           refresh_token: spRefresh,
-          client_id: publicRuntimeConfig.SPOTIFY_CLIENT_ID,
-          client_secret: publicRuntimeConfig.SPOTIFY_CLIENT_SECRET
         })
-      };
+      });
 
-      const userPostRefresh = await fetcher(`${publicRuntimeConfig.SPOTIFY_AUTH_API}/api/token`, userPostInfoOptions);
+      if (userPostRefresh.access_token) {
+        authToken = userPostRefresh.access_token;
 
-      authToken = userPostRefresh.access_token;
+        setCookie(ctx, "spaccess", userPostRefresh.access_token, {
+          maxAge: 3600,
+          path: '/'
+        });
+      }
     }
       else {
         authToken = spAccess;
@@ -184,11 +202,12 @@ export async function getServerSideProps(ctx) {
         }
       });
 
-      const topTracksQuery = "v1/me/top/tracks?time_range=medium_term&limit=3&offset=5";
+      const topTracksQuery = "/v1/me/top/tracks?time_range=medium_term&limit=8&offset=0";
       const newReleaseQuery = "/v1/browse/new-releases?offset=0&limit=6";
+      const featuredPlaylistQuery = "/v1/browse/featured-playlists?offset=0&limit=3";
 
-      const [ topTracks, newReleases ] = await Promise.all([
-        fetcher(`${publicRuntimeConfig.SPOTIFY_API}/${topTracksQuery}`, {       
+      const [ topTracks, newReleases, featuredPlaylists ] = await Promise.all([
+        fetcher(`${publicRuntimeConfig.SPOTIFY_API}${topTracksQuery}`, {       
           method: "GET",
           headers: {
             "Accept": "application/json",
@@ -196,6 +215,13 @@ export async function getServerSideProps(ctx) {
             Authorization: `Bearer ${authToken}`
           }}),
           fetcher(`${publicRuntimeConfig.SPOTIFY_API}${newReleaseQuery}`, {       
+            method: "GET",
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authToken}`
+            }}),
+          fetcher(`${publicRuntimeConfig.SPOTIFY_API}${featuredPlaylistQuery}`, {       
             method: "GET",
             headers: {
               "Accept": "application/json",
@@ -209,7 +235,8 @@ export async function getServerSideProps(ctx) {
           userInfo: userPostInfo,
           topTracks: topTracks,
           newReleases: newReleases,
-          token: authToken
+          featuredPlaylists: featuredPlaylists,
+          token: authToken || null
         }
       }
 }

@@ -1,8 +1,7 @@
 import { BsFillPlayFill } from "react-icons/bs";
-import { FiPauseCircle } from "react-icons/fi";
+import { BsFillPauseFill } from "react-icons/bs";
 import { BiSkipNext } from "react-icons/bi";
 import { BiSkipPrevious } from "react-icons/bi";
-import usePlayer from "src/hooks/usePlayer";
 import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
 
 const Player = () => {
@@ -90,7 +89,7 @@ const Player = () => {
           </button>
           <button  onClick={() => setPlaying(!playing)}>
             {playing ?
-              <FiPauseCircle
+              <BsFillPauseFill
               className="text-lg mx-8 cursor-pointer" />
             :
               <BsFillPlayFill 

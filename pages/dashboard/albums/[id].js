@@ -8,8 +8,6 @@ import PlayingProvider from "src/context/PlayingContext";
 
 const Albums = ({ album }) => {
     const { tracks: {  items: albumTracks}} = album;
-    console.log(album)
-    console.log(albumTracks)
     return (
         <PlayingProvider>
             <Layout>

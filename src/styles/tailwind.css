@@ -81,7 +81,7 @@
 }
 
 :root {
-  --clr-txt: #1F0A29;
+  --clr-txt: #1a1a1a;
   --clr-pri: #412dc0;
   --clr-sec: #282825;
   --clr-acc: #81e6d9;
@@ -108,7 +108,7 @@
   --clr-sec: #fdfdfd;
   --clr-acc: #81e6d9;
 
-  --clr-bg-pri: #1F0A29;
+  --clr-bg-pri: #1a1a1a;
   --clr-bg-sec: #282825;
 }
 
