@@ -89,6 +89,7 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists,
                 id="search"
                 name="search"
                 type="text"
+                placeholder="search for tracks or albums..."
                 value={inputValues.search}
                 className="w-5/6 mr-auto py-2 px-4 bg-pri text-txt focus:outline-none"
                 onChange={inputChangeHandler}

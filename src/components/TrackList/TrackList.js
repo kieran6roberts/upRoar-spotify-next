@@ -20,7 +20,7 @@ const TrackList = spotifyTracks => {
     );
 
   return (
-    <ul className="">
+    <ul className="grid grid-cols-1 sm:grid-cols-2">
       {mapTracks}
     </ul>
   )

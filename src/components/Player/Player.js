@@ -1,5 +1,6 @@
 import { BsFillPlayFill } from "react-icons/bs";
 import { BsFillPauseFill } from "react-icons/bs";
+import { BsMusicNoteList } from "react-icons/bs";
 import { BiSkipNext } from "react-icons/bi";
 import { BiSkipPrevious } from "react-icons/bi";
 import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
@@ -35,14 +36,14 @@ const Player = () => {
   }
 
   return (
-    <div className={`w-full max-w-2xl px-8 ${!playerOpen && "opacity-50"} text-txt p-2 fixed bottom-0 left-0 bg-pri`}>
+    <div className={`w-full ${!playerOpen && "opacity-90"} text-txt p-2 fixed bottom-0 left-0 bg-pri border-t-2`}>
       <button 
       onClick={() => setPlayerOpen(!playerOpen)}
-      className="ml-4 p-1 bg-txt text-acc">
-        hide player
+      className="bg-pri text-txt px-8 py-2">
+        <BsMusicNoteList />
       </button>
       <div className={`flex ${playerOpen ? "h-32" : "h-0"}`}>
-      <div className={"w-full"}>
+      <div className={"w-4/5"}>
           <audio id="audio-player">
             <source id="audio-player-src"/>
               <code>
