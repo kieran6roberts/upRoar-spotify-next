@@ -1,3 +1,5 @@
+import { parseCookies } from "nookies";
+
 import Button from "../src/components/Button/Button";
 import Layout from "../src/containers/Layout/Layout";
 
@@ -34,5 +36,20 @@ const Home = () => {
   </Layout>
   )
 };
+
+export async function getServerSideProps(ctx) {
+  const jwt = parseCookies(ctx).jwt;
+  if (jwt) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanenet: false
+      }
+    }
+  }
+  return {
+    props: {}
+  }
+}
 
 export default Home;

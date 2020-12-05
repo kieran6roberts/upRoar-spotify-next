@@ -24,10 +24,12 @@ const RegisterForm = () => {
     confirmPassword: ""
   }
 
+
   const userRegistrationHandler = async () => {
-    const postRegisterOptions = {
-      method: "POST",
-      headers: {
+    const [ registerUser, registerProfile ] = await Promise.all([
+      fetcher(`${publicRuntimeConfig.API_URL}/auth/local/register`, {
+        method: "POST",
+        headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
@@ -38,25 +40,38 @@ const RegisterForm = () => {
         password: inputValues.password,
         profile: inputValues.username,
         user: inputValues.username
+      } )
+      }),
+      fetcher(`${publicRuntimeConfig.API_URL}/profiles`, {
+        method: "POST",
+        headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+        body: JSON.stringify({
+          name: inputValues.name,
+          email: inputValues.email,
+          username: inputValues.username,
+          password: inputValues.password,
+          user: inputValues.username
+        })
       })
-    };
+    ]);
 
-    const postRegisterUser = await fetcher(`${publicRuntimeConfig.API_URL}/auth/local/register`, postRegisterOptions);
-
-      if (postRegisterUser.statusCode === 400) {
-        const error = postRegisterUser.message[0].messages[0].message;
+      if (registerUser.statusCode === 400 || registerProfile.statusCode === 400) {
+        const error = registerUser.message[0].messages[0].message;
         return alert(error);
       }
         else {
-          setCookie(null, "jwt", postRegisterUser.jwt, {
+          setCookie(null, "jwt", registerUser.jwt, {
             maxAge: 30 * 24 * 60 * 60,
             path: '/'
           });
-          setCookie(null, "user", postRegisterUser.user.username, {
+          setCookie(null, "user", registerUser.user.username, {
             maxAge: 30 * 24 * 60 * 60,
             path: '/'
           });
-          setAuthUser(postRegisterUser);
+          setAuthUser(registerUser);
           router.push("/dashboard/auth");
         }
     }
