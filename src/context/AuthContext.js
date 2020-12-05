@@ -7,20 +7,18 @@ import { validPublicPaths } from "../containers/AuthRoutes/routes";
 
 const { publicRuntimeConfig } = getConfig();
 
-
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [ authUser, setAuthUser ] = useState(null);
-  const [ isAuth, setIsAuth ] = useState(false);
 
   const router = useRouter();
   const { pathname } = router;
 
   const checkIsUserAuth = async () => {
-    if(typeof window === "undefined") return;
+    if (typeof window === "undefined") return;
 
     const jwt = parseCookies(null).jwt;
 
@@ -28,7 +26,7 @@ const AuthProvider = ({ children }) => {
       console.log("empty jwt");
       if (!validPublicPaths.includes(pathname)) {
         console.log("not a valid public path");
-        router.push("/login");
+        return router.push("/login");
       }
     } 
         else {
@@ -41,13 +39,13 @@ const AuthProvider = ({ children }) => {
       const data = await response.json();
 
       if(!data) {
-        destroyCookie(null, "jwt");
-        setIsAuth(false);
+        destroyCookie(null, "jwt", {
+          path: "/"
+        });
         setAuthUser(null);
         return null;
       }
         else {
-          setIsAuth(true);
           setAuthUser(data.username);
         }
     }
@@ -55,10 +53,10 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     checkIsUserAuth();
-  }, [authUser]);
+  }, [ authUser ]);
 
   return (
-    <AuthContext.Provider value={{ authUser, isAuth, setAuthUser }}>
+    <AuthContext.Provider value={{ authUser, setAuthUser }}>
       {children}
     </AuthContext.Provider>
   )

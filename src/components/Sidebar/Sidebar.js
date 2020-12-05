@@ -35,6 +35,13 @@ const Sidebar = ({ active }) => {
                 </a>
               </Link>
             </li>
+            <li>
+              <Link href={authUser ? `/dashboard/my-tracks` : ""} passHref>
+                <a className="py-1 px-2">
+                {authUser ? "my tracks" : null}
+                </a>
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

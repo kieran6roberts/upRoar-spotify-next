@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { destroyCookie, parseCookies } from "nookies";
 import Link from "next/link";
@@ -18,14 +18,17 @@ const Layout = ({ children, title }) => {
   const isLoggedIn = parseCookies(null).jwt;
 
   const LogoutHandler = () => {
-    destroyCookie(null, "jwt");
-    destroyCookie(null, "user");
+    destroyCookie(null, "jwt", {
+      path: "/"
+    });
+    console.log(parseCookies(null).jwt);
+    destroyCookie(null, "user", {
+      path: "/"
+    });
     delete window.__user;
     window.localStorage.setItem("logout", Date.now());
     setAuthUser("");
   };
-
-  useEffect(() => console.log(authUser), [authUser]);
 
   return(
     <>
@@ -73,7 +76,8 @@ const Layout = ({ children, title }) => {
                 </Link>
               </li>
               <li className="">
-                <Link href={isLoggedIn ? "/" : "/register"} passHref>
+                {!isLoggedIn ? 
+                <Link href="register" passHref>
                   <a
                    onClick={isLoggedIn ? LogoutHandler : null}
                    href={isLoggedIn ? null : "/register"}
@@ -81,6 +85,13 @@ const Layout = ({ children, title }) => {
                     {isLoggedIn ? "logout" : "signUp"}
                   </a>
                 </Link>
+                : 
+                  <button
+                  onClick={LogoutHandler}
+                  className="block text-sm text-txt px-4 md:px-6 py-1 border border-gray-500 ml-4 rounded transition duration-150 ease-in hover:bg-sec hover:text-sec">
+                    logout
+                  </button>
+                }
               </li>
             </ul>
           </div>
