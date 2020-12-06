@@ -51,7 +51,7 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
           <p className="text-md capitalize text-txt my-8">
             Based on your saved album by {userLikedArtists[0]}
           </p>
-          <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:3 lg:grid-cols-5">
+          <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {relatedArtist1.map(artist => 
               <li key={artist.id}>
                 <Artist
@@ -66,7 +66,7 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
           <p className="text-md capitalize text-txt my-8">
             Based on your saved album by {userLikedArtists[1]}
           </p>
-          <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:3 lg:grid-cols-5">
+          <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {relatedArtist2.map(artist => 
               <li key={artist.id}>
                 <Artist

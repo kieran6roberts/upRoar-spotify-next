@@ -1,5 +1,5 @@
-import { parseCookies } from "nookies";
 import { fetcher } from "src/hooks/useFetch";
+import { parseCookies } from "nookies";
 import getConfig from "next/config";
 import Layout from "src/containers/Layout/Layout";
 import TrackList from "src/components/TrackList/TrackList";
