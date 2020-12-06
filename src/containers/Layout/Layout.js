@@ -21,7 +21,6 @@ const Layout = ({ children, title }) => {
     destroyCookie(null, "jwt", {
       path: "/"
     });
-    console.log(parseCookies(null).jwt);
     destroyCookie(null, "user", {
       path: "/"
     });

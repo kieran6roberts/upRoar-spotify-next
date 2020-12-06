@@ -2,6 +2,7 @@ import Album from "src/components/Album/Album";
 
 const Albums =  albums  => {
     let newReleaseAlbums;
+    console.log(albums)
     if (albums.albums) newReleaseAlbums = albums.albums;
     else newReleaseAlbums = albums.tracks.items;
 

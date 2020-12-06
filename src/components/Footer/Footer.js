@@ -8,7 +8,7 @@ const Footer = () => {
         upRoar Music App
       </p>
       <div className="flex justify-center items-center">
-        <p className="mr-2 capitalize">
+        <p className="mr-2 text-txt capitalize">
           powered by 
         </p>
           <Image 

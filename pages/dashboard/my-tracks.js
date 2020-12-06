@@ -13,12 +13,14 @@ const { publicRuntimeConfig } = getConfig();
 const userSavedAlbumsQuery = `/v1/me/albums?limit=10`;
 
 const myTracks = ({ savedPlaylists, savedAlbums }) => {
-    const { data, error } = useSWR(`${publicRuntimeConfig.SPOTIFY_API}${userSavedAlbumsQuery}`, fetcher, {
+    const token = parseCookies(null).spaccess;
+    const { data, error } = useSWR([`${publicRuntimeConfig.SPOTIFY_API}${userSavedAlbumsQuery}`, token], fetcher, {
         initialData: savedAlbums
     });
 
     if (error) console.error(error);
     if (!data) console.log("loading data");
+    console.log(data)
     
     const { items: albumArr } = data;
 
