@@ -6,17 +6,11 @@ import { fetcher } from "src/hooks/useFetch";
 import Layout from "src/containers/Layout/Layout";
 import Artist from "src/components/Artist/Artist";
 import Albums from "src/components/Albums/Albums";
-import Album from "src/components/Album/Album";
-import { attributeNames } from "backend/build/1.6d0d7cd2.chunk";
 
 const { publicRuntimeConfig } = getConfig();
 
 const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
   const [ data, setData ] = useState(null);
-  console.log(relatedArtist1);
-  console.log(relatedArtist2);
-  console.log(userLikedArtists)
-  console.log(data);
   
   useEffect(() => {
     const fetch = async () => {
@@ -107,8 +101,7 @@ export async function getServerSideProps(ctx) {
    userAlbums.items[1].album.artists[0].name ];
 
   const [ relatedArtist1, 
-    relatedArtist2, 
-    relatedArtist3 ] = await Promise.all([
+    relatedArtist2 ] = await Promise.all([
       fetcher(`${publicRuntimeConfig.SPOTIFY_API}/v1/artists/${userLikedArtists[0]}/related-artists?limit=5`, {       
             method: "GET",
             headers: {

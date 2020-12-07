@@ -3,16 +3,18 @@ import getConfig from "next/config";
 
 import { fetcher } from "src/hooks/useFetch";
 import Layout from "src/containers/Layout/Layout";
+import Albums from "src/components/Albums/Albums";
 
 const Artists = ({ artistsAlbums }) => {
-    console.log(artistsAlbums);
+    const { items: artistContentArr } = artistsAlbums;
     return (
         <Layout>
             <main>
-                <section>
-                    <h2>
-
+                <section className="md:px-24">
+                    <h2 className="text-md text-txt my-8">
+                        {artistContentArr[0].artists[0].name}
                     </h2>
+                    <Albums tracks={artistsAlbums} />
                 </section>
             </main>
         </Layout>

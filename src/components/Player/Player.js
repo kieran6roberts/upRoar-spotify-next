@@ -36,7 +36,7 @@ const Player = () => {
   }
 
   return (
-    <div className={`w-full ${!playerOpen && "opacity-90"} text-txt p-2 fixed bottom-0 left-0 bg-pri border-t-2`}>
+    <div className={`w-full ${!playerOpen ? "opacity-70" : "opacity-100"} text-txt p-2 fixed bottom-0 left-0 bg-pri border-t-2`}>
       <button 
       onClick={() => setPlayerOpen(!playerOpen)}
       className="bg-pri text-txt px-8 py-2">
