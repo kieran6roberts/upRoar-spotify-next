@@ -70,12 +70,12 @@ const ResetForm = () => {
       name="confirmPassword"
       value={inputValues.confirmPassword}
       onChange={inputChangeHandler} />
-            <input
+      <input
       id="submit"
       type="submit"
       name="submit"
       value="submit"
-      className="py-2 px-4 rounded text-pri font-bold capitalize bg-light-bg cursor-pointer focus:outline-none focus:ring-2 focus:ring-pri focus:ring-opacity-50" />
+      className="py-2 px-4 rounded text-txt font-bold uppercase bg-pri border border-gray-500 rounded cursor-pointer hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50" />
     </form>
   )
 };

@@ -5,8 +5,6 @@ const Playlists = ({ spotifyPlaylists }) => {
         return <div className="text-sm text-txt my-4 capitalize">no playlists available</div>
     }
 
-    console.log(spotifyPlaylists);
-
     const { playlists: { items: playlistArr} } = spotifyPlaylists;
     return (
         <ul className="flex flex-col items-center md:flex-row">

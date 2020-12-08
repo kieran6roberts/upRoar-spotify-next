@@ -1,54 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { parseCookies } from "nookies";
 import fetch from "isomorphic-fetch";
-import Layout from "../../../src/containers/Layout/Layout";
-import Link from "next/link";
-
 import getConfig from "next/config";
+
+import EditUserForm from "src/containers/EditUserForm/EditUserForm";
+import Layout from "src/containers/Layout/Layout"; 
+import PasswordResetForm from "src/containers/PasswordResetForm/PasswordResetForm";
 
 const { publicRuntimeConfig } = getConfig();
 
 const User = ({ data: { username, name, created_at, email } }) => {
+  const [ currentTab, setCurrentTab ] = useState("overview");
+
+  const renderHeader = param => {
+    switch(param) {
+      case "overview":
+        return "Your Profile";
+      case "edit profile":
+        return "update your profile information";
+      case "change password":
+        return "change your password";
+      default:
+        return "Your Profile";
+    };
+  };
+
   return (
     <Layout>
       <main>
-            <h2 className="text-md text-txt mb-4">
-              Hi {name}
-            </h2>
-            <p className="text-md text-acc text-gray-400 mb-2">
-              Your Profile
-            </p>
-        <section className="flex flex justify-between items-top pt-8">
-            <div className="w-1/5 flex-auto">
-              <h2 className="mb-8">
-                Profile nav
-              </h2>
-              <ul className="text-sm text-txt">
-                <li className="mb-8">
-                  <Link href="/" passHref>
-                    <a className="capitalize p-4">
+          <h2 className="text-md text-txt my-4">
+            Hi {name}
+          </h2>
+          <p className="text-md text-gray-400 text-gray-400 mb-2">
+            {renderHeader(currentTab)}
+          </p>
+          <section className="flex flex-col md:flex-row justify-between items-top pt-8">
+            <div className="md:w-2/5">
+              <ul className="flex md:flex-col justify-evenly text-sm text-txt capitalize">
+                <li className="mb-8 md:mb-16">
+                  <button onClick={() => setCurrentTab("overview")}
+                  className="">
+                    <a className="p-2 md:p-4 bg-pri rounded hover:bg-gray-200 hover:text-pri">
                       account overview
                     </a>
-                  </Link>
+                  </button>
                 </li>
-                <li className="mb-8">
-                  <Link href="/" passHref>
-                    <a className="capitalize p-4">
+                <li className="mb-8 md:mb-16">
+                  <button onClick={() => setCurrentTab("edit profile")}>
+                    <a className="p-2 md:p-4 bg-pri rounded hover:bg-gray-200 hover:text-pri">
                       edit profile
                     </a>
-                  </Link>
+                  </button>
                 </li>
-                <li className="mb-8 p-4">
-                  <Link href="/" passHref>
-                    <a className="">
+                <li className="mb-8 md:mb-16">
+                  <button onClick={() => setCurrentTab("change password")}>
+                    <a className="p-2 md:p-4 bg-pri rounded hover:bg-gray-200 hover:text-pri">
                       change password
                     </a>
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col justify-center items-end md:items-center w-full flex-auto">
-              <div className="h-64 w-3/5 p-4 capitalize text-sm">
+            <div className={`${currentTab !== "overview" ? "hidden" : "flex"} flex-col justify-center items-end md:items-center w-full flex-auto`}>
+              <div className="h-64 w-full p-4 capitalize text-sm">
                 <div className="flex justify-between">
                   <p className="text-gray-400">
                     user since
@@ -75,8 +89,10 @@ const User = ({ data: { username, name, created_at, email } }) => {
                     {email}
                   </span>
                 </div>
-              </div>
-          </div>
+                </div>
+            </div>
+            {currentTab === "edit profile" && <EditUserForm />}
+            {currentTab === "change password" && <PasswordResetForm />}
         </section>
       </main>
     </Layout>
