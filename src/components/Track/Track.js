@@ -2,7 +2,7 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { BsFillPauseFill } from "react-icons/bs";
 import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
 
-const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink, audioSrc }) => {
+const Track = ({ id, trackName, trackImage, artist, album, releaseDate, spotifyLink, audioSrc }) => {
   const { playerOpen, playing, currentTrack } = usePlaying();
   const { setPlayerOpen, setPlaying, setCurrentTrack } = useUpdatePlaying();
 
@@ -25,10 +25,10 @@ const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink,
         className="rounded"
         width={80}
         height={80} />
-        <button 
+        <button id={id}
         onClick={() => setAudioSrc(audioSrc)}
         className="absolute flex justify-center items-center top-0 w-16 h-16 left-2/4 top-2/4 -mt-8 -ml-8 cursor-pointer">
-          {playing ?
+          {playing && currentTrack.track === trackName ?
           <BsFillPauseFill className="text-opacity-50 text-xl text-white hover:text-opacity-80" />
           :
           <BsFillPlayFill className="text-opacity-50 text-xl text-white hover:text-opacity-80" />

@@ -1,6 +1,9 @@
 import { BsFillPlayFill } from "react-icons/bs";
 import { BsFillPauseFill } from "react-icons/bs";
-import { BsMusicNoteList } from "react-icons/bs";
+import { BsMusicNoteList, 
+  BsVolumeUp, 
+  BsVolumeMute, 
+  BsVolumeDown } from "react-icons/bs";
 import { BiSkipNext } from "react-icons/bi";
 import { BiSkipPrevious } from "react-icons/bi";
 import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
@@ -30,20 +33,45 @@ const Player = () => {
       setClickedPosition(audioInput.currentTime);
     };
     
-    const volumeChangeHandler = event => {
-      const audioInput = document.querySelector("#audio-player");
-      audioInput.volume = event.target.value;
+  const volumeChangeHandler = event => {
+    const audioInput = document.querySelector("#audio-player");
+    audioInput.volume = event.target.value;
+  }
+
+  const muteAudio = () => {
+    const audioInput = document.querySelector("#audio-player");
+    const volumeEl = document.querySelector("#input-volume");
+    if (audioInput.muted) {
+      audioInput.muted = false;
+      volumeEl.value = audioInput.volume;
+    }
+    else {
+      audioInput.muted = true;
+      volumeEl.value = 0;
+    }
   }
 
   return (
     <div className={`w-full ${!playerOpen ? "opacity-70" : "opacity-100"} text-txt p-2 fixed bottom-0 left-0 bg-pri border-t-2`}>
       <button 
       onClick={() => setPlayerOpen(!playerOpen)}
-      className="bg-pri text-txt px-8 py-2">
+      className="bg-pri text-txt px-8 py-2 mr-4">
         <BsMusicNoteList />
       </button>
+      <div className="inline-flex items-center">
+        <BsVolumeUp onClick={muteAudio}
+        className="mr-2"/>
+        <input
+          className={`${!playerOpen ? "hidden" : "block"}`}
+          id="input-volume"
+          type="range"
+          step="0.01"
+          min="0"
+          max="1"
+          onInput={event => volumeChangeHandler(event)} />
+      </div>
       <div className={`flex ${playerOpen ? "h-32" : "h-0"}`}>
-      <div className={"w-4/5"}>
+      <div className={"w-full"}>
           <audio id="audio-player">
             <source id="audio-player-src"/>
               <code>
@@ -103,14 +131,6 @@ const Player = () => {
         </div>
       </div>
       </div>
-        <input
-        className="transform rotate-90"
-        id="input-volume"
-        type="range"
-        step="0.01"
-        min="0"
-        max="1"
-        onInput={event => volumeChangeHandler(event)} />
       </div>
     </div>
   )

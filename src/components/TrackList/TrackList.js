@@ -9,6 +9,7 @@ const TrackList = spotifyTracks => {
   const mapTracks = tracks.map(track => 
     <li key={track.id}>
       <Track 
+      id={track.id}
       trackName={track.name}
       trackImage={track.album ? track.album.images[0].url : image.images[0].url}
       artist={track.artists[0].name}
