@@ -3,8 +3,8 @@ import { BsFillPauseFill } from "react-icons/bs";
 import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
 
 const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink, audioSrc }) => {
-  const { playerOpen, playing } = usePlaying();
-  const { setPlayerOpen, setPlaying } = useUpdatePlaying();
+  const { playerOpen, playing, currentTrack } = usePlaying();
+  const { setPlayerOpen, setPlaying, setCurrentTrack } = useUpdatePlaying();
 
   const setAudioSrc = song => {
     if (!playerOpen) setPlayerOpen(!playerOpen);
@@ -12,7 +12,8 @@ const Track = ({ trackName, trackImage, artist, album, releaseDate, spotifyLink,
     const audioSrc = audioPlayer.querySelector("#audio-player-src");
     audioSrc.src = song;
     audioPlayer.load();
-    setPlaying(true)
+    setPlaying(true);
+    setCurrentTrack({ track: trackName, artist: artist});
   }
 
   return (

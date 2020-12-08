@@ -6,7 +6,7 @@ import { BiSkipPrevious } from "react-icons/bi";
 import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
 
 const Player = () => {
-  const { playing, duration, currentPosition, playerOpen } = usePlaying();
+  const { playing, duration, currentPosition, playerOpen, currentTrack } = usePlaying();
   const { setPlaying, setPlayerOpen, setClickedPosition } = useUpdatePlaying();
 
   const convertDurationFormat = (time = 0) => {
@@ -52,10 +52,10 @@ const Player = () => {
           </audio>
 
           <p className="text-sm capitalize text-center">
-            track
+            {currentTrack.track}
           </p>
           <p className="text-xs uppercase text-center">
-            artist
+            {currentTrack.artist}
           </p>
 
         <div className="w-3/5 mx-auto h-4 my-4">
