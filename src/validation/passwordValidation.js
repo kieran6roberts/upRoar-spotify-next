@@ -12,10 +12,6 @@ const resetEmailValidation = values => {
     errors.confirmPassword = "Passwords do not match! Try again";
   }
 
-  if (!values.resetCode) {
-    errors.resetCode
-  }
-
 
   return errors;
 };

@@ -1,15 +1,16 @@
 import { fetcher } from "src/hooks/useFetch";
 import { parseCookies } from "nookies";
 import getConfig from "next/config";
-import editUserValidation from "src/validation/editUserValidation";
+import passwordValidation from "src/validation/passwordValidation";
 import FormInput from "src/components/FormInput/FormInput";
 import useForm from "src/hooks/useForm";
 
 const { publicRuntimeConfig } = getConfig();
 
-const EditUserForm = () => {
+const ChangePasswordForm = () => {
     const stateInit = {
-        email: ""
+        password: "",
+        confirmPassword: ""
       };
 
     const updateUserHandler = async () => {
@@ -31,7 +32,7 @@ const EditUserForm = () => {
               "Content-Type": "application/json",
               Authorization: `Bearer ${jwt}`
             },
-            body: JSON.stringify(inputValues)
+            body: JSON.stringify({ password: inputValues.password })
           });
           console.log(resetInfo);
         }  
@@ -44,7 +45,7 @@ const EditUserForm = () => {
         errors,
         submitting,
         inputChangeHandler, 
-        submitHandler } = useForm({ stateInit, validate: editUserValidation, submitFunc: updateUserHandler });
+        submitHandler } = useForm({ stateInit, validate: passwordValidation, submitFunc: updateUserHandler });
 
     return(
         <>
@@ -54,27 +55,39 @@ const EditUserForm = () => {
         className="flex text-txt flex-col w-full max-w-xl"
         data-testid="edit-form">
             <label 
-            htmlFor="email" 
+            htmlFor="password" 
             className="mb-1 capitalize">
-                new email
-                {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
+                new password
+                {errors.password && <p className="text-xs text-red-500">{errors.password}</p>}
             </label>
             <FormInput
-            id="email"
-            type="email"
-            value={inputValues.email}
+            id="password"
+            type="password"
+            value={inputValues.password}
             onChange={inputChangeHandler}
-            name="email"  />
+            name="password"  />
+            <label 
+            htmlFor="confirmPassword" 
+            className="mb-1 capitalize">
+                confirm new password
+                {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword}</p>}
+            </label>
+            <FormInput
+            id="confirmPassword"
+            type="password"
+            value={inputValues.confirmPassword}
+            onChange={inputChangeHandler}
+            name="confirmPassword"  />
             <input
             id="submit"
             type="submit"
             name="submit"
             value="submit"
             className="py-2 px-4 rounded text-txt font-bold uppercase bg-pri border border-gray-500 rounded cursor-pointer hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50" />
-            {submitting && !errors.email && <p className="text-sm text-green-500 uppercase mt-4">Your email was successfully updated!</p>}
+            {submitting && !errors.password && <p className="text-sm text-green-500 uppercase mt-4">Your password was successfully updated!</p>}
         </form>
         </>
     )
 };
 
-export default EditUserForm;
+export default ChangePasswordForm;

@@ -21,9 +21,7 @@ const ResetForm = () => {
         },
         email: JSON.stringify(inputValues.email)
       });
-
-      const response = await emailReset.json();
-      console.log(response);
+      console.log(emailReset);
       console.log("email sent");
     }  
       catch(err) {

@@ -5,7 +5,7 @@ import getConfig from "next/config";
 
 import EditUserForm from "src/containers/EditUserForm/EditUserForm";
 import Layout from "src/containers/Layout/Layout"; 
-import PasswordResetForm from "src/containers/PasswordResetForm/PasswordResetForm";
+import ChangePasswordForm from "src/containers/ChangePasswordForm/ChangePasswordForm";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -92,7 +92,7 @@ const User = ({ data: { username, name, created_at, email } }) => {
                 </div>
             </div>
             {currentTab === "edit profile" && <EditUserForm />}
-            {currentTab === "change password" && <PasswordResetForm />}
+            {currentTab === "change password" && <ChangePasswordForm />}
         </section>
       </main>
     </Layout>

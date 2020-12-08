@@ -13,20 +13,17 @@ module.exports = async (ctx, next) => {
     }
   
     // Extract the fields regular users should be able to edit
-    const { username, password } = ctx.request.body;
+    const { email, password } = ctx.request.body;
   
     // Provide custom validation policy here
-    if (username && username.trim() === "" ) {
+    if (email && email.trim() === "" ) {
       return ctx.badRequest("Display name is required");
     }
 
-    if (password && password.trim() === "") {
-      return ctx.badRequest("Password is required");
-    }
   
     // Setup the update object
     const updateData = {
-      username,
+      email,
       password
     };
   

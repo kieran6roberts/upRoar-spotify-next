@@ -3,7 +3,7 @@ import useForm from "src/hooks/useForm";
 import passwordValidation from "src/validation/passwordValidation";
 import FormInput from "src/components/FormInput/FormInput";
 import getConfig from "next/config";
-import fetch from "isomorphic-fetch";
+import { fetcher } from "src/hooks/useFetch";
 import Router from "next/router";
 
 const { publicRuntimeConfig } = getConfig();
@@ -17,7 +17,7 @@ const ResetForm = () => {
 
   const userResetHandler = async () => {
     try {
-      const emailReset = await fetch(`${publicRuntimeConfig.API_URL}/auth/reset-password`, {
+      const emailReset = await fetcher(`${publicRuntimeConfig.API_URL}/auth/reset-password`, {
         method: "POST",
         headers: {
           "Accept": "application/json",
