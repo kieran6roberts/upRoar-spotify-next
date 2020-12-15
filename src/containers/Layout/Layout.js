@@ -34,7 +34,7 @@ const Layout = ({ children, title }) => {
       <Head title={title}/>
       <div className="max-w-full">
         <div className="flex justify-center items-center h-6 bg-gradient-to-r from-blue-400 via-pink-400 to-yellow-200 text-sm text-white font-bold text-center ">
-          Welcome to upRoar - Thousands of songs waiting to be discovered
+          Welcome to upRoar - discover more!
         </div>
         <nav role="navigation"
         className="sticky top-0 w-full bg-pri z-10 bg-opacity-50">
@@ -57,11 +57,11 @@ const Layout = ({ children, title }) => {
                 Music App
               </h2>
             </div>
-            <div className="group w-16 h-8 ml-auto bg-gray-200 cursor-pointer select-none border rounded p-1 relative"
+            <div className="group flex items-center w-16 h-8 ml-auto bg-gray-400 cursor-pointer select-none rounded-2xl p-1"
             onClick={e => {setIsDark(!isDark)}}>
               <div 
-              className={`w-8 h-6 cursor-pointer bg-white py-2 px-3 rounded flex justify-center items-center absolute top-0.5 left-0.5
-              ${isDark && "group-transition-transform duration-200 ease-in transform translate-x-6"}`}>
+              className={`w-6 h-6 cursor-pointer bg-pri py-1 px-2 rounded-full flex justify-center items-center
+              ${isDark && "group-transition-transform duration-200 ease-in transform translate-x-8"}`}>
                 <Image
                 src="/images/toggle-dark.svg"
                 alt="moon"
