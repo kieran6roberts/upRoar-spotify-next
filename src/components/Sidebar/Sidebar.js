@@ -12,15 +12,15 @@ const Sidebar = ({ active }) => {
       <div className={`fixed text-txt top-4 left-4 right-4 bottom-32 rounded z-10 bg-pri border border-gray-400
       ${!active ? "invisible transition duration-200 ease-in opacity-0 transform scale-75" : "visible transition duration-200 ease-in opacity-1 transform scale-100"}
       `}>
-        <h2 className="text-lg text-txt text-center py-2">
+        <h2 className="text-md text-txt text-center py-2">
           upRoar
         </h2>
         <div className="h-0.5 w-4/5 bg-gray-300 my-1 mx-auto"/>
-        <p className="text-md text-center py-2">
+        <p className="text-xs text-center py-2 uppercase">
           the place to get lost in the music
         </p>
         <div className="px-8 md:px-32 py-2">
-          <p className="ml-2 mb-4 text-lg text-gray-400 uppercase">
+          <p className="ml-2 mb-4 text-md text-gray-400 uppercase">
             {authUser ? "dashboard" : "new users"}
           </p>
           <ul className="flex text-sm text-center">
@@ -43,7 +43,7 @@ const Sidebar = ({ active }) => {
             <li className="flex-auto mx-1 md:mx-4">
               <Link href={authUser ? `/dashboard/my-tracks` : ""} passHref>
                 <a className="flex items-center capitalize py-1 px-2 rounded hover:bg-gray-100 hover:text-pri">
-                  <CgPlayTrackNextR className="mr-2 text-pink-400" />
+                  {authUser && <CgPlayTrackNextR className="mr-2 text-pink-400" />}
                 {authUser ? "my tracks" : null}
                 </a>
               </Link>

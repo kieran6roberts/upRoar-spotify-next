@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { parseCookies } from "nookies";
 import { HiOutlineArrowNarrowDown } from "react-icons/hi";
 import { CgMusicSpeaker } from "react-icons/cg";
@@ -29,12 +31,12 @@ const Home = () => {
         <div className="">
             <Button
             route="/login"
-            extra="w-3/5 max-w-40 m-auto text-txt hover:bg-sec hover:text-sec">
+            extra="w-3/5 max-w-40 border border-pink-200 m-auto text-txt hover:bg-sec hover:text-sec">
               login
             </Button>
             <Button
             route="/register"
-            extra="w-3/5 max-w-40 m-auto text-txt hover:bg-sec hover:text-sec">
+            extra="w-3/5 max-w-40 m-auto border border-indigo-500 text-txt hover:bg-sec hover:text-sec">
               sign up
             </Button>
         </div>
@@ -75,6 +77,45 @@ const Home = () => {
           who we think you might like.
         </p>
       </section>
+
+      <div className="w-4/5 m-auto h-0.5 bg-gray-300 mt-4 mb-16" />
+
+      <section>
+        <div className="text-center text-txt mb-16">
+          <h3 className="text-lg mb-4">
+            upRoar Music App
+          </h3>
+          <p className="text-xl text-yellow-200 mb-8">
+            100% free 
+          </p>
+          <ul className="text-sm uppercase">
+            <li className="mb-4 border-t-2 border-b-2 border-pink-200 w-2/5 m-auto p-2">
+              all tracks
+            </li>
+            <li className="mb-4 text-txt border-t-2 border-b-2 border-yellow-200 w-2/5 m-auto p-2">
+              all albums
+            </li>
+            <li className="mb-4 border-b-2 border-t-2 border-purple-400 w-2/5 m-auto p-2">
+              all playlists
+            </li>
+          </ul>
+
+          <div className="w-4/5 m-auto h-0.5 bg-gray-300 mt-16 mb-4" />
+
+          <p className="text-xs text-center text-txt mb-4">
+            Sign up today for free and enjoy the latest and greatest from the world of music
+            for absolutely free!
+          </p>
+
+          <Button
+          route="/register"
+          extra="w-3/5 max-w-40 m-auto border border-indigo-500 text-txt hover:bg-sec hover:text-sec">
+            sign up
+          </Button>
+        </div>
+      </section>
+
+
     </main>
   </Layout>
   )
