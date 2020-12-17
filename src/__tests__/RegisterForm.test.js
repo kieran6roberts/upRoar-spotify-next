@@ -77,8 +77,5 @@ describe("Custom hook for register form", () => {
       userEvent.type(emailInput, "joeperson@g.com");
 
       expect(queryByText("Email required!")).not.toBeInTheDocument();
-
-
-
     });
   });

@@ -72,7 +72,7 @@ const LoginForm = () => {
     <form
     method="POST"
     onSubmit={submitHandler}
-    className="flex text-txt flex-col w-full max-w-xl"
+    className="flex text-txt flex-col w-full max-w-xl m-auto"
     data-testid="login-form">
       <label 
       htmlFor="username" 
@@ -100,7 +100,7 @@ const LoginForm = () => {
       onChange={inputChangeHandler} />
       <span className="inline-block text-sec text-sm ml-auto">
         <Link href="/reset">
-          <a className="">
+          <a className="text-purple-400 text-xs">
             Forgot your password?
           </a>
         </Link>
@@ -108,7 +108,7 @@ const LoginForm = () => {
       <p className="mb-8">
         Don't have an account? 
           <Link href="/register">
-            <a className="text-acc ml-1">
+            <a className="text-pink-400 text-xs ml-1">
               Sign Up.
             </a>
           </Link>
@@ -118,7 +118,7 @@ const LoginForm = () => {
       type="submit"
       name="submit"
       value="submit"
-      className="py-2 px-4 rounded text-txt font-bold uppercase bg-pri border border-gray-500 rounded cursor-pointer hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50" />
+      className="py-2 px-4 w-2/5 m-auto rounded text-txt font-bold uppercase bg-pri border-2 border-pri rounded cursor-pointer hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50" />
     </form>
   )
 };

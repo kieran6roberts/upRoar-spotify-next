@@ -9,10 +9,10 @@ const Login = () => {
           <section 
           id="login"
           className="pt-8">
-            <h2 className="text-md text-txt mb-4">
+            <h2 className="text-md text-txt text-center mb-4">
               Already have an account?
             </h2>
-            <p className="text-md text-acc mb-4">
+            <p className="text-md text-pink-400 text-center mb-4">
               Sign in below.
             </p>
             <LoginForm />

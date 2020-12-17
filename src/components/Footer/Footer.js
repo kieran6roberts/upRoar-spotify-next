@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="border-t-2 border-gray-100 p-8 mt-56">
+    <footer className="border-t-2 border-gray-100 p-8 mt-20">
       <p className="text-md text-txt font-bold text-center">
         upRoar Music App
       </p>
