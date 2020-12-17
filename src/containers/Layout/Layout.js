@@ -58,12 +58,12 @@ const Layout = ({ children, title }) => {
               </h2>
             </div>
             <div className="group flex items-center w-16 h-8 ml-auto bg-gray-400 cursor-pointer select-none rounded-2xl p-1"
-            onClick={e => {setIsDark(!isDark)}}>
+            onClick={() => {setIsDark(!isDark)}}>
               <div 
-              className={`w-6 h-6 cursor-pointer bg-pri py-1 px-2 rounded-full flex justify-center items-center
-              ${isDark && "group-transition-transform duration-200 ease-in transform translate-x-8"}`}>
+              className={`w-6 h-6 cursor-pointer bg-pri py-0.5 px-0.5 rounded-full flex justify-center items-center
+              ${!isDark ? "group:transition-transform duration-200 ease-in transform translate-x-0" : "group:transition-transform duration-200 ease-in transform translate-x-8"}`}>
                 <Image
-                src="/images/toggle-dark.svg"
+                src={`${isDark ? "/images/toggle-dark.svg" : "/images/toggle-light.svg"}`}
                 alt="moon"
                 width={20}
                 height={20}/>
