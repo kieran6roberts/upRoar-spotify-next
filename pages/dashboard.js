@@ -90,7 +90,7 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists,
                 type="text"
                 placeholder="search for tracks or albums..."
                 value={inputValues.search}
-                className="w-5/6 mr-auto py-2 px-4 bg-pri text-txt focus:outline-none"
+                className="w-4/6 md:w-5/6 mr-auto py-2 px-4 bg-pri text-txt focus:outline-none"
                 onChange={inputChangeHandler}
                 onKeyPress={event => event.code === "Enter" ? fetchQuery() : null} />
                 <div className={`h-0 transition-all duration-200 ease-in-out

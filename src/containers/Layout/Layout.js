@@ -17,7 +17,7 @@ const Layout = ({ children, title }) => {
 
   const isLoggedIn = parseCookies(null).jwt;
 
-  const LogoutHandler = () => {
+  const logoutHandler = () => {
     destroyCookie(null, "jwt", {
       path: "/"
     });
@@ -83,7 +83,7 @@ const Layout = ({ children, title }) => {
                   {!isLoggedIn ? 
                   <Link href="register" passHref>
                     <a
-                    onClick={isLoggedIn ? LogoutHandler : null}
+                    onClick={isLoggedIn ? logoutHandler : null}
                     href={isLoggedIn ? null : "/register"}
                     className="block text-sm text-txt px-4 md:px-6 py-1 border border-gray-500 ml-4 rounded transition duration-150 ease-in hover:bg-sec hover:text-sec" >
                       {isLoggedIn ? "logout" : "signUp"}
@@ -91,7 +91,7 @@ const Layout = ({ children, title }) => {
                   </Link>
                   : 
                     <button
-                    onClick={LogoutHandler}
+                    onClick={logoutHandler}
                     className="block text-sm text-txt px-4 md:px-6 py-1 border border-gray-500 ml-4 rounded transition duration-150 ease-in hover:bg-sec hover:text-sec">
                       logout
                     </button>
@@ -101,7 +101,8 @@ const Layout = ({ children, title }) => {
             </div>
           </div>
         </nav>
-        <Sidebar active={sidebarOpen} />
+        <Sidebar active={sidebarOpen}
+        logoutHandler={logoutHandler} />
         <div className="w-full px-8 md:px-16 relative">
           {children}
           <div

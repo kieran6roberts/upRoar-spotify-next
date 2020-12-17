@@ -5,7 +5,7 @@ import { CgProfile, CgPlayTrackNextR } from "react-icons/cg";
 import { BiHomeAlt } from "react-icons/bi";
 import { useAuth } from "src/context/AuthContext";
 
-const Sidebar = ({ active }) => {
+const Sidebar = ({ active, logoutHandler }) => {
   const { authUser } = useAuth();
   return(
     <nav role="navigation">
@@ -24,7 +24,7 @@ const Sidebar = ({ active }) => {
             {authUser ? "dashboard" : "new users"}
           </p>
           <ul className="flex text-sm text-center">
-            <li className="flex-auto mx-1 md:mx-4">
+            <li className="flex justify-center flex-auto mx-1 md:mx-4">
               <Link href={authUser ? "/dashboard" : "/login"} passHref>
                 <a className="flex items-center capitalize py-1 px-4 rounded hover:bg-gray-100 hover:text-pri">
                 <BiHomeAlt className="mr-2 text-purple-400"/>
@@ -32,36 +32,44 @@ const Sidebar = ({ active }) => {
                 </a>
               </Link>
             </li>
-            <li className="flex-auto mx-1 md:mx-4">
+            <li className="flex justify-center flex-auto mx-1 md:mx-4">
               <Link href={authUser ? `/dashboard/discover` : "/register"} passHref>
                 <a className="flex items-center capitalize py-1 px-2 rounded hover:bg-gray-100 hover:text-pri">
                   <GiCompactDisc className="mr-2 text-yellow-400" />
-                {authUser ? "discover" : "sign up"}
+                  {authUser ? "discover" : "sign up"}
                 </a>
               </Link>
             </li>
-            <li className="flex-auto mx-1 md:mx-4">
+            <li className="flex justify-center flex-auto mx-1 md:mx-4">
               <Link href={authUser ? `/dashboard/my-tracks` : ""} passHref>
                 <a className="flex items-center capitalize py-1 px-2 rounded hover:bg-gray-100 hover:text-pri">
                   {authUser && <CgPlayTrackNextR className="mr-2 text-pink-400" />}
-                {authUser ? "my tracks" : null}
+                  {authUser ? "my tracks" : null}
                 </a>
               </Link>
             </li>
           </ul>
           {authUser && 
           <>
-          <p className="ml-2 mb-4 text-lg mt-4 text-gray-400 uppercase">
+          <p className="ml-2 mb-4 text-md mt-4 text-gray-400 uppercase">
               your account
           </p>
           <ul className="flex text-sm text-center">
-              <li className="mx-1 md:mx-4">
+              <li className="flex justify-center flex-auto mx-1 md:mx-4">
                 <Link href={`/dashboard/users/${authUser}`} passHref>
                   <a className="flex items-center capitalize py-1 px-2 rounded hover:bg-gray-100 hover:text-pri">
                     <CgProfile className="mr-2 text-yellow-400" />
                     profile
                   </a>
                 </Link>
+              </li>
+              <li className="flex justify-center flex-auto mx-1 md:mx-4">
+                  <a className="flex items-center capitalize py-1 px-2 rounded hover:bg-gray-100 hover:text-pri"
+                  role="button"
+                  onClick={logoutHandler}>
+                    <CgProfile className="mr-2 text-yellow-400" />
+                    logout
+                  </a>
               </li>
           </ul>
           </>
