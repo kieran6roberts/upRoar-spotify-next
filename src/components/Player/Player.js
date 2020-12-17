@@ -52,7 +52,7 @@ const Player = () => {
   }
 
   return (
-    <div className={`w-full ${!playerOpen ? "opacity-80" : "opacity-100 pb-8"} text-txt px-4 py-1 fixed bottom-0 left-0 z-50 bg-pri border-t-2`}>
+    <div className={`w-full ${!playerOpen ? "opacity-80" : "opacity-100 pb-8 pt-4"} text-txt px-4 lg:px-16 py-1 fixed bottom-0 left-0 z-10 bg-pri border-t-2`}>
       <button 
       onClick={() => setPlayerOpen(!playerOpen)}
       className="border-2 rounded-full border-purple-400 text-txt px-2 py-2 mr-4">
@@ -96,11 +96,10 @@ const Player = () => {
             max="30"
             value={currentPosition}
             step="1"
-            className=""
             onInput={event => {
               inputChangeHandler(event);
             }}
-            className={`absolute h-2 w-full rounded-full bg-red-300 cursor-pointer`} />
+            className={`absolute w-full`} />
           </div>
           <div className="flex justify-between items-center">
             <p>
@@ -112,10 +111,10 @@ const Player = () => {
           </div>
 
         <div className="flex justify-center">
-          <button onClick={() => resetTrackHandler(0)}>
+          <button onClick={() => currentTrack && resetTrackHandler(0)}>
             <BiSkipPrevious className="text-lg cursor-pointer"/>
           </button>
-          <button  onClick={() => setPlaying(!playing)}>
+          <button  onClick={() => currentTrack && setPlaying(!playing)}>
             {playing ?
               <BsFillPauseFill
               className="text-lg mx-8 cursor-pointer" />
@@ -124,7 +123,7 @@ const Player = () => {
               className="text-lg mx-8 cursor-pointer" />
             }
           </button>
-          <button onClick={() => resetTrackHandler(30)}>
+          <button onClick={() => currentTrack && resetTrackHandler(30)}>
             <BiSkipNext className="text-lg cursor-pointer"/>  
           </button>
         </div>

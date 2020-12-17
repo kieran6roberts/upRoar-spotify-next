@@ -9,7 +9,7 @@ const Sidebar = ({ active }) => {
   const { authUser } = useAuth();
   return(
     <nav role="navigation">
-      <div className={`fixed text-txt top-4 left-4 right-4 bottom-32 rounded z-10 bg-pri border border-gray-400
+      <div className={`fixed text-txt top-4 left-4 right-4 bottom-32 rounded bg-pri z-20 border border-gray-400
       ${!active ? "invisible transition duration-200 ease-in opacity-0 transform scale-75" : "visible transition duration-200 ease-in opacity-1 transform scale-100"}
       `}>
         <h2 className="text-md text-txt text-center py-2">

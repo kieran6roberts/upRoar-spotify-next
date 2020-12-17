@@ -5,7 +5,7 @@ const Loading = () => {
         upRoar
       </p>
       <div className="w-2/5 h-1 my-4 bg-gradient-to-r from-purple-400 via-yellow-200 to-pink-400"/>
-      <p className="text-lg">
+      <p className="text-lg text-txt">
         Loading...
       </p>
     </div>
