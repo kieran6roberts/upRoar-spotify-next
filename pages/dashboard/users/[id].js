@@ -62,7 +62,7 @@ const User = ({ data: { username, name, created_at, email } }) => {
               </ul>
             </div>
             <div className={`${currentTab !== "overview" ? "hidden" : "flex"} flex-col justify-center items-end md:items-center w-full flex-auto`}>
-              <div className="h-64 w-full p-4 text-sm">
+              <div className="h-64 w-full p-x4 text-sm">
                 <div className="flex justify-between">
                   <p className="text-gray-400">
                     user since

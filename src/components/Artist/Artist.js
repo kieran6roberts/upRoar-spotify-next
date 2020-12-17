@@ -19,7 +19,7 @@ const Artist = ({ id, name, image, followers, genre }) => {
                         {genre}
                     </p>
                 </div>
-                <div className="text-sm text-txt capitalize text-center">
+                <div className="text-xxs text-pink-500 uppercase">
                     followers: {followers}
                 </div>
             </a>

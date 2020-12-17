@@ -4,6 +4,7 @@ import getConfig from "next/config";
 import { fetcher } from "src/hooks/useFetch";
 import Layout from "src/containers/Layout/Layout";
 import Albums from "src/components/Albums/Albums";
+import Player from "src/components/Player/Player";
 
 const Artists = ({ artistsAlbums }) => {
     const { items: artistContentArr } = artistsAlbums;
@@ -15,6 +16,7 @@ const Artists = ({ artistsAlbums }) => {
                         {artistContentArr[0].artists[0].name}
                     </h2>
                     <Albums tracks={artistsAlbums} />
+                    <Player />
                 </section>
             </main>
         </Layout>

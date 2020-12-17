@@ -9,26 +9,28 @@ import { fetcher } from "src/hooks/useFetch";
 const Auth = () => {
   return (
     <Layout>
-      <h2 className=" text-md text-txt capitalize mt-4">
+      <h2 className=" text-md text-txt text-center capitalize mt-4">
         for your experience
       </h2>
-      <Image 
-        src="/images/spotify-seeklogo.com.svg"
-        alt="spotify logo"
-        height={70}
-        width={70} />
-      <p className="w-2/4 mt-4 text-sm text-txt">
+      <div className="w-max m-auto">
+        <Image 
+          src="/images/spotify-seeklogo.com.svg"
+          alt="spotify logo"
+          height={70}
+          width={70} />
+      </div>
+      <p className="w-2/4 mt-4 text-sm m-auto text-center text-txt">
       For the best possible user experience we reccomend allowing us to access your spotify profile.
       This includes info such as your personal playlists and most listened to track.
     </p>
     <div className="h-0.5 w-3/5 bg-pri my-4" />
-    <p className="w-2/4 mb-8 text-sm text-txt">
-      Then we can personalize your experince to bring you the tracks and atrists you love.
+    <p className="w-2/4 mb-8 text-sm text-center m-auto text-txt">
+      Then we can personalize your experince to bring you the tracks and artists you love.
     </p>
     <button
       role="link"
       onClick={() => document.location.href = spotifyRedirect}
-      className="w-1/5 block text-xs text-green-500 uppercase text-center bg-txt px-4 my-2 md:px-6 py-2 border border-light-text rounded transition duration-150 ease-in text-light-text hover:bg-light-bg hover:text-light-text">
+      className="w-2/5 m-auto block text-xs text-txt uppercase text-center bg-pri px-4 my-2 md:px-6 py-2 border border-light-text rounded transition duration-150 ease-in text-light-text hover:bg-light-bg hover:text-light-text">
         Allow us to access your spotify information
       </button>
     </Layout>

@@ -7,6 +7,7 @@ import Layout from "src/containers/Layout/Layout";
 import Album from "src/components/Album/Album";
 import { fetcher } from "src/hooks/useFetch";
 import Playlists from "src/components/Playlists/Playlists";
+import Player from "src/components/Player/Player";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -28,7 +29,14 @@ const myTracks = ({ savedPlaylists, savedAlbums }) => {
     <Layout>
         <main>
             <section>
-                <div className="flex items-center">
+                <h2 className="text-lg uppercase text-txt mt-8 mb-4">
+                    my playlists
+                </h2>
+                 <Playlists spotifyPlaylists={savedPlaylists.items} />
+                <h2 className="text-lg uppercase text-txt mt-8 mb-4">
+                    my albums
+                </h2>
+                <div className="flex items-center mb-4">
                     <p className="capitalize mr-2">
                     tracks from
                     </p>
@@ -38,13 +46,6 @@ const myTracks = ({ savedPlaylists, savedAlbums }) => {
                     height={70}
                     width={70} />
                 </div>
-                <h2 className="text-lg uppercase text-txt mt-8 mb-4">
-                    my playlist
-                </h2>
-                 <Playlists spotifyPlaylists={savedPlaylists.items} />
-                <h2 className="text-lg uppercase text-txt mt-8 mb-4">
-                    my albums
-                </h2>
                 <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                 {albumArr && albumArr.map(album => 
                     <li 
@@ -58,6 +59,7 @@ const myTracks = ({ savedPlaylists, savedAlbums }) => {
                     </li>
                     )}
                 </ul>
+                <Player />
             </section>
         </main>
     </Layout>

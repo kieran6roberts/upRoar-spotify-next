@@ -6,6 +6,7 @@ import { fetcher } from "src/hooks/useFetch";
 import Layout from "src/containers/Layout/Layout";
 import Artist from "src/components/Artist/Artist";
 import Albums from "src/components/Albums/Albums";
+import Player from "src/components/Player/Player";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -42,7 +43,7 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
           <p className="text-md uppercase text-txt mt-8 mb-4">
             the latest and greatest form the world of music
           </p>
-          <p className="text-md capitalize text-txt my-8">
+          <p className="text-sm uppercase text-purple-500 my-12">
             Based on your saved album by {userLikedArtists[0]}
           </p>
           <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -57,7 +58,7 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
               </li>
               )}
           </ul >
-          <p className="text-md capitalize text-txt my-8">
+          <p className="text-sm uppercase text-purple-500 my-12">
             Based on your saved album by {userLikedArtists[1]}
           </p>
           <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -75,6 +76,7 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
             Check out the new releases!
           </p>
           {data && <Albums tracks={data} />}
+          <Player />
         </section>
       </main>
     </Layout>

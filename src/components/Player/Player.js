@@ -52,11 +52,11 @@ const Player = () => {
   }
 
   return (
-    <div className={`w-full ${!playerOpen ? "opacity-70" : "opacity-100"} text-txt p-2 fixed bottom-0 left-0 bg-pri border-t-2`}>
+    <div className={`w-full ${!playerOpen ? "opacity-80" : "opacity-100 pb-8"} text-txt px-4 py-1 fixed bottom-0 left-0 z-50 bg-pri border-t-2`}>
       <button 
       onClick={() => setPlayerOpen(!playerOpen)}
-      className="bg-pri text-txt px-8 py-2 mr-4">
-        <BsMusicNoteList />
+      className="border-2 rounded-full border-purple-400 text-txt px-2 py-2 mr-4">
+        <BsMusicNoteList className="text-txt"/>
       </button>
       <div className="inline-flex items-center">
         <BsVolumeUp onClick={muteAudio}
@@ -78,12 +78,11 @@ const Player = () => {
                 audio
               </code>
           </audio>
-
           <p className="text-sm capitalize text-center">
-            {currentTrack.track}
+            {currentTrack ? currentTrack.track : "no track"}
           </p>
           <p className="text-xs uppercase text-center">
-            {currentTrack.artist}
+            {currentTrack ? currentTrack.artist : "no artist"}
           </p>
 
         <div className="w-3/5 mx-auto h-4 my-4">

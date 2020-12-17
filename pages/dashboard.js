@@ -20,8 +20,7 @@ const { publicRuntimeConfig } =  getConfig();
 const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists, userPostRefresh }) => {
   let topTracksItems;
   let newReleasesItems;
-  //console.log(token);
-  //console.log(userPostRefresh);
+
   if (!topTracks.error) topTracksItems = topTracks.items;
   if (!newReleases.error) newReleasesItems = newReleases.albums.items;
 
