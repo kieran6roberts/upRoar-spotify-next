@@ -7,8 +7,8 @@ const TrackList = (spotifyTracks) => {
   const { setTracklist } = useUpdatePlaying();
 
   let image;
-
   if (spotifyTracks.image) image = spotifyTracks.image;
+  console.log(image);
   
   useEffect(() => {
     const currentTracklist = tracks.map(track => {

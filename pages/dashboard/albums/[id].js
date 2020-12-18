@@ -8,6 +8,7 @@ import PlayingProvider from "src/context/PlayingContext";
 
 const Albums = ({ album }) => {
     const { tracks: {  items: albumTracks}} = album;
+    console.log(albumTracks)
     return (
         <PlayingProvider>
             <Layout>
@@ -22,7 +23,7 @@ const Albums = ({ album }) => {
                         <p className="text-md text-txt mb-2 capitalize">
                             {album ? album.album_type : null}
                         </p>
-                        <TrackList tracks={albumTracks} image={album} />
+                        <TrackList tracks={albumTracks} image={album}  />
                         <Player />
                     </section>
                 </main>

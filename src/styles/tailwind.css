@@ -1,7 +1,5 @@
-/* purgecss start ignore */
 @import "tailwindcss/base";
 @layer base {
-/* source-sans-pro-300 - latin */
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
@@ -14,7 +12,7 @@
        url('/fonts/source-sans-pro-v14-latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
        url('/fonts/source-sans-pro-v14-latin-300.svg#SourceSansPro') format('svg'); /* Legacy iOS */
 }
-/* source-sans-pro-regular - latin */
+
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
@@ -27,7 +25,7 @@
        url('/fonts/source-sans-pro-v14-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
        url('/fonts/source-sans-pro-v14-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
 }
-/* source-sans-pro-700 - latin */
+
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
@@ -40,7 +38,7 @@
        url('/fonts/source-sans-pro-v14-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
        url('/fonts/source-sans-pro-v14-latin-700.svg#SourceSansPro') format('svg'); /* Legacy iOS */
 }
-/* raleway-regular - latin */
+
 @font-face {
   font-family: 'Raleway';
   font-style: normal;
@@ -53,7 +51,7 @@
        url('/fonts/raleway-v18-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
        url('/fonts/raleway-v18-latin-regular.svg#Raleway') format('svg'); /* Legacy iOS */
 }
-/* raleway-700 - latin */
+
 @font-face {
   font-family: 'Raleway';
   font-style: normal;
@@ -66,7 +64,7 @@
        url('/fonts/raleway-v18-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
        url('/fonts/raleway-v18-latin-700.svg#Raleway') format('svg'); /* Legacy iOS */
 }
-/* raleway-900 - latin */
+
 @font-face {
   font-family: 'Raleway';
   font-style: normal;
@@ -166,5 +164,4 @@ input[type=range]::-webkit-slider-thumb {
   }
 }
 @import "tailwindcss/components";
-/* purgecss end ignore */
 @import "tailwindcss/utilities";

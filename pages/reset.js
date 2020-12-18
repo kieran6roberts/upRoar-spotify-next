@@ -8,12 +8,12 @@ const Reset = () => {
         <section
         id="reset"
         className="pt-8">
-          <h2 className="text-md mb-4">
-            Forgotten your password? 
-          </h2>
-          <p className="text-md mb-2">
-            Reset it below
-          </p>
+           <h2 className="text-md text-txt text-center mb-4">
+              Forgotten your password?
+            </h2>
+            <p className="text-md text-pink-400 text-center mb-4">
+              Reset it below.
+            </p>
           <ResetForm />
         </section>
       </main>

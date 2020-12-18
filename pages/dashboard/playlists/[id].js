@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback } from "react";
 import { parseCookies } from "nookies";
 import { fetcher } from "src/hooks/useFetch";
 import getConfig from "next/config";
@@ -6,6 +6,7 @@ import useSWR from "swr";
 
 import Layout from "src/containers/Layout/Layout";
 import Track from "src/components/Track/Track";
+import TrackList from "src/components/TrackList/TrackList";
 import Player from "src/components/Player/Player";
 import PlayingProvider from "src/context/PlayingContext";
 
@@ -18,25 +19,16 @@ const Playlist = ({ queryID, playlistTracks }) => {
     if (error) console.error(error);
     if (!data) console.log("loading data");
     const { items: tracks } = data;
+
+    const formatTracks = useCallback( () => tracks.map(track => track.track));
+    console.log(formatTracks())
     
     return (
         <PlayingProvider>
             <Layout>
                 <main>
                     <section>
-                        <ul className="grid grid-cols-1 sm:grid-cols-2">
-                            {tracks && tracks.map(track => 
-                            <li key={track.track.id}>
-                            <Track 
-                            trackName={track.track.name}
-                            trackImage={track.track.album.images[0].url}
-                            artist={track.track.artists[0].name}
-                            album={track.track.album.name}
-                            releaseDate={track.track.album.release_date}
-                            spotifyLink={track.track.external_urls.spotify}
-                            audioSrc={track.track.preview_url} />
-                            </li>)}
-                        </ul>
+                        {tracks && <TrackList tracks={formatTracks()} />}
                         <Player />
                     </section>
                 </main>

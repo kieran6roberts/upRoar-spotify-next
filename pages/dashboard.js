@@ -58,8 +58,6 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists 
 
   const {
     inputValues, 
-    errors, 
-    submitting, 
     inputChangeHandler, 
     submitHandler,
     setInputValues

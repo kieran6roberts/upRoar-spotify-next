@@ -1,6 +1,16 @@
 module.exports = {
-  purge: [],
-  darkMode: "class", // or 'media' or 'class'
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true
+  },
+  purge: {
+    enabled: true,
+    content: [
+    "./src/components/**/*.js", 
+    "./src/containers/**/*.js", 
+    "./pages/**/*.js"],
+  },
+  darkMode: "class",
   theme: {
     fontSize:{
       xxs: "var(--fxxs)",

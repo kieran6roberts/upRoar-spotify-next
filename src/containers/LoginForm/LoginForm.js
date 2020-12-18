@@ -72,7 +72,7 @@ const LoginForm = () => {
     <form
     method="POST"
     onSubmit={submitHandler}
-    className="flex text-txt flex-col w-full max-w-xl m-auto"
+    className="flex text-sm text-txt flex-col w-full max-w-xl m-auto"
     data-testid="login-form">
       <label 
       htmlFor="username" 

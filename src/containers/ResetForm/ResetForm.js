@@ -37,7 +37,7 @@ const ResetForm = () => {
     <form
     method="POST"
     onSubmit={submitHandler}
-    className="flex flex-col w-full max-w-xl"
+    className="flex flex-col text-sm text-txt w-full max-w-xl m-auto"
     data-testid="reset-form">
       <label 
       htmlFor="email" 
@@ -55,7 +55,7 @@ const ResetForm = () => {
       type="submit"
       name="submit"
       value="submit"
-      className="py-2 px-4 rounded text-pri font-bold capitalize bg-light-bg cursor-pointer focus:outline-none focus:ring-2 focus:ring-pri focus:ring-opacity-50" />
+      className="py-2 px-4 w-2/5 m-auto rounded text-txt font-bold uppercase bg-pri border-2 border-pri rounded cursor-pointer hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50" />
     </form>
   )
 };
