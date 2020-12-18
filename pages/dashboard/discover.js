@@ -7,6 +7,7 @@ import Layout from "src/containers/Layout/Layout";
 import Artist from "src/components/Artist/Artist";
 import Albums from "src/components/Albums/Albums";
 import Player from "src/components/Player/Player";
+import PlayingProvider from "src/context/PlayingContext";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -34,52 +35,55 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
   }, []);
 
   return (
-    <Layout>
-      <main>
-        <section className="md:px-24">
-          <h2 className="text-lg uppercase text-txt mt-8 mb-4">
-            discover
-          </h2>
-          <p className="text-md uppercase text-txt mt-8 mb-4">
-            the latest and greatest form the world of music
-          </p>
-          <p className="text-sm uppercase text-purple-500 my-12">
-            Based on your saved album by {userLikedArtists[0]}
-          </p>
-          <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {relatedArtist1.map(artist => 
-              <li key={artist.id}>
-                <Artist
-                id={artist.id}
-                name={artist.name}
-                image={artist.images[0].url}
-                genre={`${artist.genres[0]}/${artist.genres[1]}`}
-                followers={artist.followers.total} />
-              </li>
-              )}
-          </ul >
-          <p className="text-sm uppercase text-purple-500 my-12">
-            Based on your saved album by {userLikedArtists[1]}
-          </p>
-          <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {relatedArtist2.map(artist => 
-              <li key={artist.id}>
-                <Artist
-                name={artist.name}
-                image={artist.images[0].url}
-                genre={`${artist.genres[0]}/${artist.genres[1]}`}
-                followers={artist.followers.total} />
-              </li>
-              )}
-          </ul>
-          <p className="text-lg text-txt my-16">
-            Check out the new releases!
-          </p>
-          {data && <Albums tracks={data} />}
-          <Player />
-        </section>
-      </main>
-    </Layout>
+    <PlayingProvider>
+      <Layout>
+        <main>
+          <section className="md:px-24">
+            <h2 className="text-lg uppercase text-txt mt-8 mb-4">
+              discover
+            </h2>
+            <p className="text-md uppercase text-txt mt-8 mb-4">
+              the latest and greatest form the world of music
+            </p>
+            <p className="text-sm uppercase text-purple-500 my-12">
+              Based on your saved album by {userLikedArtists[0]}
+            </p>
+            <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {relatedArtist1.map(artist => 
+                <li key={artist.id}>
+                  <Artist
+                  id={artist.id}
+                  name={artist.name}
+                  image={artist.images[0].url}
+                  genre={`${artist.genres[0]}/${artist.genres[1]}`}
+                  followers={artist.followers.total} />
+                </li>
+                )}
+            </ul >
+            <p className="text-sm uppercase text-purple-500 my-12">
+              Based on your saved album by {userLikedArtists[1]}
+            </p>
+            <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {relatedArtist2.map(artist => 
+                <li key={artist.id}>
+                  <Artist
+                  name={artist.name}
+                  image={artist.images[0].url}
+                  genre={`${artist.genres[0]}/${artist.genres[1]}`}
+                  followers={artist.followers.total} />
+                </li>
+                )}
+            </ul>
+            <p className="text-lg text-txt my-16">
+              Check out the new releases!
+            </p>
+            {data && <Albums tracks={data} />}
+            <Player />
+          </section>
+        </main>
+      </Layout>
+
+    </PlayingProvider>
   )
 };
 

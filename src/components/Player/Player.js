@@ -9,8 +9,17 @@ import { BiSkipPrevious } from "react-icons/bi";
 import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
 
 const Player = () => {
-  const { playing, duration, currentPosition, playerOpen, currentTrack } = usePlaying();
-  const { setPlaying, setPlayerOpen, setClickedPosition } = useUpdatePlaying();
+  const { playing, 
+    duration, 
+    currentPosition, 
+    playerOpen, 
+    currentTrack,
+    tracklist } = usePlaying();
+  const { setPlaying, 
+    setPlayerOpen, 
+    setClickedPosition, 
+    setCurrentTrack,
+    setAudioSrc } = useUpdatePlaying();
 
   const convertDurationFormat = (time = 0) => {
     const mins = Math.floor(time / 60);
@@ -19,6 +28,19 @@ const Player = () => {
     return `${hours != 0 ? `${hours}:` : ""}
             ${mins != 0 ? `${mins.toFixed(0)}:` : "0:"}
             ${seconds <= 9 ? `0${seconds.toFixed(0)}` : seconds.toFixed(0)}`;
+  };
+
+  const playNextTrack = () => {
+    let nextTrack;
+    tracklist.forEach((track, index) => {
+      if (track.trackName === currentTrack.trackName) {
+        if (!tracklist[index + 1]) nextTrack = tracklist[0];
+        else nextTrack = tracklist[index + 1];
+        
+        setCurrentTrack(nextTrack);
+        setAudioSrc(nextTrack);
+      }
+    })
   };
 
   const inputChangeHandler = event => {
@@ -79,7 +101,7 @@ const Player = () => {
               </code>
           </audio>
           <p className="text-sm capitalize text-center">
-            {currentTrack ? currentTrack.track : "no track"}
+            {currentTrack ? currentTrack.trackName : "no track"}
           </p>
           <p className="text-xs uppercase text-center">
             {currentTrack ? currentTrack.artist : "no artist"}
@@ -123,7 +145,7 @@ const Player = () => {
               className="text-lg mx-8 cursor-pointer" />
             }
           </button>
-          <button onClick={() => currentTrack && resetTrackHandler(30)}>
+          <button onClick={() => currentTrack && tracklist && playNextTrack()}>
             <BiSkipNext className="text-lg cursor-pointer"/>  
           </button>
         </div>

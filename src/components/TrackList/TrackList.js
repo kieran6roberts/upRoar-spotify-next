@@ -1,10 +1,28 @@
+import { useEffect } from "react";
 import Track from "../Track/Track";
+import { useUpdatePlaying } from "src/context/PlayingContext";
 
 const TrackList = spotifyTracks => {
   const { tracks } = spotifyTracks;
+  const { setTracklist } = useUpdatePlaying();
+
   let image;
-  
+
   if (spotifyTracks.image) image = spotifyTracks.image;
+  
+  useEffect(() => {
+    const currentTracklist = tracks.map(track => {
+      const container = {
+        artist: track.artists[0].name,
+        trackName: track.name,
+        src: track.preview_url
+      };
+      return container;
+    }
+    );
+    console.log(currentTracklist);
+    return setTracklist(currentTracklist);
+  }, []);
 
   const mapTracks = tracks.map(track => 
     <li key={track.id}>

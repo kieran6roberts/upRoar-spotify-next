@@ -1,20 +1,14 @@
+import React from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { BsFillPauseFill } from "react-icons/bs";
 import { usePlaying, useUpdatePlaying } from "src/context/PlayingContext";
 
 const Track = ({ id, trackName, trackImage, artist, album, releaseDate, spotifyLink, audioSrc }) => {
   const { playerOpen, playing, currentTrack } = usePlaying();
-  const { setPlayerOpen, setPlaying, setCurrentTrack } = useUpdatePlaying();
-
-  const setAudioSrc = song => {
-    if (!playerOpen) setPlayerOpen(!playerOpen);
-    const audioPlayer = document.querySelector("#audio-player");
-    const audioSrc = audioPlayer.querySelector("#audio-player-src");
-    audioSrc.src = song;
-    audioPlayer.load();
-    setPlaying(true);
-    setCurrentTrack({ track: trackName, artist: artist});
-  }
+  const { setPlayerOpen, 
+    setPlaying, 
+    setCurrentTrack, 
+    setAudioSrc } = useUpdatePlaying();
 
   return (
     <div className={`flex items-center text-txt py-4 px-2 my-2 w-full max-w-xl`}>
@@ -26,7 +20,7 @@ const Track = ({ id, trackName, trackImage, artist, album, releaseDate, spotifyL
         width={80}
         height={80} />
         <button id={id}
-        onClick={() => setAudioSrc(audioSrc)}
+        onClick={() => setAudioSrc({ trackName, artist, src: audioSrc})}
         className="absolute flex justify-center items-center top-0 w-16 h-16 left-2/4 top-2/4 -mt-8 -ml-8 cursor-pointer">
           {playing && currentTrack.track === trackName ?
           <BsFillPauseFill className="text-opacity-50 text-xl text-white hover:text-opacity-80" />
@@ -58,4 +52,4 @@ const Track = ({ id, trackName, trackImage, artist, album, releaseDate, spotifyL
   )
 };
 
-export default Track;
+export default React.memo(Track);

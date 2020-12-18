@@ -39,12 +39,9 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists,
   const fetchQuery = async () => {
     const type = "type=track,album";
     const encodedQuery = formatQuery();
-
-
     if (encodedQuery === "" || typeof(encodedQuery) !== "string") {
       return alert("Search for something!");
     }
-
     if (!token) return null;
 
     const data = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}/v1/search?q=${encodedQuery}&${type}&limit=5&offset=0`, {

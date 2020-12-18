@@ -9,6 +9,8 @@ export const useUpdatePlaying = () => useContext(PlayingUpdateContext);
 
 const PlayingProvider = ({ children }) => {
     const [ currentTrack, setCurrentTrack ] = useState(null);
+    const [ tracklist, setTracklist ] = useState([]);
+
     const { 
         playing, 
         setPlaying, 
@@ -18,9 +20,35 @@ const PlayingProvider = ({ children }) => {
         playerOpen,
         setPlayerOpen } = usePlayer({ initDuration: 0, initCurrentPosition: 0 });
 
+    const setAudioSrc = ({ trackName, artist, src }) => {
+        if (!playerOpen) setPlayerOpen(!playerOpen);
+        const audioPlayer = document.querySelector("#audio-player");
+        const audioSrc = audioPlayer.querySelector("#audio-player-src");
+        audioSrc.src = src;
+        audioPlayer.load();
+        setPlaying(true);
+        setCurrentTrack({ 
+          trackName,
+          artist,
+          src
+        });
+    };
+
     return (
-        <PlayingContext.Provider value={{ playing, duration, currentPosition, playerOpen, currentTrack }}>
-            <PlayingUpdateContext.Provider value={{ setPlaying, setPlayerOpen, setClickedPosition, setCurrentTrack }}>
+        <PlayingContext.Provider value={{ 
+        playing, 
+        duration, 
+        currentPosition,
+        playerOpen, 
+        currentTrack, 
+        tracklist }}>
+            <PlayingUpdateContext.Provider value={{ 
+                setPlaying, 
+                setPlayerOpen, 
+                setClickedPosition, 
+                setCurrentTrack, 
+                setTracklist,
+                setAudioSrc }}>
                 {children}
             </PlayingUpdateContext.Provider>
         </PlayingContext.Provider>

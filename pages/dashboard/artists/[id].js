@@ -5,21 +5,24 @@ import { fetcher } from "src/hooks/useFetch";
 import Layout from "src/containers/Layout/Layout";
 import Albums from "src/components/Albums/Albums";
 import Player from "src/components/Player/Player";
+import PlayingProvider from "src/context/PlayingContext";
 
 const Artists = ({ artistsAlbums }) => {
     const { items: artistContentArr } = artistsAlbums;
     return (
-        <Layout>
-            <main>
-                <section className="md:px-24">
-                    <h2 className="text-md text-txt my-8">
-                        {artistContentArr[0].artists[0].name}
-                    </h2>
-                    <Albums tracks={artistsAlbums} />
-                    <Player />
-                </section>
-            </main>
-        </Layout>
+        <PlayingProvider>
+            <Layout>
+                <main>
+                    <section className="md:px-24">
+                        <h2 className="text-md text-txt my-8">
+                            {artistContentArr[0].artists[0].name}
+                        </h2>
+                        <Albums tracks={artistsAlbums} />
+                        <Player />
+                    </section>
+                </main>
+            </Layout>
+        </PlayingProvider>
     )
 };
 

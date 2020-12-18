@@ -34,7 +34,7 @@ const Layout = ({ children, title }) => {
       <Head title={title}/>
       <div className="max-w-full">
         <div className="flex justify-center items-center h-6 bg-gradient-to-r from-blue-400 via-pink-400 to-yellow-200 text-sm text-white font-bold text-center ">
-          Welcome to upRoar - discover more!
+          Welcome to upRoar - Discover more!
         </div>
         <nav role="navigation"
         className="sticky top-0 w-full bg-pri z-10 bg-opacity-50">
@@ -60,8 +60,8 @@ const Layout = ({ children, title }) => {
             <div className="group flex items-center w-16 h-8 ml-auto bg-gray-400 cursor-pointer select-none rounded-2xl p-1"
             onClick={() => {setIsDark(!isDark)}}>
               <div 
-              className={`w-6 h-6 cursor-pointer bg-pri py-0.5 px-0.5 rounded-full flex justify-center items-center
-              ${!isDark ? "group:transition-transform duration-200 ease-in transform translate-x-0" : "group:transition-transform duration-200 ease-in transform translate-x-8"}`}>
+              className={`w-6 h-6 cursor-pointer bg-pri py-0.5 px-0.5 rounded-full flex justify-center items- group:transition-transform duration-200 ease-in 
+              ${!isDark ? "transform translate-x-0" : "transform translate-x-8"}`}>
                 <Image
                 src={`${isDark ? "/images/toggle-dark.svg" : "/images/toggle-light.svg"}`}
                 alt="moon"
