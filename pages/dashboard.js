@@ -20,6 +20,7 @@ const { publicRuntimeConfig } =  getConfig();
 const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists, userPostRefresh }) => {
   let topTracksItems;
   let newReleasesItems;
+  console.log(token);
 
   if (!topTracks.error) topTracksItems = topTracks.items;
   if (!newReleases.error) newReleasesItems = newReleases.albums.items;
@@ -167,15 +168,17 @@ export async function getServerSideProps(ctx) {
 
     if (!spAccess) {
       const queryString = require("query-string");
-      const userPostRefresh = await fetcher(`${publicRuntimeConfig.SPOTIFY_AUTH_API}/api/token`, {
+      const userPostRefresh = await fetcher(`${process.env.SPOTIFY_AUTH_API}/api/token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `Bearer ${publicRuntimeConfig.SPOTIFY_ENCODED}`
+          Authorization: `Basic ${process.env.SPOTIFY_ENCODED}`
         },
         body: queryString.stringify({
           grant_type: "refresh_token",
           refresh_token: spRefresh,
+          client_id: process.env.SPOTIFY_CLIENT_ID,
+          client_secret: process.env.SPOTIFY_CLIENT_SECRET,
         })
       });
 
@@ -192,7 +195,7 @@ export async function getServerSideProps(ctx) {
         authToken = spAccess;
       }
 
-      const userPostInfo = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}/v1/me`, {
+      const userPostInfo = await fetcher(`${process.env.SPOTIFY_API}/v1/me`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${authToken}`
@@ -204,21 +207,21 @@ export async function getServerSideProps(ctx) {
       const featuredPlaylistQuery = "/v1/browse/featured-playlists?offset=0&limit=3";
 
       const [ topTracks, newReleases, featuredPlaylists ] = await Promise.all([
-        fetcher(`${publicRuntimeConfig.SPOTIFY_API}${topTracksQuery}`, {       
+        fetcher(`${process.env.SPOTIFY_API}${topTracksQuery}`, {       
           method: "GET",
           headers: {
             "Accept": "application/json",
             "Content-Type": "application/json",
             Authorization: `Bearer ${authToken}`
           }}),
-          fetcher(`${publicRuntimeConfig.SPOTIFY_API}${newReleaseQuery}`, {       
+          fetcher(`${process.env.SPOTIFY_API}${newReleaseQuery}`, {       
             method: "GET",
             headers: {
               "Accept": "application/json",
               "Content-Type": "application/json",
               Authorization: `Bearer ${authToken}`
             }}),
-          fetcher(`${publicRuntimeConfig.SPOTIFY_API}${featuredPlaylistQuery}`, {       
+          fetcher(`${process.env.SPOTIFY_API}${featuredPlaylistQuery}`, {       
             method: "GET",
             headers: {
               "Accept": "application/json",
@@ -233,7 +236,7 @@ export async function getServerSideProps(ctx) {
           topTracks: topTracks,
           newReleases: newReleases,
           featuredPlaylists: featuredPlaylists,
-          token: authToken || null
+          token: authToken || null,
         }
       }
 }

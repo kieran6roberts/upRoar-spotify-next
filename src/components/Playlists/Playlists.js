@@ -7,7 +7,7 @@ const Playlists = ({ spotifyPlaylists }) => {
 
     const { playlists: { items: playlistArr} } = spotifyPlaylists;
     return (
-        <ul className="flex flex-col items-center md:flex-row">
+        <ul className="flex flex-col items-center justify-evenly md:flex-row">
             {playlistArr.map(playlist => 
                 <li 
                 key={playlist.id}

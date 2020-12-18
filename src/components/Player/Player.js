@@ -36,7 +36,7 @@ const Player = () => {
       if (track.trackName === currentTrack.trackName) {
         if (!tracklist[index + 1]) nextTrack = tracklist[0];
         else nextTrack = tracklist[index + 1];
-        
+
         setCurrentTrack(nextTrack);
         setAudioSrc(nextTrack);
       }
