@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { parseCookies } from "nookies";
 import { fetcher } from "src/hooks/useFetch";
 import getConfig from "next/config";
@@ -14,13 +15,10 @@ const Playlist = ({ queryID, playlistTracks }) => {
     const { data, error } = useSWR(`${publicRuntimeConfig.SPOTIFY_API}${queryID}`, fetcher, {
         initialData: playlistTracks
     });
-
     if (error) console.error(error);
     if (!data) console.log("loading data");
-
-    console.log(data);
     const { items: tracks } = data;
-
+    
     return (
         <PlayingProvider>
             <Layout>
@@ -52,7 +50,7 @@ export async function getServerSideProps(ctx) {
     const token = parseCookies(ctx).spaccess;
 
     const playlistQuery = `/v1/playlists/${queryID}/tracks?limit=20&offset=0`;
-    const playlistTracks = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}${playlistQuery}`, {
+    const playlistTracks = await fetcher(`${process.env.SPOTIFY_API}${playlistQuery}`, {
         method: "GET",
         headers: {
           "Accept": "application/json",

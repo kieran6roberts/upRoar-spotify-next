@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Track from "../Track/Track";
 import { useUpdatePlaying } from "src/context/PlayingContext";
 
-const TrackList = spotifyTracks => {
+const TrackList = (spotifyTracks) => {
   const { tracks } = spotifyTracks;
   const { setTracklist } = useUpdatePlaying();
 
@@ -16,11 +16,10 @@ const TrackList = spotifyTracks => {
         artist: track.artists[0].name,
         trackName: track.name,
         src: track.preview_url
-      };
+        };
       return container;
-    }
+      }
     );
-    console.log(currentTracklist);
     return setTracklist(currentTracklist);
   }, []);
 
@@ -45,4 +44,4 @@ const TrackList = spotifyTracks => {
   )
 };
 
-export default TrackList;
+export default React.memo(TrackList);

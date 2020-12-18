@@ -1,3 +1,4 @@
+import React from "react";
 import Album from "src/components/Album/Album";
 
 const Albums =  albums  => {
@@ -20,4 +21,4 @@ const Albums =  albums  => {
     )
 };
 
-export default Albums;
+export default React.memo(Albums);

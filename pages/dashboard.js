@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { parseCookies, setCookie } from "nookies";
 import getConfig from "next/config";
 import Image from "next/image";
@@ -17,27 +18,27 @@ import Playlists from "src/components/Playlists/Playlists";
 
 const { publicRuntimeConfig } =  getConfig();
 
-const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists, userPostRefresh }) => {
+const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists }) => {
   let topTracksItems;
   let newReleasesItems;
-  console.log(token);
-
+  
   if (!topTracks.error) topTracksItems = topTracks.items;
   if (!newReleases.error) newReleasesItems = newReleases.albums.items;
-
+  
+  console.log(topTracksItems);
   const [ results, setResults ] = useState([]);
 
-  const formatQuery = () => {
+  const formatQuery = useCallback( () => {
     const { search } = inputValues;
     return search.trim().replaceAll(" ", "%20");
-  }
+  });
 
-  const resetResultsHandler = () => {
+  const resetResultsHandler = useCallback( () => {
     setInputValues({ search: "" });
     setResults([]);
-  };
+  });
 
-  const fetchQuery = async () => {
+  const fetchQuery = useCallback( async () => {
     const type = "type=track,album";
     const encodedQuery = formatQuery();
     if (encodedQuery === "" || typeof(encodedQuery) !== "string") {
@@ -53,7 +54,7 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists,
         Authorization: `Bearer ${token}`
     }});
     setResults(data);
-  };
+  });
 
   const {
     inputValues, 
@@ -92,15 +93,24 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists,
                 onChange={inputChangeHandler}
                 onKeyPress={event => event.code === "Enter" ? fetchQuery() : null} />
                 <div className={`h-0 transition-all duration-200 ease-in-out
-                ${results.length !== 0 && "h-auto p-8 border-t-2"}`}>
+                ${results.length !== 0 && inputValues.search && "h-auto p-8 border-t-2"}`}>
                   <p className={`${results.length !== 0 ? "block" : "hidden" } text-md my-2`}>
                     albums
                   </p>
-                  <Albums albums={results.length !== 0 ? results.albums.items : results} />
-                  <p className={`${results.length !== 0 ? "block" : "hidden" } text-md my-2`}>
+                  {
+                  results.length !== 0 && inputValues.search &&
+                  <>
+                  <Albums albums={results.albums.items} />
+                  <p className={`${results.length !== 0 && inputValues.search 
+                    ? "block" : "hidden" } text-md my-2`}>
                     tracks
                   </p>
-                  <TrackList tracks={results.length !== 0 ? results.tracks.items : results} />
+                  <TrackList tracks={results.tracks.items} />
+                  </>
+                  }
+                  {
+                  results.length !== 0 && !inputValues.search && resetResultsHandler()
+                  }
                 </div>
               </div>
             </div>
@@ -155,7 +165,6 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists,
           </section>
         </main>
       </Layout>
-
     </PlayingProvider>
   )
 };

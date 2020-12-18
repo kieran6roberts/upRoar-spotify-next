@@ -11,7 +11,7 @@ const Playlists = ({ spotifyPlaylists }) => {
             {playlistArr.map(playlist => 
                 <li 
                 key={playlist.id}
-                className="flex flex-col opacity-50 hover:opacity-90 h-96 w-80 p-8 relative flex flex-col items-center justify-center text-sm text-white font-bold text-center transition" >
+                className="flex flex-col opacity-50 hover:opacity-90 h-60 w-60 p-8 relative flex flex-col items-center justify-center text-sm text-white font-bold text-center transition" >
                     <Link href={`/dashboard/playlists/${playlist.id}`}>
                         <a>
                             <img
