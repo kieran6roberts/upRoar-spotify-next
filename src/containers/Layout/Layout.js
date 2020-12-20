@@ -33,7 +33,7 @@ const Layout = ({ children, title }) => {
     <>
       <Head title={title}/>
       <div className="max-w-full">
-        <div className="flex items-center justify-center h-6 text-sm font-bold text-center text-white bg-gradient-to-r from-blue-400 via-pink-400 to-yellow-200 ">
+        <div className="flex items-center justify-center h-6 text-xs font-bold text-center text-white bg-gradient-to-r from-blue-400 via-pink-400 to-yellow-200 ">
           Welcome to upRoar - Discover more!
         </div>
         <nav role="navigation"
@@ -103,18 +103,17 @@ const Layout = ({ children, title }) => {
         </nav>
         <Sidebar active={sidebarOpen}
         logoutHandler={logoutHandler} />
-        <div className="relative w-full px-8 md:px-16">
+        <div className="relative w-full px-4 md:px-8 xl:px-16">
           {children}
           <div
           onClick={toggleSidebarOpen}
-          className="fixed z-50 flex flex-col items-center justify-center w-12 h-12 transition ease-in border-2 border-gray-500 rounded-full cursor-pointer group bg-pri bottom-4 right-8 hover:bg-sec duration-150ms">
+          className="fixed z-50 flex flex-col items-center justify-center w-12 h-12 transition ease-in border-2 border-gray-500 rounded-full cursor-pointer group bg-pri bottom-2 md:bottom-4 right-2 md:right-8 hover:bg-sec duration-150ms">
             <span className="block h-0.5 w-6 bg-txt cursor-pointer group-hover:bg-acc" /> 
             <span className="block h-0.5 w-4 bg-txt my-1 cursor-pointer group-hover:bg-acc" /> 
             <span className="block h-0.5 w-6 bg-txt cursor-pointer group-hover:bg-acc" /> 
           </div>
         </div>
         <Footer />
-
       </div>
     </>
   )

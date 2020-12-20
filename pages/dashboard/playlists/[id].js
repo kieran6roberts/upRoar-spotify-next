@@ -5,7 +5,6 @@ import getConfig from "next/config";
 import useSWR from "swr";
 
 import Layout from "src/containers/Layout/Layout";
-import Track from "src/components/Track/Track";
 import TrackList from "src/components/TrackList/TrackList";
 import Player from "src/components/Player/Player";
 import PlayingProvider from "src/context/PlayingContext";
@@ -21,7 +20,6 @@ const Playlist = ({ queryID, playlistTracks }) => {
     const { items: tracks } = data;
 
     const formatTracks = useCallback( () => tracks.map(track => track.track));
-    console.log(formatTracks())
     
     return (
         <PlayingProvider>

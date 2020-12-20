@@ -71,13 +71,13 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists 
             <div className="mt-4">
               <div className="w-full border-b-2">
                 <button 
-                className="py-4 px-4 text-txt mr-2"
+                className="px-2 py-4 mr-2 md:px-4 text-txt"
                 onClick={submitHandler}
                 onKeyPress={event => console.log(event)}>
                   <BsSearch />
                 </button>
                 <button 
-                className={`py-2 px-2 bg-sec text-txt ${inputValues.search ? "visible pointer-events-auto" : "invisible pointer-events-none"}`}
+                className={`py-2 px-1 md:px-2 bg-sec text-txt ${inputValues.search ? "visible pointer-events-auto" : "invisible pointer-events-none"}`}
                 onClick={resetResultsHandler}>
                 <MdClear />
                 </button>
@@ -87,7 +87,7 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists 
                 type="text"
                 placeholder="search for tracks or albums..."
                 value={inputValues.search}
-                className="w-4/6 md:w-5/6 mr-auto py-2 px-4 bg-pri text-txt focus:outline-none"
+                className="w-4/6 px-2 py-2 mr-auto text-xs md:px-4 md:w-5/6 bg-pri text-txt focus:outline-none"
                 onChange={inputChangeHandler}
                 onKeyPress={event => event.code === "Enter" ? fetchQuery() : null} />
                 <div className={`h-0 transition-all duration-200 ease-in-out
@@ -112,37 +112,37 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists 
                 </div>
               </div>
             </div>
-            <h2 className="text-sm text-right text-txt ml-auto mt-4">
+            <h2 className="mt-4 ml-auto text-sm text-right text-txt">
                 dashboard
-              </h2>
-            <div className="flex items-center justify-end text-md text-gray-400 ml-auto mb-4">
+            </h2>
+            <div className="flex items-center justify-end mb-4 ml-auto text-gray-400 text-md">
               <Image 
               src="/images/spotify-seeklogo.com.svg"
               alt="spotify logo"
               height={70}
               width={70} />
               {!userInfo.error || !userInfo.error.status == 401 ?
-              <p className="text-sm text-txt ml-4">
+              <p className="ml-4 text-sm text-txt">
                 {userInfo.id}
               </p>
               :
-              <p className="text-sm text-txt ml-4">
+              <p className="ml-4 text-sm text-txt">
                 No spotify account connected
               </p>
               }
             </div>
-            <h3 className="text-lg uppercase text-txt my-16">
+            <h3 className="my-16 uppercase text-md text-txt">
               Discover new releases 
             </h3>
             {!newReleases.error || !newReleases.error.status == 401 
             ?
             <Albums albums={newReleasesItems} />
               :
-              <span className="text-sm text-txt capitalize">
+              <span className="uppercase text-md text-txt">
               new releases not available
             </span>
             }
-            <h3 className="text-sm text-lg uppercase uppercase text-txt my-16">
+            <h3 className="my-16 uppercase text-md text-txt">
               your current top tracks
             </h3>
             <div>
@@ -150,12 +150,12 @@ const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists 
               ?
               <TrackList tracks={topTracksItems} />
               :
-              <span className="text-sm text-txt capitalize">
+              <span className="uppercase text-md text-txt">
                 no top tracks
               </span>
               }
             </div>
-            <h3 className="text-sm text-lg uppercase uppercase text-txt my-16">
+            <h3 className="my-16 uppercase text-md text-txt">
               featured playlists
             </h3>
             <Playlists spotifyPlaylists={featuredPlaylists}/>

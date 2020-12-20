@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { parseCookies } from "nookies";
 import fetch from "isomorphic-fetch";
-import getConfig from "next/config";
 
 import EditUserForm from "src/containers/EditUserForm/EditUserForm";
 import Layout from "src/containers/Layout/Layout"; 
 import ChangePasswordForm from "src/containers/ChangePasswordForm/ChangePasswordForm";
-
-const { publicRuntimeConfig } = getConfig();
 
 const User = ({ data: { username, name, created_at, email } }) => {
   const [ currentTab, setCurrentTab ] = useState("overview");
@@ -17,9 +14,9 @@ const User = ({ data: { username, name, created_at, email } }) => {
       case "overview":
         return "Your Profile";
       case "edit profile":
-        return "update your profile information";
+        return "Change your email address";
       case "change password":
-        return "change your password";
+        return "Change your password";
       default:
         return "Your Profile";
     };
@@ -28,33 +25,33 @@ const User = ({ data: { username, name, created_at, email } }) => {
   return (
     <Layout>
       <main>
-          <h2 className="text-md text-txt my-4">
+          <h2 className="my-4 text-md text-txt">
             Hi {name}
           </h2>
-          <p className="text-md text-gray-400 text-gray-400 mb-2">
+          <p className="mb-2 text-gray-400 text-md">
             {renderHeader(currentTab)}
           </p>
-          <section className="flex flex-col md:flex-row justify-between items-top pt-8">
+          <section className="flex flex-col justify-between pt-8 md:flex-row items-top">
             <div className="md:w-2/5">
-              <ul className="flex md:flex-col justify-evenly text-sm text-txt capitalize">
+              <ul className="flex-col mb-20 text-sm justify-evenly text-txt md:mb-0">
                 <li className="mb-8 md:mb-16">
                   <button onClick={() => setCurrentTab("overview")}
                   className="">
-                    <a className="p-2 md:p-4 bg-pri rounded hover:bg-gray-200 hover:text-pri">
+                    <a className="py-2 uppercase rounded md:p-4 bg-pri hover:bg-gray-200 hover:text-pri">
                       account overview
                     </a>
                   </button>
                 </li>
                 <li className="mb-8 md:mb-16">
                   <button onClick={() => setCurrentTab("edit profile")}>
-                    <a className="p-2 md:p-4 bg-pri rounded hover:bg-gray-200 hover:text-pri">
-                      edit profile
+                    <a className="py-2 uppercase rounded md:p-4 bg-pri hover:bg-gray-200 hover:text-pri">
+                      change email
                     </a>
                   </button>
                 </li>
                 <li className="mb-8 md:mb-16">
                   <button onClick={() => setCurrentTab("change password")}>
-                    <a className="p-2 md:p-4 bg-pri rounded hover:bg-gray-200 hover:text-pri">
+                    <a className="py-2 uppercase rounded md:p-4 bg-pri hover:bg-gray-200 hover:text-pri">
                       change password
                     </a>
                   </button>
@@ -62,7 +59,7 @@ const User = ({ data: { username, name, created_at, email } }) => {
               </ul>
             </div>
             <div className={`${currentTab !== "overview" ? "hidden" : "flex"} flex-col justify-center items-end md:items-center w-full flex-auto`}>
-              <div className="h-64 w-full p-x4 text-sm">
+              <div className="w-full h-64 text-sm p-x4">
                 <div className="flex justify-between">
                   <p className="text-gray-400">
                     user since
@@ -102,7 +99,7 @@ const User = ({ data: { username, name, created_at, email } }) => {
 export async function getServerSideProps(ctx) {
   const user = parseCookies(ctx).user;
   const jwt = parseCookies(ctx).jwt;
-  const userResponse = await fetch(`${publicRuntimeConfig.API_URL}/users/me`, {
+  const userResponse = await fetch(`${process.env.API_URL}/users/me`, {
     headers: {
       Authorization: `Bearer ${jwt}`
     }

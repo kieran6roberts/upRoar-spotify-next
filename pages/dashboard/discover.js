@@ -39,16 +39,16 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
       <Layout>
         <main>
           <section className="md:px-24">
-            <h2 className="text-lg uppercase text-txt mt-8 mb-4">
-              discover
+            <h2 className="mt-4 ml-auto text-sm text-right text-txt">
+                discover
             </h2>
-            <p className="text-md uppercase text-txt mt-8 mb-4">
+            <p className="mt-8 mb-4 uppercase text-md text-txt">
               the latest and greatest form the world of music
             </p>
-            <p className="text-sm uppercase text-purple-500 my-12">
+            <p className="my-12 text-sm text-pink-300 uppercase">
               Based on your saved album by {userLikedArtists[0]}
             </p>
-            <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <ul className="grid grid-cols-1 gap-x-2 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {relatedArtist1.map(artist => 
                 <li key={artist.id}>
                   <Artist
@@ -60,10 +60,10 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
                 </li>
                 )}
             </ul >
-            <p className="text-sm uppercase text-purple-500 my-12">
+            <p className="my-20 text-sm text-pink-300 uppercase">
               Based on your saved album by {userLikedArtists[1]}
             </p>
-            <ul className="grid gap-x-2 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <ul className="grid grid-cols-1 gap-x-2 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {relatedArtist2.map(artist => 
                 <li key={artist.id}>
                   <Artist
@@ -74,7 +74,7 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
                 </li>
                 )}
             </ul>
-            <p className="text-lg text-txt my-16">
+            <p className="my-16 text-lg text-txt">
               Check out the new releases!
             </p>
             {data && <Albums tracks={data} />}
@@ -91,7 +91,7 @@ export async function getServerSideProps(ctx) {
   const authToken = parseCookies(ctx).spaccess;
   const userSavedAlbumsQuery = `/v1/me/albums?limit=5`;
 
-  const userAlbums = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}${userSavedAlbumsQuery}`, {
+  const userAlbums = await fetcher(`${process.env.SPOTIFY_API}${userSavedAlbumsQuery}`, {
     method: "GET",
     headers: {
       "Accept": "application/json",
@@ -108,7 +108,7 @@ export async function getServerSideProps(ctx) {
 
   const [ relatedArtist1, 
     relatedArtist2 ] = await Promise.all([
-      fetcher(`${publicRuntimeConfig.SPOTIFY_API}/v1/artists/${userLikedArtists[0]}/related-artists?limit=5`, {       
+      fetcher(`${process.env.SPOTIFY_API}/v1/artists/${userLikedArtists[0]}/related-artists?limit=5`, {       
             method: "GET",
             headers: {
               "Accept": "application/json",
@@ -116,7 +116,7 @@ export async function getServerSideProps(ctx) {
               Authorization: `Bearer ${authToken}`
             }
           }),
-      fetcher(`${publicRuntimeConfig.SPOTIFY_API}/v1/artists/${userLikedArtists[1]}/related-artists?limit=5`, {       
+      fetcher(`${process.env.SPOTIFY_API}/v1/artists/${userLikedArtists[1]}/related-artists?limit=5`, {       
             method: "GET",
             headers: {
               "Accept": "application/json",

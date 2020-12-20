@@ -9,13 +9,17 @@ const Register = () => {
       <section 
       id="login"
       className="pt-8">
-        <h2 className="text-md text-txt text-center mb-4">
+        <h2 className="mb-4 text-center text-md text-txt">
           Welcome to upRoar!
         </h2>
-        <p className="text-md text-center text-pink-400 mb-2">
+        <p className="mb-4 text-center text-pink-400 text-md">
           Create a free account with us below.
         </p>
-        <p className="text-xs text-txt uppercase text-center mb-2">
+        <p className="mb-8 text-xs text-center text-txt">
+          In order to access upRoar's music once registered, we will require that you connect
+          an existing spotify profile to enable access to all of our features.
+        </p>
+        <p className="mb-2 text-xs text-center uppercase text-txt">
           All fields required
         </p>
         <RegisterForm />

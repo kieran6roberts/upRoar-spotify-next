@@ -17,7 +17,7 @@ const Home = () => {
       <section 
       id="home-hero"
       className="pt-8">
-        <div className="w-4/5 m-auto uppercase">
+        <div className="uppercase">
           <h2 className="mb-4 font-bold text-center text-xxl text-txt">
             play
           </h2>
@@ -31,12 +31,12 @@ const Home = () => {
         <div className="">
             <Button
             route="/login"
-            extra="w-2/5 max-w-40 border border-pink-200 m-auto text-txt hover:bg-sec hover:text-sec">
+            extra="w-3/5 max-w-40 border border-pink-200 m-auto text-txt hover:bg-sec hover:text-sec">
               login
             </Button>
             <Button
             route="/register"
-            extra="w-2/5 max-w-40 m-auto bg-pink-200 hover:bg-pink-300 hover:text-sec">
+            extra="w-3/5 max-w-40 m-auto bg-pink-200 hover:bg-pink-300 hover:text-sec">
               sign up
             </Button>
         </div>
@@ -49,7 +49,7 @@ const Home = () => {
 
         <div className="w-4/5 m-auto h-0.5 bg-gray-300 mt-4 mb-16" />
 
-        <div className="lg:flex">
+        <div className="text-center lg:flex">
           <div className="mx-3 lg:flex-1">
             <Card title="connect"
             bgClr="bg-pink-400"

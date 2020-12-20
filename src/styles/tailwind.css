@@ -143,7 +143,7 @@
 
   input[type=range]::-webkit-slider-runnable-track {
     height: 0.2rem;
-    background: pink;
+    background: linear-gradient(90deg, #26C3FA 33%, #FC6BF7, 66%, #F6CE6C 100%);
     border: 1px solid pink;
 }
 

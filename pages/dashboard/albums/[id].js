@@ -1,6 +1,5 @@
 import { fetcher } from "src/hooks/useFetch";
 import { parseCookies } from "nookies";
-import getConfig from "next/config";
 import Layout from "src/containers/Layout/Layout";
 import TrackList from "src/components/TrackList/TrackList";
 import Player from "src/components/Player/Player";
@@ -8,19 +7,18 @@ import PlayingProvider from "src/context/PlayingContext";
 
 const Albums = ({ album }) => {
     const { tracks: {  items: albumTracks}} = album;
-    console.log(albumTracks)
     return (
         <PlayingProvider>
             <Layout>
                 <main>
                     <section className="md:px-24">
-                        <h2 className="text-md text-txt my-8">
+                        <h2 className="my-8 text-md text-txt">
                             {album ? album.name : <span>Unable to find album</span>}
                         </h2>
-                        <p className="text-md uppercase text-txt mb-4">
+                        <p className="mb-4 uppercase text-md text-txt">
                             {album ? album.artists[0].name : null}
                         </p>
-                        <p className="text-md text-txt mb-2 capitalize">
+                        <p className="mb-2 capitalize text-md text-txt">
                             {album ? album.album_type : null}
                         </p>
                         <TrackList tracks={albumTracks} image={album}  />
@@ -33,14 +31,12 @@ const Albums = ({ album }) => {
 };
 
 export async function getServerSideProps(ctx) {
-    const { publicRuntimeConfig } = getConfig();
-
     const query = ctx.query.id
     const authToken = parseCookies(ctx).spaccess;
 
     const albumQuery = `/v1/albums/${query}`;
     
-    const album = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}${albumQuery}`, {       
+    const album = await fetcher(`${process.env.SPOTIFY_API}${albumQuery}`, {       
         method: "GET",
         headers: {
           "Accept": "application/json",

@@ -9,7 +9,7 @@ const Sidebar = ({ active, logoutHandler }) => {
   const { authUser } = useAuth();
   return(
     <nav role="navigation">
-      <div className={`fixed text-txt top-4 left-4 right-4 h-3/5 rounded bg-sec z-20 border border-gray-400 transition duration-200 ease-in 
+      <div className={`fixed text-txt top-4 left-4 right-4 h-4/5 md:3/5 rounded bg-sec z-20 border border-gray-400 transition duration-200 ease-in 
       ${!active ? "opacity-0 pointer-events-none transform scale-75" : "opacity-1 pointer-events-all transform scale-100"}
       `}>
         <h2 className="py-2 text-center text-md text-txt">
@@ -23,7 +23,7 @@ const Sidebar = ({ active, logoutHandler }) => {
           <p className="mb-4 ml-2 text-gray-400 uppercase text-md">
             {authUser ? "dashboard" : "new users"}
           </p>
-          <ul className="flex text-sm text-center uppercase">
+          <ul className="flex flex-col text-sm text-center uppercase md:flex-row">
             <li className="flex justify-center flex-auto mx-1 md:mx-4">
               <Link href={authUser ? "/dashboard" : "/login"} passHref>
                 <a className="flex items-center px-4 py-1 rounded hover:bg-gray-100 hover:text-pri">
@@ -57,7 +57,7 @@ const Sidebar = ({ active, logoutHandler }) => {
           <p className="mt-4 mb-4 ml-2 text-gray-400 uppercase text-md">
               your account
           </p>
-          <ul className="flex text-sm text-center uppercase">
+          <ul className="flex flex-col text-sm text-center uppercase md:flex-row">
               <li className="flex justify-center flex-auto mx-1 md:mx-4">
                 <Link href={`/dashboard/users/${authUser}`} passHref>
                   <a className="flex items-center px-2 py-1 rounded hover:bg-gray-100 hover:text-pri">
@@ -67,7 +67,7 @@ const Sidebar = ({ active, logoutHandler }) => {
                 </Link>
               </li>
               <li className="flex justify-center flex-auto mx-1 md:mx-4">
-                  <a className="flex items-center px-2 py-1 rounded hover:bg-gray-100 hover:text-pri"
+                  <a className="flex items-center px-2 py-1 rounded focus:outline hover:bg-gray-100 hover:text-pri"
                   role="button"
                   onClick={logoutHandler}>
                     <CgProfile className="mr-2 text-yellow-400" />

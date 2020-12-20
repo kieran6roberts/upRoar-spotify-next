@@ -23,7 +23,6 @@ const EditUserForm = () => {
               Authorization: `Bearer ${jwt}`
             },
           });
-          console.log(myProfile);
           const resetInfo = await fetcher(`${publicRuntimeConfig.API_URL}/users/${myProfile.id}`, {
             method: "PUT",
             headers: {
@@ -33,7 +32,6 @@ const EditUserForm = () => {
             },
             body: JSON.stringify(inputValues)
           });
-          console.log(resetInfo);
         }  
           catch(err) {
             console.error(err);
@@ -51,7 +49,7 @@ const EditUserForm = () => {
         <form
         method="POST"
         onSubmit={submitHandler}
-        className="flex text-txt flex-col w-full max-w-xl"
+        className="flex flex-col w-full max-w-xl text-txt"
         data-testid="edit-form">
             <label 
             htmlFor="email" 
@@ -70,8 +68,8 @@ const EditUserForm = () => {
             type="submit"
             name="submit"
             value="submit"
-            className="py-2 px-4 rounded text-txt font-bold uppercase bg-pri border border-gray-500 rounded cursor-pointer hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50" />
-            {submitting && !errors.email && <p className="text-sm text-green-500 uppercase mt-4">Your email was successfully updated!</p>}
+            className="px-4 py-2 font-bold uppercase border border-pink-300 rounded cursor-pointer text-txt bg-pri hover:bg-sec focus:outline-none focus:ring-2 focus:ring-purple-400" />
+            {submitting && !errors.email && <p className="mt-4 text-sm text-green-500 uppercase">Your email was successfully updated!</p>}
         </form>
         </>
     )

@@ -77,7 +77,7 @@ const Player = () => {
     <div className={`w-full ${!playerOpen ? "opacity-80" : "opacity-100 pb-8 pt-4"} text-txt px-4 lg:px-16 py-1 fixed bottom-0 left-0 z-10 bg-pri border-t-2`}>
       <button 
       onClick={() => setPlayerOpen(!playerOpen)}
-      className="border-2 rounded-full border-purple-400 text-txt px-2 py-2 mr-4">
+      className="px-2 py-2 mr-4 border-2 rounded-full text-txt">
         <BsMusicNoteList className="text-txt"/>
       </button>
       <div className="inline-flex items-center">
@@ -100,14 +100,14 @@ const Player = () => {
                 audio
               </code>
           </audio>
-          <p className="text-sm capitalize text-center">
+          <p className="text-sm text-center capitalize">
             {currentTrack ? currentTrack.trackName : "no track"}
           </p>
-          <p className="text-xs uppercase text-center">
+          <p className="text-xs text-center uppercase">
             {currentTrack ? currentTrack.artist : "no artist"}
           </p>
 
-        <div className="w-3/5 mx-auto h-4 my-4">
+        <div className="w-4/5 h-4 mx-auto my-4 md:w-3/5">
           <div 
           id="track-progress"
           className={`flex items-center relative h-1/6 mb-2 bg-blue-500`} >
@@ -123,7 +123,7 @@ const Player = () => {
             }}
             className={`absolute w-full`} />
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <p>
               {convertDurationFormat(currentPosition)}
             </p>
@@ -139,10 +139,10 @@ const Player = () => {
           <button  onClick={() => currentTrack && setPlaying(!playing)}>
             {playing ?
               <BsFillPauseFill
-              className="text-lg mx-8 cursor-pointer" />
+              className="mx-8 text-lg cursor-pointer" />
             :
               <BsFillPlayFill 
-              className="text-lg mx-8 cursor-pointer" />
+              className="mx-8 text-lg cursor-pointer" />
             }
           </button>
           <button onClick={() => currentTrack && tracklist && playNextTrack()}>

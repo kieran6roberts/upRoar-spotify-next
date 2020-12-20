@@ -1,5 +1,4 @@
 import { setCookie, parseCookies } from "nookies";
-import getConfig from "next/config";
 import Image from "next/image";
 
 import Layout from "src/containers/Layout/Layout";
@@ -38,7 +37,6 @@ const Auth = () => {
 };
 
 export async function getServerSideProps(ctx) {
-  const { publicRuntimeConfig } = getConfig();
   const { query: { code }} = ctx;
 
   if (parseCookies(ctx).spaccess) {
@@ -67,12 +65,12 @@ export async function getServerSideProps(ctx) {
           grant_type: "authorization_code",
           code: code,
           redirect_uri: "http://localhost:3000/dashboard/auth/",
-          client_id: publicRuntimeConfig.SPOTIFY_CLIENT_ID,
-          client_secret: publicRuntimeConfig.SPOTIFY_CLIENT_SECRET,
+          client_id: process.env.SPOTIFY_CLIENT_ID,
+          client_secret: process.env.SPOTIFY_CLIENT_SECRET,
         })
       };
 
-      const postTokenSpotify = await fetcher(`${publicRuntimeConfig.SPOTIFY_AUTH_API}/api/token`, postOptions);
+      const postTokenSpotify = await fetcher(`${process.env.SPOTIFY_AUTH_API}/api/token`, postOptions);
 
       setCookie(ctx, "sprefresh", postTokenSpotify.refresh_token, {
         maxAge: 30 * 24 * 60 * 60,
