@@ -33,14 +33,15 @@ const Layout = ({ children, title }) => {
     <>
       <Head title={title}/>
       <div className="max-w-full">
-        <div className="flex justify-center items-center h-6 bg-gradient-to-r from-blue-400 via-pink-400 to-yellow-200 text-sm text-white font-bold text-center ">
+        <div className="flex items-center justify-center h-6 text-sm font-bold text-center text-white bg-gradient-to-r from-blue-400 via-pink-400 to-yellow-200 ">
           Welcome to upRoar - Discover more!
         </div>
         <nav role="navigation"
-        className="sticky top-0 w-full bg-pri z-10 bg-opacity-50">
-          <div className="sticky top-0 flex items-center py-2 md:py-4 px-8 md:px-24">
+        className="sticky top-0 z-10 w-full bg-opacity-50 bg-sec">
+          <div className="sticky top-0 flex items-center px-8 py-2 md:py-4 md:px-24">
             <Link href={isLoggedIn ? "/dashboard" : "/"} passHref>
-              <a className="block">
+              <a className="block"
+              aria-label="home page">
                 <Image
                 src="/images/uproar-logo.svg"
                 alt="musical notes logo"
@@ -50,18 +51,18 @@ const Layout = ({ children, title }) => {
               </a>
             </Link>
             <div className="ml-4 md:ml-8">
-              <h2 className="text-sm text-txt font-bold">
+              <h2 className="text-sm font-bold text-txt">
                 upRoar
               </h2>
               <h2 className="text-xs text-txt">
                 Music App
               </h2>
             </div>
-            <div className="group flex items-center w-16 h-8 ml-auto bg-gray-400 cursor-pointer select-none rounded-2xl p-1"
+            <div className={`group flex items-center w-16 h-8 ml-auto bg-gray-400 cursor-pointer select-none rounded-2xl p-1`}
             onClick={() => {setIsDark(!isDark)}}>
-              <div 
-              className={`w-6 h-6 cursor-pointer bg-pri py-0.5 px-0.5 rounded-full flex justify-center items- group:transition-transform duration-200 ease-in 
-              ${!isDark ? "transform translate-x-0" : "transform translate-x-8"}`}>
+              <div id="theme-toggle"
+              className={`w-6 h-6 cursor-pointer bg-pri py-0.5 px-0.5 rounded-full group:transition-transform duration-200 ease-in 
+              ${isDark ? "transform translate-x-8" : "transform translate-x-0"}`}>
                 <Image
                 src={`${isDark ? "/images/toggle-dark.svg" : "/images/toggle-light.svg"}`}
                 alt="moon"
@@ -70,11 +71,10 @@ const Layout = ({ children, title }) => {
               </div>
             </div>
             <div className="">
-              <ul className="hidden md:flex mx-8">
+              <ul className="hidden mx-8 uppercase md:flex">
                 <li className="">
                   <Link href={isLoggedIn ? `/dashboard/users/${authUser}` : "/login"} passHref>
-                    <a
-                      className="block text-sm text-txt px-4 md:px-6 py-1 border border-gray-500 rounded transition duration-150 ease-in hover:bg-sec hover:text-sec">
+                    <a className="block px-4 py-1 text-sm transition duration-150 ease-in border border-gray-500 rounded text-txt md:px-6 hover:bg-sec">
                         {!isLoggedIn ? "login" : "profile"}
                       </a>
                   </Link>
@@ -85,14 +85,14 @@ const Layout = ({ children, title }) => {
                     <a
                     onClick={isLoggedIn ? logoutHandler : null}
                     href={isLoggedIn ? null : "/register"}
-                    className="block text-sm text-txt px-4 md:px-6 py-1 border border-gray-500 ml-4 rounded transition duration-150 ease-in hover:bg-sec hover:text-sec" >
+                    className="block px-4 py-1 ml-4 text-sm transition duration-150 ease-in bg-pink-300 border border-gray-500 rounded text-txt md:px-6 hover:bg-pink-400" >
                       {isLoggedIn ? "logout" : "signUp"}
                     </a>
                   </Link>
                   : 
                     <button
                     onClick={logoutHandler}
-                    className="block text-sm text-txt px-4 md:px-6 py-1 border border-gray-500 ml-4 rounded transition duration-150 ease-in hover:bg-sec hover:text-sec">
+                    className="block px-4 py-1 ml-4 text-sm uppercase transition duration-150 ease-in border border-gray-500 rounded text-txt md:px-6 hover:bg-sec">
                       logout
                     </button>
                   }
@@ -103,11 +103,11 @@ const Layout = ({ children, title }) => {
         </nav>
         <Sidebar active={sidebarOpen}
         logoutHandler={logoutHandler} />
-        <div className="w-full px-8 md:px-16 relative">
+        <div className="relative w-full px-8 md:px-16">
           {children}
           <div
           onClick={toggleSidebarOpen}
-          className="group h-12 w-12 flex flex-col justify-center items-center rounded-full border-2 border-gray-500 bg-pri fixed bottom-4 right-8 z-50 cursor-pointer hover:bg-sec transition duration-150ms ease-in">
+          className="fixed z-50 flex flex-col items-center justify-center w-12 h-12 transition ease-in border-2 border-gray-500 rounded-full cursor-pointer group bg-pri bottom-4 right-8 hover:bg-sec duration-150ms">
             <span className="block h-0.5 w-6 bg-txt cursor-pointer group-hover:bg-acc" /> 
             <span className="block h-0.5 w-4 bg-txt my-1 cursor-pointer group-hover:bg-acc" /> 
             <span className="block h-0.5 w-6 bg-txt cursor-pointer group-hover:bg-acc" /> 

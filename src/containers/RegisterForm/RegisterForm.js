@@ -91,7 +91,7 @@ const RegisterForm = () => {
   return (
     <form 
     onSubmit={submitHandler}
-    className="flex flex-col text-txt w-full max-w-xl m-auto"
+    className="flex flex-col w-full max-w-xl m-auto text-txt"
     data-testid="register-form">
       <label 
       htmlFor="name" 
@@ -159,7 +159,7 @@ const RegisterForm = () => {
       <p className="mb-8">
         Already have an account? 
           <Link href="/login">
-            <a className="text-pink-400 ml-1">
+            <a className="ml-1 text-pink-400">
               Sign in.
             </a>
           </Link>
@@ -169,7 +169,7 @@ const RegisterForm = () => {
       type="submit"
       name="submit"
       value="submit"
-      className="py-2 px-4 w-2/5 m-auto rounded text-txt font-bold uppercase border-2 border-pri rounded bg-pri cursor-pointer hover:bg-sec" />
+      className="w-2/5 px-4 py-2 m-auto font-bold uppercase border-2 border-pink-200 rounded cursor-pointer text-txt bg-pri focus:outline-none focus:ring-2 focus:ring-indigo-400 hover:bg-sec" />
     </form>
   )
 };

@@ -3,12 +3,12 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="border-t-2 border-gray-100 p-8 mt-20">
-      <p className="text-md text-txt font-bold text-center">
+    <footer className="p-8 mt-20 border-t-2 border-gray-100 bg-sec">
+      <p className="font-bold text-center text-md text-txt">
         upRoar Music App
       </p>
-      <div className="flex justify-center items-center">
-        <p className="mr-2 text-txt capitalize">
+      <div className="flex items-center justify-center">
+        <p className="mr-2 capitalize text-txt">
           powered by 
         </p>
           <Image 
@@ -17,7 +17,7 @@ const Footer = () => {
           height={70}
           width={70} />
       </div>
-      <p className="text-xs text-txt text-center">
+      <p className="text-xs text-center text-txt">
         created and designed by Kieran Roberts
       </p>
     </footer>

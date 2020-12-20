@@ -9,28 +9,28 @@ import { fetcher } from "src/hooks/useFetch";
 const Auth = () => {
   return (
     <Layout>
-      <h2 className=" text-md text-txt text-center capitalize mt-4">
+      <h2 className="mt-12 text-center capitalize text-md text-txt">
         for your experience
       </h2>
-      <div className="w-max m-auto">
+      <div className="m-auto w-max">
         <Image 
           src="/images/spotify-seeklogo.com.svg"
           alt="spotify logo"
           height={70}
           width={70} />
       </div>
-      <p className="w-2/4 mt-4 text-sm m-auto text-center text-txt">
+      <p className="w-2/4 m-auto mt-4 text-sm text-center text-txt">
       For the best possible user experience we reccomend allowing us to access your spotify profile.
       This includes info such as your personal playlists and most listened to track.
     </p>
     <div className="h-0.5 w-3/5 bg-pri my-4" />
-    <p className="w-2/4 mb-8 text-sm text-center m-auto text-txt">
+    <p className="w-2/4 m-auto mb-8 text-sm text-center text-txt">
       Then we can personalize your experince to bring you the tracks and artists you love.
     </p>
     <button
       role="link"
       onClick={() => document.location.href = spotifyRedirect}
-      className="w-2/5 m-auto block text-xs text-txt uppercase text-center bg-pri px-4 my-2 md:px-6 py-2 border border-light-text rounded transition duration-150 ease-in text-light-text hover:bg-light-bg hover:text-light-text">
+      className="block w-2/5 px-4 py-2 m-auto my-2 text-xs text-center uppercase transition duration-150 ease-in border border-pink-400 rounded text-txt bg-pri md:px-6 hover:bg-sec">
         Allow us to access your spotify information
       </button>
     </Layout>

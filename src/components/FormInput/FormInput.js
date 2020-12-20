@@ -9,7 +9,7 @@ const FormInput = ({ id, type, name, value, onChange }) => {
     value={value}
     styling=""
     onChange={onChange}
-    className="py-2 px-4 mb-8 text-black ring-2 ring-gray-500 ring-opacity-50 rounded focus:outline-none focus:ring-pri" />
+    className="px-4 py-2 mb-8 text-black rounded ring-2 ring-gray-500 ring-opacity-50 focus:outline-none focus:ring-3 focus:ring-indigo-400" />
   )
 };
 
