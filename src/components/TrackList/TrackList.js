@@ -24,7 +24,8 @@ const TrackList = (spotifyTracks) => {
   }, []);
 
   const mapTracks = tracks.map(track => 
-    <li key={track.id}>
+    <li key={track.id}
+    className="w-full m-auto 2xl:w-3/5">
       <Track 
       id={track.id}
       trackName={track.name}

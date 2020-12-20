@@ -2,28 +2,28 @@ import Link from "next/link";
 
 const Playlists = ({ spotifyPlaylists }) => {
     if (!spotifyPlaylists.playlists) {
-        return <div className="text-sm text-txt my-4 capitalize">no playlists available</div>
+        return <div className="my-4 text-sm capitalize text-txt">no playlists available</div>
     }
 
     const { playlists: { items: playlistArr} } = spotifyPlaylists;
     return (
-        <ul className="flex flex-col items-center justify-evenly md:flex-row">
+        <ul className="flex flex-col items-center justify-evenly lg:flex-row">
             {playlistArr.map(playlist => 
                 <li 
                 key={playlist.id}
-                className="flex flex-col opacity-50 hover:opacity-90 h-60 w-60 p-8 relative flex flex-col items-center justify-center text-sm text-white font-bold text-center transition" >
+                className="relative flex flex-col items-center justify-center p-8 text-sm font-bold text-center text-white transition opacity-50 hover:opacity-90 h-60 w-60 2xl:h-96 2xl:w-96" >
                     <Link href={`/dashboard/playlists/${playlist.id}`}>
                         <a>
                             <img
                             src={playlist.images[0].url}
                             alt="playlist cover"
-                            className="absolute rounded top-0 left-0 right-0 bottom-0"
-                            width={320}
+                            className="absolute top-0 bottom-0 left-0 right-0 rounded"
+                            width={700}
                             height={700} />
-                            <h2 className="text-md uppercase mb-2 z-10">
+                            <h2 className="z-10 mb-2 uppercase text-md">
                             {playlist.name}
                             </h2>
-                            <p className="hidden lg:block text-sm capitalize z-10">
+                            <p className="z-10 hidden text-sm capitalize lg:block">
                                 {playlist.description}
                             </p>
                         </a>

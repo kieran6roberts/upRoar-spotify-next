@@ -11,41 +11,44 @@ const Track = ({ id, trackName, trackImage, artist, album, releaseDate, spotifyL
     setAudioSrc } = useUpdatePlaying();
 
   return (
-    <div className={`flex items-center text-txt py-4 px-2 my-2 w-full max-w-xl`}>
+    <div className="flex items-center w-full max-w-xl px-2 py-4 my-2 text-txt">
       <div className="relative">
         <img
         src={trackImage}
         alt="album cover"
         className="rounded"
-        width={80}
-        height={80} />
+        width={120}
+        height={120} />
         <button id={id}
         onClick={() => setAudioSrc({ trackName, artist, src: audioSrc})}
-        className="absolute flex justify-center items-center top-0 w-16 h-16 left-2/4 top-2/4 -mt-8 -ml-8 cursor-pointer">
+        className="absolute top-0 flex items-center justify-center w-24 h-24 -mt-12 -ml-12 cursor-pointer left-2/4 top-2/4">
           {playing && currentTrack.track === trackName ?
-          <BsFillPauseFill className="text-opacity-50 text-xl text-white hover:text-opacity-80" />
+          <BsFillPauseFill className="text-white text-opacity-50 text-xxxl hover:text-opacity-80" />
           :
-          <BsFillPlayFill className="text-opacity-50 text-xl text-white hover:text-opacity-80" />
+          <BsFillPlayFill className="text-white text-opacity-50 text-xxxl hover:text-opacity-80" />
           }
         </button>
       </div>
-      <div className="pl-8 ">
-        <h3 className="text-sm capitalize">
+      <div className="pl-8">
+        <h3 className="capitalize text-md">
           {trackName}
         </h3>
-        <span className="text-xs uppercase">
+        <span className="text-sm text-pink-600 uppercase">
           {artist} -
         </span>
         <span className="text-xs uppercase">
-          {album}  <span className="text-xxs capitalize">released on {releaseDate}</span>
+          {album}  
         </span>
         <p className="text-xs">
           find the full version here
           <a 
           href={spotifyLink}
-          className="text-green-500 ml-1">
+          className="ml-1 text-green-500">
             to spotify
           </a>
+        </p>
+        <p className="capitalize text-xxs">
+          released on {releaseDate}
         </p>
       </div>
     </div>
