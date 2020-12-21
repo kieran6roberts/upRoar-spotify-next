@@ -5,11 +5,18 @@ import TrackList from "@/components/TrackList/TrackList";
 import Layout from "@/containers/Layout/Layout";
 import PlayingProvider from "@/context/PlayingContext";
 import { fetcher } from "@/hooks/useFetch";
+import PageHead from "@/components/PageHead/PageHead";
 
 function Albums ({ album }) {
   const { tracks: { items: albumTracks } } = album;
 
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="upRoar album."
+    title="upRoar - Album"
+    />
     <PlayingProvider>
       <Layout>
         <main>
@@ -38,6 +45,7 @@ function Albums ({ album }) {
         </main>
       </Layout>
     </PlayingProvider>
+    </>
   );
 }
 

@@ -5,11 +5,18 @@ import Player from "@/components/Player/Player";
 import Layout from "@/containers/Layout/Layout";
 import PlayingProvider from "@/context/PlayingContext";
 import { fetcher } from "@/hooks/useFetch";
+import PageHead from "@/components/PageHead/PageHead";
 
 function Artists ({ artistsAlbums }) {
   const { items: artistContentArr } = artistsAlbums;
 
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="upRoar artist."
+    title="upRoar - Artist"
+    />
     <PlayingProvider>
       <Layout>
         <main>
@@ -23,6 +30,7 @@ function Artists ({ artistsAlbums }) {
         </main>
       </Layout>
     </PlayingProvider>
+    </>
   );
 }
 

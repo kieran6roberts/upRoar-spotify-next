@@ -2,9 +2,16 @@ import React from "react";
 
 import Layout from "@/containers/Layout/Layout";
 import LoginForm from "@/containers/LoginForm/LoginForm";
+import PageHead from "@/components/PageHead/PageHead";
 
 function Login () {
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="Login to your upRoar music account and get playing your songs."
+    title="upRoar - Login"
+    />
     <Layout>
       <main>
         <section
@@ -21,6 +28,7 @@ function Login () {
         </section>
       </main>
     </Layout>
+    </>
   );
 }
 

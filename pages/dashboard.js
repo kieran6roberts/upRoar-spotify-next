@@ -14,6 +14,7 @@ import PlayingProvider from "@/context/PlayingContext";
 import { fetcher } from "@/hooks/useFetch";
 import useForm from "@/hooks/useForm";
 import userSearchValidation from "@/validation/userSearch";
+import PageHead from "@/components/PageHead/PageHead";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -80,6 +81,14 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
   });
 
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="upRoar's dashboard is the place to start your music adventure.
+    Play your favorite songs, search for new albums, tracks and playlist or
+    let us show you what's new."
+    title="upRoar - Dashboard"
+    />
     <PlayingProvider>
       <Layout>
         <main>
@@ -188,6 +197,7 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
         </main>
       </Layout>
     </PlayingProvider>
+    </>
   );
 }
 

@@ -5,6 +5,7 @@ import ChangePasswordForm from "@/containers/ChangePasswordForm/ChangePasswordFo
 import EditUserForm from "@/containers/EditUserForm/EditUserForm";
 import Layout from "@/containers/Layout/Layout";
 import { fetcher } from "@/hooks/useFetch";
+import PageHead from "@/components/PageHead/PageHead";
 
 function User ({ data: { username, name, created_at, email } }) {
   const [
@@ -26,6 +27,12 @@ function User ({ data: { username, name, created_at, email } }) {
   }
 
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="User profile page."
+    title="upRoar - My Profile"
+    />
     <Layout>
       <main>
         <h2 className="my-4 text-md text-txt">
@@ -107,6 +114,7 @@ function User ({ data: { username, name, created_at, email } }) {
         </section>
       </main>
     </Layout>
+    </>
   );
 }
 

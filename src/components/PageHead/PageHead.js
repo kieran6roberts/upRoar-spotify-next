@@ -53,40 +53,40 @@ function PageHead ({ title,
             property="og:url"
             />
             <meta
-            content="./images/home-screenshot.jpg"
+            content="./images/home-screenshot.webp"
             key="ogimage"
             property="og:image"
             />
             <meta
-            content="https://kieranroberts.dev"
+            content=""
             key="ogsite"
             property="og:site_name"
             />
 
             <link
-            href="./images/head/apple-touch-icon.png"
+            href="./images/apple-touch-icon.png"
             rel="apple-touch-icon"
             sizes="180x180"
             />
             <link
-            href="./images/head/favicon-32x32.png"
+            href="./images/favicon-32x32.png"
             rel="icon"
             sizes="32x32"
             type="image/png"
             />
             <link
-            href="./images/head/favicon-16x16.png"
+            href="./images/favicon-16x16.png"
             rel="icon"
             sizes="16x16"
             type="image/png"
             />
             <link
             color="#000000"
-            href="./images/head/safari-pinned-tab.svg"
+            href="./images/safari-pinned-tab.svg"
             rel="mask-icon"
             />
             <link
-            href="./images/head/favicon.ico"
+            href="./images/favicon.ico"
             rel="shortcut icon"
             />
 
@@ -95,7 +95,7 @@ function PageHead ({ title,
             name="msapplication-TileColor"
             />
             <meta
-            content="./images/head/browserconfig.xml"
+            content="./images/browserconfig.xml"
             name="msapplication-config"
             />
             <meta

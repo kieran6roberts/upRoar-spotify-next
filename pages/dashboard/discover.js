@@ -8,6 +8,7 @@ import Player from "@/components/Player/Player";
 import Layout from "@/containers/Layout/Layout";
 import PlayingProvider from "@/context/PlayingContext";
 import { fetcher } from "@/hooks/useFetch";
+import PageHead from "@/components/PageHead/PageHead";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -42,6 +43,13 @@ function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
   }, []);
 
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="upRoar discover where we recommend you artists based on your
+    existing likes. Let's discover together."
+    title="upRoar - Discover"
+    />
     <PlayingProvider>
       <Layout>
         <main>
@@ -89,8 +97,8 @@ function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
           </section>
         </main>
       </Layout>
-
     </PlayingProvider>
+    </>
   );
 }
 

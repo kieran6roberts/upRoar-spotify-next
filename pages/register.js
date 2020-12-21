@@ -2,9 +2,16 @@ import React from "react";
 
 import Layout from "@/containers/Layout/Layout";
 import RegisterForm from "@/containers/RegisterForm/RegisterForm";
+import PageHead from "@/components/PageHead/PageHead";
 
 function Register () {
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="Register today for a new upRoar music account and get playing your songs."
+    title="upRoar - Register"
+    />
     <Layout>
       <main>
         <section
@@ -28,6 +35,7 @@ function Register () {
         </section>
       </main>
     </Layout>
+    </>
   );
 }
 

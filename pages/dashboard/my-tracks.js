@@ -9,6 +9,7 @@ import Playlists from "@/components/Playlists/Playlists";
 import Layout from "@/containers/Layout/Layout";
 import PlayingProvider from "@/context/PlayingContext";
 import { fetcher } from "@/hooks/useFetch";
+import PageHead from "@/components/PageHead/PageHead";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -33,6 +34,12 @@ function myTracks ({ savedPlaylists, savedAlbums }) {
   const { items: albumArr } = data;
 
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="View your favorite tracks with integration from spotify."
+    title="upRoar - My tracks"
+    />
     <PlayingProvider>
       <Layout>
         <main>
@@ -74,6 +81,7 @@ function myTracks ({ savedPlaylists, savedAlbums }) {
         </main>
       </Layout>
     </PlayingProvider>
+    </>
   );
 }
 

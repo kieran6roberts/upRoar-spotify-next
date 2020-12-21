@@ -69,11 +69,13 @@ function RegisterForm () {
 
     setCookie(null, "jwt", registerUser.jwt, {
       maxAge: 30 * 24 * 60 * 60,
-      path: "/"
+      path: "/",
+      sameSite: true
     });
     setCookie(null, "user", registerUser.user.username, {
       maxAge: 30 * 24 * 60 * 60,
-      path: "/"
+      path: "/",
+      sameSite: true
     });
     setAuthUser(registerUser);
     router.push("/dashboard/auth");

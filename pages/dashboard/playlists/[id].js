@@ -8,6 +8,7 @@ import TrackList from "@/components/TrackList/TrackList";
 import Layout from "@/containers/Layout/Layout";
 import PlayingProvider from "@/context/PlayingContext";
 import { fetcher } from "@/hooks/useFetch";
+import PageHead from "@/components/PageHead/PageHead";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -28,6 +29,12 @@ function Playlist ({ queryID, playlistTracks }) {
   const formatTracks = useCallback(() => tracks.map((track) => track.track));
 
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="upRoar playlist."
+    title="upRoar - Playlists"
+    />
     <PlayingProvider>
       <Layout>
         <main>
@@ -38,6 +45,7 @@ function Playlist ({ queryID, playlistTracks }) {
         </main>
       </Layout>
     </PlayingProvider>
+    </>
   );
 }
 

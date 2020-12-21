@@ -4,7 +4,6 @@ import { destroyCookie, parseCookies } from "nookies";
 import React, { useState } from "react";
 
 import Footer from "@/components/Footer/Footer";
-import Head from "@/components/Head/Head";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { useAuth } from "@/context/AuthContext";
 import { useColorTheme, useUpdateColorTheme } from "@/context/ThemeContext";
@@ -37,8 +36,6 @@ function Layout ({ children, title }) {
   }
 
   return (
-    <>
-      <Head title={title} />
       <div className="max-w-full">
         <div className="flex items-center justify-center h-6 text-xs font-bold text-center text-white bg-gradient-to-r from-blue-400 via-pink-400 to-yellow-200 ">
             Welcome to upRoar - Discover more!
@@ -162,7 +159,6 @@ function Layout ({ children, title }) {
         </div>
         <Footer />
       </div>
-    </>
   );
 }
 

@@ -3,11 +3,18 @@ import { parseCookies, setCookie } from "nookies";
 
 import Layout from "@/containers/Layout/Layout";
 import { fetcher } from "@/hooks/useFetch";
+import PageHead from "@/components/PageHead/PageHead";
 
 import spotifyRedirect from "../../src/spotify.js";
 
 function Auth () {
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="Link your upRoar music account to an existing spotify profile."
+    title="upRoar - Auth"
+    />
     <Layout>
       <h2 className="mt-12 text-center capitalize text-md text-txt">
           for your experience
@@ -37,6 +44,7 @@ function Auth () {
          Allow us to access your spotify information
       </button>
     </Layout>
+    </>
   );
 }
 

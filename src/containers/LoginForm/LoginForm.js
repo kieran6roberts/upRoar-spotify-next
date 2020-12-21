@@ -44,11 +44,13 @@ function LoginForm () {
 
     setCookie(null, "jwt", postLoginUser.jwt, {
       maxAge: 30 * 24 * 60 * 60,
-      path: "/"
+      path: "/",
+      sameSite: true
     });
     setCookie(null, "user", postLoginUser.user.username, {
       maxAge: 30 * 24 * 60 * 60,
-      path: "/"
+      path: "/",
+      sameSite: "true"
     });
 
     setAuthUser(postLoginUser);

@@ -1,8 +1,15 @@
 import Layout from "@/containers/Layout/Layout";
 import ResetForm from "@/containers/ResetForm/ResetForm";
+import PageHead from "@/components/PageHead/PageHead";
 
 function Reset () {
   return (
+    <>
+    <PageHead
+    currentURL="upRoar"
+    description="Enter your new password."
+    title="upRoar - New password"
+    />
     <Layout>
       <main>
         <section
@@ -19,6 +26,7 @@ function Reset () {
         </section>
       </main>
     </Layout>
+    </>
   );
 }
 

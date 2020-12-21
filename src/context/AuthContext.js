@@ -38,6 +38,7 @@ function AuthProvider ({ children }) {
         router.push("/login");
       }
     } else {
+      console.log("fetching user");
       const response = await fetcher(`${publicRuntimeConfig.API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${jwt}`
