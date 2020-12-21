@@ -1,65 +1,72 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
-import { parseCookies, destroyCookie } from "nookies";
 import getConfig from "next/config";
-import fetch from "isomorphic-fetch";
 import { useRouter } from "next/router";
-import { validPublicPaths } from "../containers/AuthRoutes/routes";
+import { destroyCookie, parseCookies } from "nookies";
+import React, { createContext, useContext, useEffect, useState } from "react";
+
+import { validPublicPaths } from "@/containers/AuthRoutes/routes";
+import { fetcher } from "@/hooks/useFetch";
 
 const { publicRuntimeConfig } = getConfig();
 
 const AuthContext = createContext();
 
-export const useAuth = () => useContext(AuthContext);
+export function useAuth () {
+  return useContext(AuthContext);
+}
 
-const AuthProvider = ({ children }) => {
-  const [ authUser, setAuthUser ] = useState(null);
+function AuthProvider ({ children }) {
+  const [
+    authUser,
+    setAuthUser
+  ] = useState(null);
 
   const router = useRouter();
   const { pathname } = router;
 
-  const checkIsUserAuth = async () => {
-    if (typeof window === "undefined") return;
+  async function checkIsUserAuth () {
+    if (typeof window === "undefined") {
+      return;
+    }
 
-    const jwt = parseCookies(null).jwt;
+    const { jwt } = parseCookies(null);
 
     if (!jwt) {
       console.log("empty jwt");
       if (!validPublicPaths.includes(pathname)) {
         console.log("not a valid public path");
-        return router.push("/login");
+
+        router.push("/login");
       }
-    } 
-        else {
-      const response = await fetch(`${publicRuntimeConfig.API_URL}/users/me`, {
+    } else {
+      const response = await fetcher(`${publicRuntimeConfig.API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${jwt}`
         }
       });
 
-      const data = await response.json();
-
-      if(!data) {
+      if (!response) {
         destroyCookie(null, "jwt", {
           path: "/"
         });
         setAuthUser(null);
-        return null;
       }
-        else {
-          setAuthUser(data.username);
-        }
+
+      setAuthUser(response.username);
+
     }
-  };
+  }
 
   useEffect(() => {
     checkIsUserAuth();
-  }, [ authUser ]);
+  }, [authUser]);
 
   return (
-    <AuthContext.Provider value={{ authUser, setAuthUser }}>
+    <AuthContext.Provider value={{ authUser,
+      setAuthUser }}
+    >
       {children}
     </AuthContext.Provider>
-  )
-};
+  );
+}
 
 export default AuthProvider;

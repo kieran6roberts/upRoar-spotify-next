@@ -1,11 +1,12 @@
-import React from "react";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { cleanup, fireEvent, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as nextRouter from "next/router";
+import React from "react";
 
 jest.mock("../containers/Layout/Layout", () => "div");
-import Login from "../../pages/login";
 import { useRouter } from "next/router";
+
+import Login from "../../pages/login";
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -13,10 +14,11 @@ afterEach(() => {
 });
 
 describe("Custom hook for login form", () => {
-  nextRouter.useRouter = jest.fn().mockImplementation(() => ({push: jest.fn()}));
+  nextRouter.useRouter = jest.fn().mockImplementation(() => ({ push: jest.fn() }));
 
   test("<Login /> page renders", () => {
     const { getByText, getByTestId } = render(<Login />);
+
     expect(getByText(/Already have an account?/i)).toBeInTheDocument();
     expect(getByText(/Sign in below./i)).toBeInTheDocument();
     expect(getByTestId("login-form")).toBeInTheDocument();

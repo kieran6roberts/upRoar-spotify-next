@@ -1,25 +1,30 @@
-import { useEffect } from "react";
-import { useMediaQuery } from "react-responsive";
-import createPersistedState from "use-persisted-state";
+import { createContext, useContext } from "react";
 
-const setTheme = () => {
-  const darkMode = "dark";
-  const useThemeState = createPersistedState("colorPerference");
-  const themeSettingPreference = useMediaQuery({
-    query: "(prefers-color-scheme: dark)"
-  },
-  undefined,
-  darkPreference => setIsDark(darkPreference)
+import useTheme from "@/hooks/useTheme";
+
+const ThemeContext = createContext();
+const ThemeUpdateContext = createContext();
+
+export function useColorTheme () {
+  return useContext(ThemeContext);
+}
+export function useUpdateColorTheme () {
+  return useContext(ThemeUpdateContext);
+}
+
+function ThemeProvider ({ children }) {
+  const [
+    isDark,
+    setIsDark
+  ] = useTheme();
+
+  return (
+    <ThemeContext.Provider value={{ isDark }}>
+      <ThemeUpdateContext.Provider value={{ setIsDark }}>
+        {children}
+      </ThemeUpdateContext.Provider>
+    </ThemeContext.Provider>
   );
+}
 
-  const [ isDark, setIsDark ] = useThemeState(themeSettingPreference);
-
-  useEffect( () => {
-    if (isDark) document.documentElement.classList.add(darkMode);
-    if (!isDark) document.documentElement.classList.remove(darkMode);
-  }, [isDark])
-
-  return [ isDark, setIsDark ];
-};
-
-export default setTheme;
+export default ThemeProvider;

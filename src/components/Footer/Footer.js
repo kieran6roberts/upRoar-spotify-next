@@ -1,27 +1,28 @@
-import React from "react";
 import Image from "next/image";
+import React from "react";
 
-const Footer = () => {
+function Footer () {
   return (
     <footer className="p-8 mt-20 border-t-2 border-gray-100 bg-sec">
       <p className="font-bold text-center text-md text-txt">
-        upRoar Music App
+          upRoar Music App
       </p>
       <div className="flex items-center justify-center">
         <p className="mr-2 capitalize text-txt">
-          powered by 
+            powered by
         </p>
-          <Image 
-          src="/images/spotify-seeklogo.com.svg"
-          alt="spotify logo"
-          height={70}
-          width={70} />
+        <Image
+        alt="spotify logo"
+        height={70}
+        src="/images/spotify-seeklogo.com.svg"
+        width={70}
+        />
       </div>
       <p className="text-xs text-center text-txt">
-        created and designed by Kieran Roberts
+          created and designed by Kieran Roberts
       </p>
     </footer>
-  )
-};
+  );
+}
 
 export default Footer;

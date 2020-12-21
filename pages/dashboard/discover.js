@@ -1,35 +1,42 @@
-import React, { useEffect, useState } from "react";
 import getConfig from "next/config";
 import { parseCookies } from "nookies";
-import { fetcher } from "src/hooks/useFetch";
+import React, { useEffect, useState } from "react";
 
-import Layout from "src/containers/Layout/Layout";
-import Artist from "src/components/Artist/Artist";
-import Albums from "src/components/Albums/Albums";
-import Player from "src/components/Player/Player";
-import PlayingProvider from "src/context/PlayingContext";
+import Albums from "@/components/Albums/Albums";
+import Artist from "@/components/Artist/Artist";
+import Player from "@/components/Player/Player";
+import Layout from "@/containers/Layout/Layout";
+import PlayingProvider from "@/context/PlayingContext";
+import { fetcher } from "@/hooks/useFetch";
 
 const { publicRuntimeConfig } = getConfig();
 
-const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
-  const [ data, setData ] = useState(null);
-  
+function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
+  const [
+    data,
+    setData
+  ] = useState(null);
+
   useEffect(() => {
-    const fetch = async () => {
+    async function fetch () {
       const token = parseCookies(null).spaccess;
       const newReleaseQuery = "/v1/browse/new-releases?offset=0&limit=15";
-      const newReleases = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}${newReleaseQuery}`, {       
-        method: "GET",
+      const newReleases = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}${newReleaseQuery}`, {
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-          }
-        });
-        let newReleasesItems;
-        if (!newReleases.error) newReleasesItems = newReleases.albums;
-        return setData(newReleasesItems);
-    };
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        method: "GET"
+      });
+      let newReleasesItems;
+
+      if (!newReleases.error) {
+        newReleasesItems = newReleases.albums;
+      }
+
+      setData(newReleasesItems);
+    }
 
     fetch();
   }, []);
@@ -43,39 +50,39 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
                 discover
             </h2>
             <p className="mt-8 mb-4 uppercase text-md text-txt">
-              the latest and greatest form the world of music
+                the latest and greatest form the world of music
             </p>
             <p className="my-12 text-sm text-pink-300 uppercase">
-              Based on your saved album by {userLikedArtists[0]}
+                Based on your saved album by {userLikedArtists[0]}
             </p>
             <ul className="grid grid-cols-1 gap-x-2 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {relatedArtist1.map(artist => 
-                <li key={artist.id}>
+              {relatedArtist1.map((artist) =>
+              <li key={artist.id}>
                   <Artist
-                  id={artist.id}
-                  name={artist.name}
-                  image={artist.images[0].url}
+                  followers={artist.followers.total}
                   genre={`${artist.genres[0]}/${artist.genres[1]}`}
-                  followers={artist.followers.total} />
-                </li>
-                )}
+                  id={artist.id}
+                  image={artist.images[0].url}
+                  name={artist.name}
+                  />
+              </li>)}
             </ul >
             <p className="my-20 text-sm text-pink-300 uppercase">
-              Based on your saved album by {userLikedArtists[1]}
+                Based on your saved album by {userLikedArtists[1]}
             </p>
             <ul className="grid grid-cols-1 gap-x-2 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {relatedArtist2.map(artist => 
+              {relatedArtist2.map((artist) =>
                 <li key={artist.id}>
                   <Artist
-                  name={artist.name}
-                  image={artist.images[0].url}
+                  followers={artist.followers.total}
                   genre={`${artist.genres[0]}/${artist.genres[1]}`}
-                  followers={artist.followers.total} />
-                </li>
-                )}
+                  image={artist.images[0].url}
+                  name={artist.name}
+                  />
+                </li>)}
             </ul>
             <p className="my-16 text-lg text-txt">
-              Check out the new releases!
+                Check out the new releases!
             </p>
             {data && <Albums tracks={data} />}
             <Player />
@@ -84,49 +91,53 @@ const Discover = ({ relatedArtist1, relatedArtist2, userLikedArtists }) => {
       </Layout>
 
     </PlayingProvider>
-  )
-};
+  );
+}
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps (ctx) {
   const authToken = parseCookies(ctx).spaccess;
-  const userSavedAlbumsQuery = `/v1/me/albums?limit=5`;
+  const userSavedAlbumsQuery = "/v1/me/albums?limit=5";
 
   const userAlbums = await fetcher(`${process.env.SPOTIFY_API}${userSavedAlbumsQuery}`, {
-    method: "GET",
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${authToken}`
-      }
+      Authorization: `Bearer ${authToken}`,
+      "Content-Type": "application/json"
+    },
+    method: "GET"
   });
 
-  const userLikedArtists = [ userAlbums.items[0].album.artists[0].id,
-   userAlbums.items[1].album.artists[0].id ];
+  const userLikedArtists = [
+    userAlbums.items[0].album.artists[0].id,
+    userAlbums.items[1].album.artists[0].id
+  ];
 
-  const userLikedArtistsNames = [ userAlbums.items[0].album.artists[0].name,
-   userAlbums.items[1].album.artists[0].name ];
+  const userLikedArtistsNames = [
+    userAlbums.items[0].album.artists[0].name,
+    userAlbums.items[1].album.artists[0].name
+  ];
 
-  const [ relatedArtist1, 
-    relatedArtist2 ] = await Promise.all([
-      fetcher(`${process.env.SPOTIFY_API}/v1/artists/${userLikedArtists[0]}/related-artists?limit=5`, {       
-            method: "GET",
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`
-            }
-          }),
-      fetcher(`${process.env.SPOTIFY_API}/v1/artists/${userLikedArtists[1]}/related-artists?limit=5`, {       
-            method: "GET",
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`
-            }
-          })
-    ]);
-  
-  
+  const [
+    relatedArtist1,
+    relatedArtist2
+  ] = await Promise.all([
+    fetcher(`${process.env.SPOTIFY_API}/v1/artists/${userLikedArtists[0]}/related-artists?limit=5`, {
+      headers: {
+        "Accept": "application/json",
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json"
+      },
+      method: "GET"
+    }),
+    fetcher(`${process.env.SPOTIFY_API}/v1/artists/${userLikedArtists[1]}/related-artists?limit=5`, {
+      headers: {
+        "Accept": "application/json",
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json"
+      },
+      method: "GET"
+    })
+  ]);
 
   return {
     props: {
@@ -134,7 +145,7 @@ export async function getServerSideProps(ctx) {
       relatedArtist2: relatedArtist2.artists,
       userLikedArtists: userLikedArtistsNames
     }
-  }
+  };
 }
 
 export default Discover;

@@ -1,11 +1,11 @@
-const userSearchValidation = values => {
-    let errors = {};
-  
-    if(!values.search.trim() === "" || typeof values.search !== "string") {
-      errors.username = "Search for something!";
-    }
+function userSearchValidation (values) {
+  const errors = {};
 
-    return errors;
-  };
-  
-  export default userSearchValidation;
+  if (!values.search.trim() === "" || typeof values.search !== "string") {
+    errors.username = "Search for something!";
+  }
+
+  return errors;
+}
+
+export default userSearchValidation;

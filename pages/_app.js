@@ -1,21 +1,26 @@
-import "src/App.css";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Loading from "src/components/Loading/Loading";
-import AuthProvider from "src/context/AuthContext";
+import "../src/App.css";
 
-const MyApp = ({ Component, pageProps }) => {
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+import Loading from "@/components/Loading/Loading";
+import AuthProvider from "@/context/AuthContext";
+import ThemeProvider from "@/context/ThemeContext";
+
+function MyApp ({ Component, pageProps }) {
   const router = useRouter();
-  const [ isLoading, setIsloading ] = useState(false);
-  
+  const [
+    isLoading,
+    setIsloading
+  ] = useState(false);
+
   useEffect(() => {
-    const handleLoadStart = url => {
-      console.log("app is changing to " + url);
-      setIsloading(true)
-    };
-    const handleLoadEnd = () => {
+    function handleLoadStart () {
+      setIsloading(true);
+    }
+    function handleLoadEnd () {
       setIsloading(false);
-    };
+    }
 
     router.events.on("routeChangeStart", handleLoadStart);
     router.events.on("routeChangeComplete", handleLoadEnd);
@@ -25,16 +30,18 @@ const MyApp = ({ Component, pageProps }) => {
       router.events.off("routeChangeStart", handleLoadStart);
       router.events.off("routeChangeComplete", handleLoadEnd);
       router.events.off("routeChangeError", handleLoadEnd);
-    }
+    };
   }, []);
 
   return (
-      <AuthProvider>
-            {isLoading ? <Loading></Loading> : 
-              <Component {...pageProps} />
-            }
-      </AuthProvider>
-    )
+    <AuthProvider>
+      <ThemeProvider>
+      {isLoading
+        ? <Loading />
+        : <Component {...pageProps} />}
+      </ThemeProvider>
+    </AuthProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

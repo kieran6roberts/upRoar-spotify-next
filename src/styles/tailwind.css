@@ -85,7 +85,7 @@
   --clr-acc: #81e6d9;
 
   --clr-bg-pri: #ffffff;
-  --clr-bg-sec: #f4e8e8;
+  --clr-bg-sec: #f9fafb;
   
   --font-head: "Raleway", sans-serif;
   --font-reg: "Source Sans Pro", sans-serif;
@@ -103,7 +103,7 @@
 :root.dark {
   --clr-txt: #ffffff;
   --clr-pri: #412dc0;
-  --clr-sec: #f4e8e8;
+  --clr-sec: #f9fafb;
   --clr-acc: #81e6d9;
 
   --clr-bg-pri: #1a1a1a;
@@ -114,7 +114,7 @@
   :root {
     --clr-txt: #ffffff;
     --clr-pri: #412dc0;
-    --clr-sec: #f4e8e8;
+    --clr-sec: #f9fafb;
     --clr-acc: #81e6d9;
   
     --clr-bg-pri: #1F0A29;
@@ -143,14 +143,14 @@
 
   input[type=range]::-webkit-slider-runnable-track {
     height: 0.2rem;
-    background: linear-gradient(90deg, #26C3FA 33%, #FC6BF7, 66%, #F6CE6C 100%);
+    background-color: purple;
     border: 1px solid pink;
 }
 
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     border: 2px solid var(--clr-txt);
-    background-color: var(--clr-txt);
+    background-color: purple;
     height: 0.9rem;
     width: 0.9rem;
     border-radius: 50%;

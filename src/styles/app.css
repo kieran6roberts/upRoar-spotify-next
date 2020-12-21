@@ -627,7 +627,7 @@ video {
   --clr-sec: #ffffff;
   --clr-acc: #81e6d9;
   --clr-bg-pri: #ffffff;
-  --clr-bg-sec: #f4e8e8;
+  --clr-bg-sec: #f9fafb;
   --font-head: "Raleway", sans-serif;
   --font-reg: "Source Sans Pro", sans-serif;
   --fxxs: clamp(0.6rem, 0.9vw, 1rem);
@@ -644,7 +644,7 @@ video {
   :root {
     --clr-txt: #ffffff;
     --clr-pri: #412dc0;
-    --clr-sec: #f4e8e8;
+    --clr-sec: #f9fafb;
     --clr-acc: #81e6d9;
     --clr-bg-pri: #1F0A29;
     --clr-bg-sec: #282825;
@@ -669,14 +669,14 @@ input[type="range"] {
 
 input[type=range]::-webkit-slider-runnable-track {
   height: 0.2rem;
-  background: linear-gradient(90deg, #26C3FA 33%, #FC6BF7, 66%, #F6CE6C 100%);
+  background-color: purple;
   border: 1px solid pink;
 }
 
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: 2px solid var(--clr-txt);
-  background-color: var(--clr-txt);
+  background-color: purple;
   height: 0.9rem;
   width: 0.9rem;
   border-radius: 50%;
@@ -872,11 +872,6 @@ h1,
 .border-yellow-200 {
   --tw-border-opacity: 1;
   border-color: rgba(253, 230, 138, var(--tw-border-opacity));
-}
-
-.border-indigo-500 {
-  --tw-border-opacity: 1;
-  border-color: rgba(99, 102, 241, var(--tw-border-opacity));
 }
 
 .border-purple-400 {
@@ -1559,10 +1554,6 @@ h1,
   color: var(--clr-pri);
 }
 
-.hover\:text-sec:hover {
-  color: var(--clr-sec);
-}
-
 .text-opacity-50 {
   --tw-text-opacity: 0.5;
 }
@@ -1869,11 +1860,6 @@ h1,
     padding-right: 1.5rem;
   }
 
-  .md\:px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
   .md\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
@@ -1909,6 +1895,10 @@ h1,
     width: 83.333333%;
   }
 
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1929,6 +1919,16 @@ h1,
 
   .lg\:flex-1 {
     flex: 1 1 0%;
+  }
+
+  .lg\:my-0 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .lg\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .lg\:px-16 {

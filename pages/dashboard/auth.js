@@ -1,43 +1,47 @@
-import { setCookie, parseCookies } from "nookies";
 import Image from "next/image";
+import { parseCookies, setCookie } from "nookies";
 
-import Layout from "src/containers/Layout/Layout";
-import spotifyRedirect from "src/spotify";
-import { fetcher } from "src/hooks/useFetch";
+import Layout from "@/containers/Layout/Layout";
+import { fetcher } from "@/hooks/useFetch";
 
-const Auth = () => {
+import spotifyRedirect from "../../src/spotify.js";
+
+function Auth () {
   return (
     <Layout>
       <h2 className="mt-12 text-center capitalize text-md text-txt">
-        for your experience
+          for your experience
       </h2>
       <div className="m-auto w-max">
-        <Image 
-          src="/images/spotify-seeklogo.com.svg"
-          alt="spotify logo"
-          height={70}
-          width={70} />
+        <Image
+        alt="spotify logo"
+        height={70}
+        src="/images/spotify-seeklogo.com.svg"
+        width={70}
+        />
       </div>
       <p className="w-2/4 m-auto mt-4 text-sm text-center text-txt">
-      For the best possible user experience we reccomend allowing us to access your spotify profile.
-      This includes info such as your personal playlists and most listened to track.
-    </p>
-    <div className="h-0.5 w-3/5 bg-pri my-4" />
-    <p className="w-2/4 m-auto mb-8 text-sm text-center text-txt">
-      Then we can personalize your experince to bring you the tracks and artists you love.
-    </p>
-    <button
-      role="link"
+          For the best possible user experience we reccomend allowing us to access your spotify profile.
+          This includes info such as your personal playlists and most listened to track.
+      </p>
+      <div className="h-0.5 w-3/5 bg-pri my-4" />
+      <p className="w-2/4 m-auto mb-8 text-sm text-center text-txt">
+          Then we can personalize your experince to bring you the tracks and artists you love.
+      </p>
+      <button
+      className="block w-2/5 px-4 py-2 m-auto my-2 text-xs text-center uppercase transition duration-150 ease-in border border-pink-400 rounded text-txt bg-pri md:px-6 hover:bg-sec"
       onClick={() => document.location.href = spotifyRedirect}
-      className="block w-2/5 px-4 py-2 m-auto my-2 text-xs text-center uppercase transition duration-150 ease-in border border-pink-400 rounded text-txt bg-pri md:px-6 hover:bg-sec">
-        Allow us to access your spotify information
+      role="link"
+      type="button"
+      >
+         Allow us to access your spotify information
       </button>
     </Layout>
-  )
-};
+  );
+}
 
-export async function getServerSideProps(ctx) {
-  const { query: { code }} = ctx;
+export async function getServerSideProps (ctx) {
+  const { query: { code } } = ctx;
 
   if (parseCookies(ctx).spaccess) {
     return {
@@ -45,50 +49,50 @@ export async function getServerSideProps(ctx) {
         destination: "/dashboard",
         permanent: false
       }
-   }
+    };
   }
-  
+
   if (!code) {
     return {
       props: {}
-    }
+    };
   }
-    else {
-      const queryString = require("query-string");
 
-      const postOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: queryString.stringify({
-          grant_type: "authorization_code",
-          code: code,
-          redirect_uri: "http://localhost:3000/dashboard/auth/",
-          client_id: process.env.SPOTIFY_CLIENT_ID,
-          client_secret: process.env.SPOTIFY_CLIENT_SECRET,
-        })
-      };
+  const queryString = require("query-string");
 
-      const postTokenSpotify = await fetcher(`${process.env.SPOTIFY_AUTH_API}/api/token`, postOptions);
+  const postOptions = {
+    body: queryString.stringify({
+      client_id: process.env.SPOTIFY_CLIENT_ID,
+      client_secret: process.env.SPOTIFY_CLIENT_SECRET,
+      code,
+      grant_type: "authorization_code",
+      redirect_uri: "http://localhost:3000/dashboard/auth/"
+    }),
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    method: "POST"
+  };
 
-      setCookie(ctx, "sprefresh", postTokenSpotify.refresh_token, {
-        maxAge: 30 * 24 * 60 * 60,
-        path: '/'
-      });
+  const postTokenSpotify = await fetcher(`${process.env.SPOTIFY_AUTH_API}/api/token`, postOptions);
 
-      setCookie(ctx, "spaccess", postTokenSpotify.access_token, {
-        maxAge: 3600,
-        path: '/'
-      });
+  setCookie(ctx, "sprefresh", postTokenSpotify.refresh_token, {
+    maxAge: 30 * 24 * 60 * 60,
+    path: "/"
+  });
 
-      return {
-        redirect: {
-          destination: "/dashboard",
-          permanent: false
-        }
-        }
-      }
-};
+  setCookie(ctx, "spaccess", postTokenSpotify.access_token, {
+    maxAge: 3600,
+    path: "/"
+  });
+
+  return {
+    redirect: {
+      destination: "/dashboard",
+      permanent: false
+    }
+  };
+
+}
 
 export default Auth;

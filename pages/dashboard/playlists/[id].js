@@ -1,60 +1,66 @@
-import { useCallback } from "react";
-import { parseCookies } from "nookies";
-import { fetcher } from "src/hooks/useFetch";
 import getConfig from "next/config";
+import { parseCookies } from "nookies";
+import { useCallback } from "react";
 import useSWR from "swr";
 
-import Layout from "src/containers/Layout/Layout";
-import TrackList from "src/components/TrackList/TrackList";
-import Player from "src/components/Player/Player";
-import PlayingProvider from "src/context/PlayingContext";
+import Player from "@/components/Player/Player";
+import TrackList from "@/components/TrackList/TrackList";
+import Layout from "@/containers/Layout/Layout";
+import PlayingProvider from "@/context/PlayingContext";
+import { fetcher } from "@/hooks/useFetch";
 
 const { publicRuntimeConfig } = getConfig();
 
-const Playlist = ({ queryID, playlistTracks }) => {
-    const { data, error } = useSWR(`${publicRuntimeConfig.SPOTIFY_API}${queryID}`, fetcher, {
-        initialData: playlistTracks
-    });
-    if (error) console.error(error);
-    if (!data) console.log("loading data");
-    const { items: tracks } = data;
+function Playlist ({ queryID, playlistTracks }) {
+  const { data, error } = useSWR(`${publicRuntimeConfig.SPOTIFY_API}${queryID}`, fetcher, {
+    initialData: playlistTracks
+  });
 
-    const formatTracks = useCallback( () => tracks.map(track => track.track));
-    
-    return (
-        <PlayingProvider>
-            <Layout>
-                <main>
-                    <section>
-                        {tracks && <TrackList tracks={formatTracks()} />}
-                        <Player />
-                    </section>
-                </main>
-            </Layout>
-        </PlayingProvider>
-    )
-};
+  if (error) {
+ console.error(error);
+}
+  if (!data) {
+ console.log("loading data");
+}
 
-export async function getServerSideProps(ctx) {
-    const { query: { id: queryID } } = ctx;
-    const token = parseCookies(ctx).spaccess;
+  const { items: tracks } = data;
 
-    const playlistQuery = `/v1/playlists/${queryID}/tracks?limit=20&offset=0`;
-    const playlistTracks = await fetcher(`${process.env.SPOTIFY_API}${playlistQuery}`, {
-        method: "GET",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-    });
+  const formatTracks = useCallback(() => tracks.map((track) => track.track));
 
-    return {
-        props: {
-            playlistTracks: playlistTracks,
-            queryID: queryID
-        }
+  return (
+    <PlayingProvider>
+      <Layout>
+        <main>
+          <section>
+            {tracks && <TrackList tracks={formatTracks()} />}
+            <Player />
+          </section>
+        </main>
+      </Layout>
+    </PlayingProvider>
+  );
+}
+
+export async function getServerSideProps (ctx) {
+  const { query: { id: queryID } } = ctx;
+  const token = parseCookies(ctx).spaccess;
+
+  const playlistQuery = `/v1/playlists/${queryID}/tracks?limit=20&offset=0`;
+  const playlistTracks = await fetcher(`${process.env.SPOTIFY_API}${playlistQuery}`, {
+    headers: {
+      "Accept": "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    method: "GET"
+  });
+
+  return {
+    props: {
+      playlistTracks,
+      queryID
     }
+  };
 
 }
 

@@ -1,251 +1,281 @@
-import { useCallback } from "react";
-import { parseCookies, setCookie } from "nookies";
 import getConfig from "next/config";
 import Image from "next/image";
+import { parseCookies, setCookie } from "nookies";
+import { useCallback, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { MdClear } from "react-icons/md";
-import { useState } from "react";
 
-import Layout from "src/containers/Layout/Layout";
-import TrackList from "src/components/TrackList/TrackList";
-import Albums from "src/components/Albums/Albums";
-import Player from "src/components/Player/Player";
-import { fetcher } from "src/hooks/useFetch";
-import PlayingProvider from "src/context/PlayingContext";
-import userSearchValidation from "src/validation/userSearch";
-import useForm from "src/hooks/useForm";
-import Playlists from "src/components/Playlists/Playlists";
+import Albums from "@/components/Albums/Albums";
+import Player from "@/components/Player/Player";
+import Playlists from "@/components/Playlists/Playlists";
+import TrackList from "@/components/TrackList/TrackList";
+import Layout from "@/containers/Layout/Layout";
+import PlayingProvider from "@/context/PlayingContext";
+import { fetcher } from "@/hooks/useFetch";
+import useForm from "@/hooks/useForm";
+import userSearchValidation from "@/validation/userSearch";
 
-const { publicRuntimeConfig } =  getConfig();
+const { publicRuntimeConfig } = getConfig();
 
-const Dashboard = ({ userInfo, topTracks, newReleases, token, featuredPlaylists }) => {
+function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists }) {
   let topTracksItems;
   let newReleasesItems;
-  
-  if (!topTracks.error) topTracksItems = topTracks.items;
-  if (!newReleases.error) newReleasesItems = newReleases.albums.items;
-  
-  console.log(topTracksItems);
-  const [ results, setResults ] = useState([]);
 
-  const formatQuery = useCallback( () => {
-    const { search } = inputValues;
-    return search.trim().replaceAll(" ", "%20");
-  });
+  if (!topTracks.error) {
+    topTracksItems = topTracks.items;
+  }
+  if (!newReleases.error) {
+    newReleasesItems = newReleases.albums.items;
+  }
 
-  const resetResultsHandler = useCallback( () => {
-    setInputValues({ search: "" });
-    setResults([]);
-  });
 
-  const fetchQuery = useCallback( async () => {
+  const fetchQuery = useCallback(async () => {
     const type = "type=track,album";
     const encodedQuery = formatQuery();
-    if (encodedQuery === "" || typeof(encodedQuery) !== "string") {
+
+    if (encodedQuery === "" || typeof encodedQuery !== "string") {
       return alert("Search for something!");
     }
-    if (!token) return null;
+    if (!token) {
+      return null;
+    }
 
     const data = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}/v1/search?q=${encodedQuery}&${type}&limit=5&offset=0`, {
-      method: "GET",
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-    }});
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      method: "GET"
+     });
+
     setResults(data);
+
+    return null;
   });
 
   const {
-    inputValues, 
-    inputChangeHandler, 
+    inputValues,
+    inputChangeHandler,
     submitHandler,
     setInputValues
-  } = useForm({ stateInit: { search: "" }, validate: userSearchValidation, submitFunc: fetchQuery });
+  } = useForm({ stateInit: { search: "" },
+    validate: userSearchValidation,
+    submitFunc: fetchQuery });
+
+  const [
+    results,
+    setResults
+  ] = useState([]);
+
+  const formatQuery = useCallback(() => {
+    const { search } = inputValues;
+
+    return search.trim().replaceAll(" ", "%20");
+  });
+
+  const resetResultsHandler = useCallback(() => {
+    setInputValues({ search: "" });
+    setResults([]);
+  });
 
   return (
     <PlayingProvider>
       <Layout>
         <main>
-          <section className="md:px-24">
+          <section className="lg:px-16">
             <div className="mt-4">
               <div className="w-full border-b-2">
-                <button 
+                <button
                 className="px-2 py-4 mr-2 md:px-4 text-txt"
                 onClick={submitHandler}
-                onKeyPress={event => console.log(event)}>
+                type="submit"
+                >
                   <BsSearch />
                 </button>
-                <button 
-                className={`py-2 px-1 md:px-2 bg-sec text-txt ${inputValues.search ? "visible pointer-events-auto" : "invisible pointer-events-none"}`}
-                onClick={resetResultsHandler}>
-                <MdClear />
+                <button
+                className={`py-2 px-1 md:px-2 bg-sec text-txt 
+                  ${inputValues.search
+                  ? "visible pointer-events-auto"
+                  : "invisible pointer-events-none"}`}
+                onClick={resetResultsHandler}
+                type="reset"
+                >
+                  <MdClear />
                 </button>
-                <input 
+                <input
+                className="w-4/6 px-2 py-2 mr-auto text-xs md:px-4 md:w-5/6 bg-pri text-txt focus:outline-none"
                 id="search"
                 name="search"
-                type="text"
-                placeholder="search for tracks or albums..."
-                value={inputValues.search}
-                className="w-4/6 px-2 py-2 mr-auto text-xs md:px-4 md:w-5/6 bg-pri text-txt focus:outline-none"
                 onChange={inputChangeHandler}
-                onKeyPress={event => event.code === "Enter" ? fetchQuery() : null} />
+                onKeyPress={(event) => event.code === "Enter"
+                ? fetchQuery()
+                : null}
+                placeholder="search for tracks or albums..."
+                type="text"
+                value={inputValues.search}
+                />
                 <div className={`h-0 transition-all duration-200 ease-in-out
-                ${results.length !== 0 && inputValues.search && "h-auto p-8 border-t-2"}`}>
-                  <p className={`${results.length !== 0 ? "block" : "hidden" } text-md my-2`}>
-                    albums
+                ${results.length !== 0 && inputValues.search && "h-auto p-8 border-t-2"}`}
+                >
+                  <p className={`${results.length === 0
+                    ? "hidden"
+                    : "block"} text-md my-2`}
+                  >
+                   albums
                   </p>
                   {
-                  results.length !== 0 && inputValues.search &&
-                  <>
-                  <Albums albums={results.albums.items} />
-                  <p className={`${results.length !== 0 && inputValues.search 
-                    ? "block" : "hidden" } text-md my-2`}>
-                    tracks
-                  </p>
-                  <TrackList tracks={results.tracks.items} />
-                  </>
+                    results.length !== 0 && inputValues.search &&
+                    <>
+                      <Albums albums={results.albums.items} />
+                      <p className={`${results.length !== 0 && inputValues.search
+                        ? "block"
+                        : "hidden"} text-md my-2`}
+                      >
+                       tracks
+                      </p>
+                      <TrackList tracks={results.tracks.items} />
+                    </>
                   }
                   {
-                  results.length !== 0 && !inputValues.search && resetResultsHandler()
+                    results.length !== 0 && !inputValues.search && resetResultsHandler()
                   }
                 </div>
               </div>
             </div>
             <h2 className="mt-4 ml-auto text-sm text-right text-txt">
-                dashboard
+             dashboard
             </h2>
             <div className="flex items-center justify-end mb-4 ml-auto text-gray-400 text-md">
-              <Image 
-              src="/images/spotify-seeklogo.com.svg"
+              <Image
               alt="spotify logo"
               height={70}
-              width={70} />
-              {!userInfo.error || !userInfo.error.status == 401 ?
-              <p className="ml-4 text-sm text-txt">
-                {userInfo.id}
-              </p>
-              :
-              <p className="ml-4 text-sm text-txt">
-                No spotify account connected
-              </p>
-              }
+              src="/images/spotify-seeklogo.com.svg"
+              width={70}
+              />
+              {!userInfo.error || !userInfo.error.status === 401
+                ? <p className="ml-4 text-sm text-txt">
+                  {userInfo.id}
+                  </p>
+                : <p className="ml-4 text-sm text-txt">
+                  No spotify account connected
+                  </p>}
             </div>
             <h3 className="my-16 uppercase text-md text-txt">
-              Discover new releases 
+             Discover new releases
             </h3>
-            {!newReleases.error || !newReleases.error.status == 401 
-            ?
-            <Albums albums={newReleasesItems} />
-              :
-              <span className="uppercase text-md text-txt">
-              new releases not available
-            </span>
-            }
+            {!newReleases.error || !newReleases.error.status == 401
+              ? <Albums albums={newReleasesItems} />
+              : <span className="uppercase text-md text-txt">
+                  new releases not available
+                </span>}
             <h3 className="my-16 uppercase text-md text-txt">
-              your current top tracks
+             your current top tracks
             </h3>
             <div>
-              {!topTracks.error || !topTracks.error.status == 401 
-              ?
-              <TrackList tracks={topTracksItems} />
-              :
-              <span className="uppercase text-md text-txt">
-                no top tracks
-              </span>
-              }
+              {!topTracks.error || !topTracks.error.status == 401
+                ? <TrackList tracks={topTracksItems} />
+                : <span className="uppercase text-md text-txt">
+                    no top tracks
+                  </span>}
             </div>
             <h3 className="my-16 uppercase text-md text-txt">
-              featured playlists
+             featured playlists
             </h3>
-            <Playlists spotifyPlaylists={featuredPlaylists}/>
+            <Playlists spotifyPlaylists={featuredPlaylists} />
             <Player />
           </section>
         </main>
       </Layout>
     </PlayingProvider>
-  )
-};
+  );
+}
 
-export async function getServerSideProps(ctx) {
-    const spAccess = parseCookies(ctx).spaccess;
-    const spRefresh = parseCookies(ctx).sprefresh;
+export async function getServerSideProps (ctx) {
+  const spAccess = parseCookies(ctx).spaccess;
+  const spRefresh = parseCookies(ctx).sprefresh;
 
-    let authToken;
+  let authToken;
 
-    if (!spAccess) {
-      const queryString = require("query-string");
-      const userPostRefresh = await fetcher(`${process.env.SPOTIFY_AUTH_API}/api/token`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `Basic ${process.env.SPOTIFY_ENCODED}`
-        },
-        body: queryString.stringify({
-          grant_type: "refresh_token",
-          refresh_token: spRefresh,
-          client_id: process.env.SPOTIFY_CLIENT_ID,
-          client_secret: process.env.SPOTIFY_CLIENT_SECRET,
-        })
+  if (!spAccess) {
+    const queryString = require("query-string");
+    const userPostRefresh = await fetcher(`${process.env.SPOTIFY_AUTH_API}/api/token`, {
+      body: queryString.stringify({
+        client_id: process.env.SPOTIFY_CLIENT_ID,
+        client_secret: process.env.SPOTIFY_CLIENT_SECRET,
+        grant_type: "refresh_token",
+        refresh_token: spRefresh
+      }),
+      headers: {
+        Authorization: `Basic ${process.env.SPOTIFY_ENCODED}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: "POST"
+    });
+
+    if (userPostRefresh.access_token) {
+      authToken = userPostRefresh.access_token;
+
+      setCookie(ctx, "spaccess", userPostRefresh.access_token, {
+        maxAge: 3600,
+        path: "/"
       });
-
-      if (userPostRefresh.access_token) {
-        authToken = userPostRefresh.access_token;
-
-        setCookie(ctx, "spaccess", userPostRefresh.access_token, {
-          maxAge: 3600,
-          path: '/'
-        });
-      }
     }
-      else {
-        authToken = spAccess;
-      }
+  } else {
+    authToken = spAccess;
+  }
 
-      const userPostInfo = await fetcher(`${process.env.SPOTIFY_API}/v1/me`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      });
+  const userPostInfo = await fetcher(`${process.env.SPOTIFY_API}/v1/me`, {
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    },
+    method: "GET"
+  });
 
-      const topTracksQuery = "/v1/me/top/tracks?time_range=medium_term&limit=8&offset=0";
-      const newReleaseQuery = "/v1/browse/new-releases?offset=0&limit=6";
-      const featuredPlaylistQuery = "/v1/browse/featured-playlists?offset=0&limit=3";
+  const topTracksQuery = "/v1/me/top/tracks?time_range=medium_term&limit=8&offset=0";
+  const newReleaseQuery = "/v1/browse/new-releases?offset=0&limit=6";
+  const featuredPlaylistQuery = "/v1/browse/featured-playlists?offset=0&limit=3";
 
-      const [ topTracks, newReleases, featuredPlaylists ] = await Promise.all([
-        fetcher(`${process.env.SPOTIFY_API}${topTracksQuery}`, {       
-          method: "GET",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authToken}`
-          }}),
-          fetcher(`${process.env.SPOTIFY_API}${newReleaseQuery}`, {       
-            method: "GET",
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`
-            }}),
-          fetcher(`${process.env.SPOTIFY_API}${featuredPlaylistQuery}`, {       
-            method: "GET",
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`
-            }})
-      ]);
+  const [
+    topTracks,
+    newReleases,
+    featuredPlaylists
+  ] = await Promise.all([
+    fetcher(`${process.env.SPOTIFY_API}${topTracksQuery}`, {
+      headers: {
+        "Accept": "application/json",
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json"
+      },
+      method: "GET"
+    }),
+    fetcher(`${process.env.SPOTIFY_API}${newReleaseQuery}`, {
+      headers: {
+        "Accept": "application/json",
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json"
+      },
+      method: "GET"
+     }),
+    fetcher(`${process.env.SPOTIFY_API}${featuredPlaylistQuery}`, {
+      headers: {
+        "Accept": "application/json",
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json"
+      },
+      method: "GET"
+     })
+  ]);
 
-      return {
-        props: {
-          userInfo: userPostInfo,
-          topTracks: topTracks,
-          newReleases: newReleases,
-          featuredPlaylists: featuredPlaylists,
-          token: authToken || null,
-        }
-      }
+  return {
+    props: {
+      featuredPlaylists,
+      newReleases,
+      token: authToken ?? null,
+      topTracks,
+      userInfo: userPostInfo
+    }
+  };
 }
 
 export default Dashboard;

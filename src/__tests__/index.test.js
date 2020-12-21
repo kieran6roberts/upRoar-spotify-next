@@ -1,12 +1,13 @@
 import { render } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import Home from "../../pages/index";
+
+import Home from "@/pages/index";
 
 describe("<Home /> page", () => {
   test("renders", () => {
     const { getByText, getAllByRole } = render(<Home />);
     const btns = getAllByRole("link");
-    expect(getByText(/play your favourite songs/i)).toBeInTheDocument();
+
+    expect(getByText(/play your favourite songs/u)).toBeInTheDocument();
     expect(btns[0]).toBeInTheDocument();
     expect(btns[1]).toBeInTheDocument();
     expect(btns[2]).toBeInTheDocument();

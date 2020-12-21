@@ -1,1 +1,5 @@
-export const validPublicPaths = ["/", "/login", "/register"];
+export const validPublicPaths = [
+  "/",
+  "/login",
+  "/register"
+];

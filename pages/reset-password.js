@@ -1,24 +1,25 @@
-import Layout from "src/containers/Layout/Layout";
-import PasswordResetForm from "src/containers/PasswordResetForm/PasswordResetForm"
+import Layout from "@/containers/Layout/Layout";
+import PasswordResetForm from "@/containers/PasswordResetForm/PasswordResetForm";
 
-const ResetPassword = () => {
+function ResetPassword () {
   return (
     <Layout>
       <main>
         <section
+        className="pt-8"
         id="reset"
-        className="pt-8">
-          <h2 className="text-md mb-4">
-            Forgotten your password? 
+        >
+          <h2 className="mb-4 text-md">
+            Forgotten your password?
           </h2>
-          <p className="text-md mb-2">
+          <p className="mb-2 text-md">
             Reset it below
           </p>
           <PasswordResetForm />
         </section>
       </main>
     </Layout>
-  )
-};
+  );
+}
 
 export default ResetPassword;

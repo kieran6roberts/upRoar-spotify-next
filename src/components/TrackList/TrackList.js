@@ -1,48 +1,63 @@
 import React, { useEffect } from "react";
-import Track from "../Track/Track";
-import { useUpdatePlaying } from "src/context/PlayingContext";
 
-const TrackList = (spotifyTracks) => {
+import Track from "@/components/Track/Track";
+import { useUpdatePlaying } from "@/context/PlayingContext";
+
+function TrackList (spotifyTracks) {
   const { tracks } = spotifyTracks;
   const { setTracklist } = useUpdatePlaying();
 
   let image;
-  if (spotifyTracks.image) image = spotifyTracks.image;
+
+  if (spotifyTracks.image) {
+    const { image: spImage } = spotifyTracks;
+
+    image = spImage;
+  }
   console.log(image);
-  
+
   useEffect(() => {
-    const currentTracklist = tracks.map(track => {
+    const currentTracklist = tracks.map((track) => {
       const container = {
         artist: track.artists[0].name,
-        trackName: track.name,
-        src: track.preview_url
-        };
+        src: track.preview_url,
+        trackName: track.name
+      };
+
       return container;
-      }
-    );
-    return setTracklist(currentTracklist);
+    });
+
+    setTracklist(currentTracklist);
   }, []);
 
-  const mapTracks = tracks.map(track => 
-    <li key={track.id}
-    className="w-full m-auto 2xl:w-3/5">
-      <Track 
-      id={track.id}
-      trackName={track.name}
-      trackImage={track.album ? track.album.images[0].url : image.images[0].url}
+  const mapTracks = tracks.map((track) =>
+    <li
+    className="w-full m-auto 2xl:w-3/5"
+    key={track.id}
+    >
+      <Track
+      album={track.album
+        ? track.album.name
+        : null}
       artist={track.artists[0].name}
-      album={track.album ? track.album.name : null}
-      releaseDate={track.album ? track.album.release_date : null}
+      audioSrc={track.preview_url}
+      id={track.id}
+      releaseDate={track.album
+        ? track.album.release_date
+        : null}
       spotifyLink={track.external_urls.spotify}
-      audioSrc={track.preview_url} />
-    </li>
-    );
+      trackImage={track.album
+        ? track.album.images[0].url
+        : image.images[0].url}
+      trackName={track.name}
+      />
+    </li>);
 
   return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2">
+    <ul className="grid grid-cols-1 md:grid-cols-2">
       {mapTracks}
     </ul>
-  )
-};
+  );
+}
 
 export default React.memo(TrackList);

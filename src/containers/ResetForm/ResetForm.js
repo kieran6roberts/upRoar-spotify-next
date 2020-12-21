@@ -1,63 +1,70 @@
-import React, { useState } from "react";
-import useForm from "src/hooks/useForm";
-import resetEmailValidation from "src/validation/resetEmailValidation";
-import FormInput from "src/components/FormInput/FormInput";
 import getConfig from "next/config";
+import React from "react";
+
+import FormInput from "@/components/FormInput/FormInput";
+import useForm from "@/hooks/useForm";
+import resetEmailValidation from "@/validation/resetEmailValidation";
 
 const { publicRuntimeConfig } = getConfig();
 
-const ResetForm = () => {
+function ResetForm () {
   const stateInit = {
     email: ""
-  }
+  };
 
-  const emailUserCodeHandler = async () => {
+  async function emailUserCodeHandler () {
     try {
       const emailReset = await fetch(`${publicRuntimeConfig.API_URL}/auth/forgot-password`, {
-        method: "POST",
+        email: JSON.stringify(inputValues.email),
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
         },
-        email: JSON.stringify(inputValues.email)
+        method: "POST"
       });
+
       console.log(emailReset);
       console.log("email sent");
-    }  
-      catch(err) {
-        console.error(err);
+    } catch (err) {
+      console.error(err);
     }
-  };
+  }
 
-  const { inputValues, 
-    inputChangeHandler, 
-    submitHandler } = useForm({ stateInit, validate: resetEmailValidation, submitFunc: emailUserCodeHandler });
+  const { inputValues,
+    inputChangeHandler,
+    submitHandler } = useForm({ stateInit,
+    validate: resetEmailValidation,
+    submitFunc: emailUserCodeHandler });
 
   return (
     <form
+    className="flex flex-col w-full max-w-xl m-auto text-sm text-txt"
+    data-testid="reset-form"
     method="POST"
     onSubmit={submitHandler}
-    className="flex flex-col text-sm text-txt w-full max-w-xl m-auto"
-    data-testid="reset-form">
-      <label 
-      htmlFor="email" 
-      className="mb-1 capitalize">
-        email
+    >
+      <label
+      className="mb-1 capitalize"
+      htmlFor="email"
+      >
+         email
       </label>
       <FormInput
       id="email"
-      type="email"
       name="email"
+      onChange={inputChangeHandler}
+      type="email"
       value={inputValues.email}
-      onChange={inputChangeHandler} />
-            <input
+      />
+      <input
+      className="w-2/5 px-4 py-2 m-auto font-bold uppercase border-2 rounded cursor-pointer text-txt bg-pri border-pri hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50"
       id="submit"
-      type="submit"
       name="submit"
+      type="submit"
       value="submit"
-      className="py-2 px-4 w-2/5 m-auto rounded text-txt font-bold uppercase bg-pri border-2 border-pri rounded cursor-pointer hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50" />
+      />
     </form>
-  )
-};
+  );
+}
 
 export default ResetForm;
