@@ -26,12 +26,11 @@ function Auth () {
         width={70}
         />
       </div>
-      <p className="w-2/4 m-auto mt-4 text-sm text-center text-txt">
+      <p className="w-2/4 m-auto my-4 text-sm text-center text-txt">
           For the best possible user experience we reccomend allowing us to access your spotify profile.
           This includes info such as your personal playlists and most listened to track.
       </p>
-      <div className="h-0.5 w-3/5 bg-pri my-4" />
-      <p className="w-2/4 m-auto mb-8 text-sm text-center text-txt">
+      <p className="w-2/4 m-auto mb-20 text-sm text-center text-txt">
           Then we can personalize your experince to bring you the tracks and artists you love.
       </p>
       <button

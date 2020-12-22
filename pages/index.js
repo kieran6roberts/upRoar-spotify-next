@@ -26,38 +26,38 @@ function Home () {
         id="home-hero"
         >
           <div className="uppercase">
-            <h2 className="mb-4 font-bold text-center text-xxl text-txt">
+            <h2 className="mb-4 font-bold text-center 2xl:mb-20 text-xxl text-txt">
                 play
             </h2>
-            <h2 className="mb-4 text-xl font-bold text-center text-txt">
+            <h2 className="mb-4 text-xl font-bold text-center 2xl:mb-20 text-txt">
                 discover
             </h2>
-            <h2 className="mb-8 text-lg text-center text-txt">
+            <h2 className="mb-8 text-lg text-center 2xl:mb-20 text-txt">
                 personalize
             </h2>
           </div>
-          <div className="">
+          <div className="2xl:mb-32">
             <Button
-            extra="w-3/5 max-w-40 border border-pink-200 m-auto text-txt hover:bg-sec"
+            extra="w-3/5 max-w-xl border border-pink-200 m-auto text-txt hover:bg-sec"
             route="/login"
             >
                login
             </Button>
             <Button
-            extra="w-3/5 max-w-40 m-auto bg-pink-200 hover:bg-pink-300"
+            extra="w-3/5 max-w-xl m-auto bg-pink-200 hover:bg-pink-300"
             route="/register"
             >
                sign up
             </Button>
           </div>
-          <HiOutlineArrowNarrowDown className="m-auto my-16 text-lg text-gray-300 w-max animate-bounce" />
+          <HiOutlineArrowNarrowDown className="m-auto my-16 text-lg text-gray-300 w-max " />
         </section>
         <section className="px-8 text-txt md:px-12 xl:px-16">
-          <p className="text-xs font-bold text-center uppercase">
+          <p className="text-xs font-bold text-center uppercase 2xl:mb-12">
               come an see what upRoar has to offer
           </p>
 
-          <div className="w-4/5 m-auto h-0.5 bg-gray-300 mt-4 mb-16" />
+          <div className="w-4/5 m-auto h-0.5 bg-gray-300 mt-4 mb-16 2xl:mb-32" />
 
           <div className="text-center lg:flex">
             <div className="mx-3 lg:flex-1">
@@ -106,31 +106,31 @@ function Home () {
 
         <section>
           <div className="mb-16 text-center text-txt">
-            <h3 className="mb-4 text-lg">
+            <h3 className="mb-4 text-xl">
                 upRoar Music App
             </h3>
             <p className="mb-8 text-xl font-bold text-txt">
                 100% free
             </p>
-            <ul className="text-sm uppercase">
-              <li className="w-2/5 p-2 m-auto mb-4 border-t-2 border-b-2 border-pink-200">
+            <ul className="text-sm font-bold uppercase">
+              <li className="w-2/5 p-2 m-auto mb-4 border-t-2 border-b-2 border-pink-200 2xl:mb-12">
                   all tracks
               </li>
-              <li className="w-2/5 p-2 m-auto mb-4 border-t-2 border-b-2 border-yellow-200 text-txt">
+              <li className="w-2/5 p-2 m-auto mb-4 border-t-2 border-b-2 border-yellow-200 2xl:mb-12 text-txt">
                   all albums
               </li>
-              <li className="w-2/5 p-2 m-auto mb-4 border-t-2 border-b-2 border-purple-400">
+              <li className="w-2/5 p-2 m-auto mb-4 border-t-2 border-b-2 border-purple-400 2xl:mb-12">
                   all playlists
               </li>
             </ul>
 
-            <p className="mt-20 mb-12 text-xs text-center text-txt">
+            <p className="mt-20 mb-12 text-xs text-center 2xl:mb-24 text-txt">
                 Sign up today for free and enjoy the latest and greatest from the world of music
                 for absolutely free!
             </p>
 
             <Button
-            extra="w-3/5 max-w-40 m-auto text-txt bg-pink-300 hover:bg-pink-400"
+            extra="w-3/5 max-w-xl m-auto text-black bg-pink-200 hover:bg-pink-300"
             route="/register"
             >
                sign up

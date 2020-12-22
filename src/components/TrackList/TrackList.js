@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import Track from "@/components/Track/Track";
+import Track from "@/components/TrackList/Track/Track";
 import { useUpdatePlaying } from "@/context/PlayingContext";
 
 function TrackList (spotifyTracks) {
@@ -14,7 +14,6 @@ function TrackList (spotifyTracks) {
 
     image = spImage;
   }
-  console.log(image);
 
   useEffect(() => {
     const currentTracklist = tracks.map((track) => {

@@ -94,7 +94,7 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
         <main>
           <section className="lg:px-16">
             <div className="mt-4">
-              <div className="w-full border-b-2">
+              <div className="w-full m-auto border-b-2">
                 <button
                 className="px-2 py-4 mr-2 md:px-4 text-txt"
                 onClick={submitHandler}
@@ -113,7 +113,7 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
                   <MdClear />
                 </button>
                 <input
-                className="w-4/6 px-2 py-2 mr-auto text-xs md:px-4 md:w-5/6 bg-pri text-txt focus:outline-none"
+                className="w-4/6 px-2 py-2 mr-auto text-xs md:px-4 md:w-5/6 bg-pri text-txt focus:outline-none focus:ring-3 focus:ring-pri"
                 id="search"
                 name="search"
                 onChange={inputChangeHandler}
@@ -170,28 +170,29 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
                   No spotify account connected
                   </p>}
             </div>
-            <h3 className="my-16 uppercase text-md text-txt">
+            <h3 className="my-16 uppercase 2xl:my-32 text-md text-txt">
              Discover new releases
             </h3>
-            {!newReleases.error || !newReleases.error.status == 401
+            {!newReleases.error || !newReleases.error.status === 401
               ? <Albums albums={newReleasesItems} />
-              : <span className="uppercase text-md text-txt">
+              : <span className="text-sm uppercase text-txt">
                   new releases not available
                 </span>}
-            <h3 className="my-16 uppercase text-md text-txt">
+            <h3 className="my-16 uppercase 2xl:my-32 text-md text-txt">
              your current top tracks
             </h3>
             <div>
-              {!topTracks.error || !topTracks.error.status == 401
+              {!topTracks.error || !topTracks.error.status === 401
                 ? <TrackList tracks={topTracksItems} />
-                : <span className="uppercase text-md text-txt">
+                : <span className="text-sm uppercase text-txt">
                     no top tracks
                   </span>}
             </div>
-            <h3 className="my-16 uppercase text-md text-txt">
+            <h3 className="my-16 uppercase 2xl:my-32 text-md text-txt">
              featured playlists
             </h3>
-            <Playlists spotifyPlaylists={featuredPlaylists} />
+            {featuredPlaylists &&
+            <Playlists spotifyPlaylists={featuredPlaylists} />}
             <Player />
           </section>
         </main>

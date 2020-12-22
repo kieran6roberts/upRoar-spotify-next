@@ -70,12 +70,12 @@ function RegisterForm () {
     setCookie(null, "jwt", registerUser.jwt, {
       maxAge: 30 * 24 * 60 * 60,
       path: "/",
-      sameSite: true
+      sameSite: "strict"
     });
     setCookie(null, "user", registerUser.user.username, {
       maxAge: 30 * 24 * 60 * 60,
       path: "/",
-      sameSite: true
+      sameSite: "strict"
     });
     setAuthUser(registerUser);
     router.push("/dashboard/auth");
@@ -98,12 +98,12 @@ function RegisterForm () {
 
   return (
     <form
-    className="flex flex-col w-full max-w-xl m-auto text-txt"
+    className="flex flex-col w-full max-w-5xl m-auto text-sm text-txt"
     data-testid="register-form"
     onSubmit={submitHandler}
     >
       <label
-      className="mb-1 capitalize"
+      className="mb-1 capitalize xl:mb-3"
       htmlFor="name"
       >
          name  {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
@@ -116,7 +116,7 @@ function RegisterForm () {
       value={inputValues.name}
       />
       <label
-      className="mb-1 capitalize"
+      className="mb-1 capitalize xl:mb-3"
       htmlFor="email"
       >
          email {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
@@ -129,7 +129,7 @@ function RegisterForm () {
       value={inputValues.email}
       />
       <label
-      className="mb-1 capitalize"
+      className="mb-1 capitalize xl:mb-3"
       htmlFor="username"
       >
          username
@@ -149,7 +149,7 @@ function RegisterForm () {
       value={inputValues.username}
       />
       <label
-      className="mb-1 capitalize"
+      className="mb-1 capitalize xl:mb-3"
       htmlFor="password"
       >
          password
@@ -169,7 +169,7 @@ function RegisterForm () {
       value={inputValues.password}
       />
       <label
-      className="mb-1 capitalize"
+      className="mb-1 capitalize xl:mb-3"
       htmlFor="confirmPassword"
       >
          confirm password  {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword}</p>}
@@ -190,7 +190,7 @@ function RegisterForm () {
         </Link>
       </p>
       <input
-      className="w-2/5 px-4 py-2 m-auto font-bold uppercase border-2 border-pink-200 rounded cursor-pointer text-txt bg-pri focus:outline-none focus:ring-2 focus:ring-indigo-400 hover:bg-sec"
+      className="w-2/5 px-4 py-2 m-auto font-bold uppercase border-2 border-pink-200 rounded cursor-pointer 2xl:px-8 2xl:py-4 text-txt bg-pri focus:outline-none focus:ring-2 focus:ring-indigo-400 hover:bg-sec"
       id="submit"
       name="submit"
       type="submit"

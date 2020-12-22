@@ -2,8 +2,8 @@ import { parseCookies } from "nookies";
 import React, { useState } from "react";
 
 import PageHead from "@/components/PageHead/PageHead";
-import ChangePasswordForm from "@/containers/ChangePasswordForm/ChangePasswordForm";
-import EditUserForm from "@/containers/EditUserForm/EditUserForm";
+import ChangePasswordForm from "@/containers/Forms/ChangePasswordForm/ChangePasswordForm";
+import EditUserForm from "@/containers/Forms/EditUserForm/EditUserForm";
 import Layout from "@/containers/Layout/Layout";
 import { fetcher } from "@/utility/fetcher";
 
@@ -41,10 +41,10 @@ function User ({ data: { username, name, created_at, email } }) {
         <p className="mb-2 text-gray-400 text-md">
           {renderHeader(currentTab)}
         </p>
-        <section className="flex flex-col justify-between pt-8 md:flex-row items-top">
+        <section className="flex flex-col items-start justify-between pt-8 2xl:pt-32 md:flex-row">
           <div className="md:w-2/5">
             <ul className="flex-col mb-20 text-sm justify-evenly text-txt md:mb-0">
-              <li className="mb-8 md:mb-16">
+              <li className="mb-8 md:mb-16 xl:mb-24">
                 <button
                 onClick={() => setCurrentTab("overview")}
                 type="button"
@@ -54,7 +54,7 @@ function User ({ data: { username, name, created_at, email } }) {
                   </a>
                 </button>
               </li>
-              <li className="mb-8 md:mb-16">
+              <li className="mb-8 md:mb-16 xl:mb-24">
                 <button
                 onClick={() => setCurrentTab("edit profile")}
                 type="button"
@@ -64,7 +64,7 @@ function User ({ data: { username, name, created_at, email } }) {
                   </a>
                 </button>
               </li>
-              <li className="mb-8 md:mb-16">
+              <li className="mb-8 md:mb-16 xl:mb-24">
                 <button
                 onClick={() => setCurrentTab("change password")}
                 type="button"
@@ -89,7 +89,7 @@ function User ({ data: { username, name, created_at, email } }) {
                   {created_at.substring(0, 10)}
                 </span>
               </div>
-              <div className="h-0.5 w-full bg-gray-100 my-8 mx-auto" />
+              <div className="h-0.5 w-full bg-gray-100 2xl:my-20 my-8 mx-auto" />
               <div className="flex justify-between">
                 <p className="text-gray-400">
                     username
@@ -98,7 +98,7 @@ function User ({ data: { username, name, created_at, email } }) {
                   {username}
                 </span>
               </div>
-              <div className="h-0.5 w-full bg-gray-100 my-8 mx-auto" />
+              <div className="h-0.5 w-full bg-gray-100 2xl:my-20 my-8 mx-auto" />
               <div className="flex justify-between">
                 <p className="text-gray-400">
                     email

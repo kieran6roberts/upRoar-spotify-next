@@ -15,7 +15,7 @@ function Track ({ id,
   const { setAudioSrc } = useUpdatePlaying();
 
   return (
-    <div className="flex items-center w-full max-w-xl px-2 py-4 my-2 text-txt">
+    <div className="flex items-center w-full max-w-4xl px-2 py-4 my-2 text-txt">
       <div className="relative">
         <img
         alt="album cover"
@@ -33,15 +33,15 @@ function Track ({ id,
         type="button"
         >
           {playing && currentTrack.track === trackName
-            ? <BsFillPauseFill className="text-white text-opacity-50 text-xxxl hover:text-opacity-80" />
-            : <BsFillPlayFill className="text-white text-opacity-50 text-xxxl hover:text-opacity-80" />}
+            ? <BsFillPauseFill className="text-white text-opacity-50 text-xxl hover:text-opacity-80" />
+            : <BsFillPlayFill className="text-white text-opacity-50 text-xxl hover:text-opacity-80" />}
         </button>
       </div>
-      <div className="pl-8">
-        <h3 className="capitalize text-md">
+      <div className="w-full pl-8">
+        <h3 className="capitalize text-md 2xl:mr-3 2xl:inline-block">
           {trackName}
         </h3>
-        <span className="text-sm text-pink-600 uppercase">
+        <span className="mr-1 text-sm text-pink-600 uppercase">
           {artist} -
         </span>
         <span className="text-xs uppercase">
@@ -56,9 +56,9 @@ function Track ({ id,
             to spotify
           </a>
         </p>
-        <p className="capitalize text-xxs">
+        <span className="capitalize text-xxs">
             released on {releaseDate}
-        </p>
+        </span>
       </div>
     </div>
   );

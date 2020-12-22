@@ -61,10 +61,11 @@ function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
                 the latest and greatest form the world of music
             </p>
             <p className="my-12 text-sm text-pink-300 uppercase">
-                Based on your saved album by {userLikedArtists[0]}
+                Based on your saved album by {userLikedArtists && userLikedArtists[0]}
             </p>
             <ul className="grid grid-cols-1 gap-x-2 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {relatedArtist1.map((artist) =>
+              {relatedArtist1
+              ? relatedArtist1.map((artist) =>
               <li key={artist.id}>
                   <Artist
                   followers={artist.followers.total}
@@ -73,13 +74,16 @@ function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
                   image={artist.images[0].url}
                   name={artist.name}
                   />
-              </li>)}
+              </li>)
+              : <div className="text-sm uppercase text-txt">no artists</div>}
             </ul >
+            {userLikedArtists &&
             <p className="my-20 text-sm text-pink-300 uppercase">
                 Based on your saved album by {userLikedArtists[1]}
-            </p>
+            </p>}
             <ul className="grid grid-cols-1 gap-x-2 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {relatedArtist2.map((artist) =>
+              {relatedArtist2
+              ? relatedArtist2.map((artist) =>
                 <li key={artist.id}>
                   <Artist
                   followers={artist.followers.total}
@@ -87,11 +91,13 @@ function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
                   image={artist.images[0].url}
                   name={artist.name}
                   />
-                </li>)}
+                </li>)
+                : null}
             </ul>
+            {data &&
             <p className="my-16 text-lg text-txt">
                 Check out the new releases!
-            </p>
+            </p>}
             {data && <Albums tracks={data} />}
             <Player />
           </section>
@@ -114,6 +120,12 @@ export async function getServerSideProps (ctx) {
     },
     method: "GET"
   });
+
+  if (!userAlbums.items) {
+    return {
+      props: {}
+    };
+  }
 
   const userLikedArtists = [
     userAlbums.items[0].album.artists[0].id,

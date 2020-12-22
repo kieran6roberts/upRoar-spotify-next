@@ -1,6 +1,6 @@
 import PageHead from "@/components/PageHead/PageHead";
+import ResetForm from "@/containers/Forms/ResetForm/ResetForm";
 import Layout from "@/containers/Layout/Layout";
-import ResetForm from "@/containers/ResetForm/ResetForm";
 
 function Reset () {
   return (

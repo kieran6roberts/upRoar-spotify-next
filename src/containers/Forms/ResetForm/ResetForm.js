@@ -57,7 +57,7 @@ function ResetForm () {
       value={inputValues.email}
       />
       <input
-      className="w-2/5 px-4 py-2 m-auto font-bold uppercase border-2 rounded cursor-pointer text-txt bg-pri border-pri hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50"
+      className="w-2/5 max-w-5xl px-4 py-2 m-auto font-bold uppercase border-2 rounded cursor-pointer 2xl:px-8 2xl:py-4 text-txt bg-pri border-pri hover:bg-sec focus:outline-none focus:ring-2 focus:ring-sec focus:ring-opacity-50"
       id="submit"
       name="submit"
       type="submit"

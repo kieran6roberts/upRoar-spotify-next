@@ -45,12 +45,12 @@ function LoginForm () {
     setCookie(null, "jwt", postLoginUser.jwt, {
       maxAge: 30 * 24 * 60 * 60,
       path: "/",
-      sameSite: true
+      sameSite: "strict"
     });
     setCookie(null, "user", postLoginUser.user.username, {
       maxAge: 30 * 24 * 60 * 60,
       path: "/",
-      sameSite: "true"
+      sameSite: "strict"
     });
 
     setAuthUser(postLoginUser);
@@ -75,13 +75,13 @@ function LoginForm () {
 
   return (
     <form
-    className="flex flex-col w-full max-w-xl m-auto text-sm text-txt"
+    className="flex flex-col w-full max-w-5xl m-auto text-sm text-txt"
     data-testid="login-form"
     method="POST"
     onSubmit={submitHandler}
     >
       <label
-      className="mb-1 capitalize"
+      className="mb-1 capitalize xl:mb-3"
       htmlFor="username"
       >
          username
@@ -95,7 +95,7 @@ function LoginForm () {
       value={inputValues.username}
       />
       <label
-      className="mb-1 capitalize"
+      className="mb-1 capitalize xl:mb-3"
       htmlFor="password"
       >
          password
@@ -117,7 +117,7 @@ function LoginForm () {
         </Link>
       </p>
       <input
-      className="w-2/5 px-4 py-2 m-auto font-bold uppercase border-2 rounded cursor-pointer text-txt bg-pri border-pri focus:outline-none focus:ring-2 focus:ring-indigo-400 hover:bg-sec"
+      className="w-2/5 px-4 py-2 m-auto font-bold uppercase border-2 rounded cursor-pointer 2xl:px-8 2xl:py-4 text-txt bg-pri border-pri focus:outline-none focus:ring-2 focus:ring-indigo-400 hover:bg-sec"
       id="submit"
       name="submit"
       type="submit"

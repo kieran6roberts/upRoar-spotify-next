@@ -3,7 +3,7 @@ import Image from "next/image";
 import { parseCookies } from "nookies";
 import useSWR from "swr";
 
-import Album from "@/components/Album/Album";
+import Album from "@/components/Albums/Album/Album";
 import PageHead from "@/components/PageHead/PageHead";
 import Player from "@/components/Player/Player";
 import Playlists from "@/components/Playlists/Playlists";
@@ -33,6 +33,9 @@ function myTracks ({ savedPlaylists, savedAlbums }) {
 
   const { items: albumArr } = data;
 
+  console.log(albumArr);
+  console.log(savedPlaylists);
+
   return (
     <>
     <PageHead
@@ -47,12 +50,12 @@ function myTracks ({ savedPlaylists, savedAlbums }) {
             <h2 className="mt-8 mb-4 text-lg uppercase text-txt">
                 my playlists
             </h2>
-            <Playlists spotifyPlaylists={savedPlaylists.items} />
+            <Playlists spotifyPlaylists={savedPlaylists ?? []} />
             <h2 className="mt-8 mb-4 text-lg uppercase text-txt">
                 my albums
             </h2>
             <div className="flex items-center mb-4">
-              <p className="mr-2 capitalize">
+              <p className="mr-2 capitalize text-txt">
                   tracks from
               </p>
               <Image
@@ -88,7 +91,7 @@ function myTracks ({ savedPlaylists, savedAlbums }) {
 export async function getServerSideProps (ctx) {
   const authToken = parseCookies(ctx).spaccess;
 
-  const user = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}/v1/me`, {
+  const user = await fetcher(`${process.env.SPOTIFY_API}/v1/me`, {
     headers: {
       Authorization: `Bearer ${authToken}`
     },
@@ -101,7 +104,7 @@ export async function getServerSideProps (ctx) {
     savedPlaylists,
     savedAlbums
   ] = await Promise.all([
-    fetcher(`${publicRuntimeConfig.SPOTIFY_API}${userPlaylistQuery}`, {
+    fetcher(`${process.env.SPOTIFY_API}${userPlaylistQuery}`, {
       headers: {
         "Accept": "application/json",
         Authorization: `Bearer ${authToken}`,
@@ -109,7 +112,7 @@ export async function getServerSideProps (ctx) {
       },
       method: "GET"
     }),
-    fetcher(`${publicRuntimeConfig.SPOTIFY_API}${userSavedAlbumsQuery}`, {
+    fetcher(`${process.env.SPOTIFY_API}${userSavedAlbumsQuery}`, {
       headers: {
         "Accept": "application/json",
         Authorization: `Bearer ${authToken}`,

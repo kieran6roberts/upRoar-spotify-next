@@ -7,13 +7,13 @@ function Artist ({ id, name, image, followers, genre }) {
     passHref
     >
       <a className="">
-        <div className="relative flex flex-col items-center justify-center p-8 m-auto overflow-hidden text-sm font-bold text-center text-white transition h-60 w-52 max-w-52 bg-pri opacity-70 hover:opacity-100 ">
+        <div className="relative flex flex-col items-center justify-center max-w-2xl p-8 m-auto overflow-hidden text-sm font-bold text-center text-white transition h-60 w-52 2xl:h-72 2xl:w-72 bg-pri opacity-70 hover:opacity-100 ">
           <img
           alt="album cover"
           className="absolute top-0 bottom-0 left-0 right-0 rounded"
-          height={160}
+          height={208}
           src={image}
-          width={208}
+          width={300}
           />
           <h2 className="z-10 mb-2 uppercase text-md">
             {name}
@@ -22,7 +22,7 @@ function Artist ({ id, name, image, followers, genre }) {
             {genre}
           </p>
         </div>
-        <div className="text-center text-pink-500 uppercase text-xxs">
+        <div className="text-center text-pink-500 uppercase 2xl:mt-8 text-xxs">
             followers: {followers}
         </div>
       </a>

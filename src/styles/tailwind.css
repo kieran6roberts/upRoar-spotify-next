@@ -16,8 +16,8 @@
   --fmd: clamp(1.5rem, 1.5vw, 2rem);
   --flg: clamp(1.8rem, 1.8vw, 2.4rem);
   --fxl: clamp(2.4rem, 3vw, 4rem);
-  --fxxl: clamp(3rem, 5vw, 7rem);
-  --fxxxl: clamp(4.5rem, 7vw, 8rem);
+  --fxxl: clamp(4rem, 7vw, 10rem);
+  --fxxxl: clamp(6rem, 9vw, 14rem);
 }
 
 .light {
@@ -132,13 +132,16 @@
        url('/fonts/raleway-v18-latin-900.svg#Raleway') format('svg'); /* Legacy iOS */
 }
 
+* {
+  transition: background-color 0.3s ease, color 0.1s ease;
+}
+
   html {
     font-family: var(--font-reg);
   }
 
   body {
     background-color: var(--clr-bg-pri);
-    transition: background-color 1s ease, color 1s ease;
   }
 
   a {

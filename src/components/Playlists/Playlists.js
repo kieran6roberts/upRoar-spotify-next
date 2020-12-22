@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function Playlists ({ spotifyPlaylists }) {
   if (!spotifyPlaylists.playlists) {
-    return <div className="my-4 text-sm capitalize text-txt">no playlists available</div>;
+    return <div className="my-4 text-sm uppercase text-txt">no playlists available</div>;
   }
 
   const { playlists: { items: playlistArr } } = spotifyPlaylists;

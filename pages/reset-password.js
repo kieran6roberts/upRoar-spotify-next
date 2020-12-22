@@ -1,6 +1,6 @@
 import PageHead from "@/components/PageHead/PageHead";
+import PasswordResetForm from "@/containers/Forms/PasswordResetForm/PasswordResetForm";
 import Layout from "@/containers/Layout/Layout";
-import PasswordResetForm from "@/containers/PasswordResetForm/PasswordResetForm";
 
 function ResetPassword () {
   return (

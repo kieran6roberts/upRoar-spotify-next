@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { destroyCookie, parseCookies } from "nookies";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-import { validPublicPaths } from "@/containers/AuthRoutes/routes";
+import { authSpotify, validPublicPaths } from "@/containers/AuthRoutes/routes";
 import { fetcher } from "@/utility/fetcher";
 
 const { publicRuntimeConfig } = getConfig();
@@ -28,17 +28,20 @@ function AuthProvider ({ children }) {
       return;
     }
 
-    const { jwt } = parseCookies(null);
+    const { jwt, spaccess, sprefresh } = parseCookies(null);
 
     if (!jwt) {
-      console.log("empty jwt");
       if (!validPublicPaths.includes(pathname)) {
-        console.log("not a valid public path");
 
         router.push("/login");
       }
     } else {
-      console.log("fetching user");
+      if (!spaccess && !sprefresh) {
+        if (pathname !== authSpotify) {
+          router.push("/dashboard/auth");
+        }
+      }
+
       const response = await fetcher(`${publicRuntimeConfig.API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${jwt}`

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Album from "@/components/Album/Album";
+import Album from "@/components/Albums/Album/Album";
 
 function Albums (albums) {
   let newReleaseAlbums;

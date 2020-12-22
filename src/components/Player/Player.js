@@ -1,3 +1,4 @@
+import React from "react";
 import { BiSkipNext, BiSkipPrevious } from "react-icons/bi";
 import { BsFillPauseFill,
   BsFillPlayFill,
@@ -5,6 +6,8 @@ import { BsFillPauseFill,
   BsVolumeUp } from "react-icons/bs";
 
 import { usePlaying, useUpdatePlaying } from "@/context/PlayingContext";
+import convertDurationFormat from "@/utility/formatDuration";
+
 
 function Player () {
   const { playing,
@@ -18,22 +21,6 @@ function Player () {
     setClickedPosition,
     setCurrentTrack,
     setAudioSrc } = useUpdatePlaying();
-
-  function convertDurationFormat (time = 0) {
-    const mins = Math.floor(time / 60);
-    const seconds = time - mins * 60;
-    const hours = Math.floor(time / 3600);
-
-    return `${hours !== 0
-              ? `${hours}:`
-              : ""}
-            ${mins !== 0
-              ? `${mins.toFixed(0)}:`
-              : "0:"}
-            ${seconds <= 9
-              ? `0${seconds.toFixed(0)}`
-              : seconds.toFixed(0)}`;
-  }
 
   function playNextTrack () {
     let nextTrack;
@@ -63,6 +50,24 @@ function Player () {
 
   function resetTrackHandler (time) {
     const audioInput = document.querySelector("#audio-player");
+    let nextTrack;
+
+    if (audioInput.currentTime < 2) {
+      tracklist.forEach((track, index) => {
+        if (track.trackName === currentTrack.trackName) {
+          if (!tracklist[index - 1]) {
+            const [newTrack] = tracklist;
+
+            nextTrack = newTrack;
+          } else {
+            nextTrack = tracklist[index - 1];
+          }
+
+          setCurrentTrack(nextTrack);
+          setAudioSrc(nextTrack);
+        }
+      });
+    }
 
     audioInput.currentTime = time;
     setClickedPosition(audioInput.currentTime);
@@ -90,10 +95,10 @@ function Player () {
   return (
     <div className={`w-full ${!playerOpen
     ? "opacity-80"
-    : "opacity-100 pb-8 pt-4"} text-txt px-4 lg:px-16 py-1 fixed bottom-0 left-0 z-10 bg-pri border-t-2`}
+    : "opacity-100 pb-8 pt-4"} text-txt text-sm px-4 2xl:px-12 lg:px-16 py-1 2xl:py-8 fixed bottom-0 left-0 z-10 bg-pri border-t-2`}
     >
       <button
-      className="px-2 py-2 mr-4 border-2 rounded-full text-txt"
+      className="p-2 mr-4 border-2 rounded-full 2xl:p-4 text-txt"
       onClick={() => setPlayerOpen(!playerOpen)}
       type="button"
       >
@@ -117,10 +122,10 @@ function Player () {
         />
       </div>
       <div className={`flex ${playerOpen
-        ? "h-32"
+        ? "h-32 2xl:h-56"
         : "h-0"}`}
       >
-        <div className="w-full">
+        <div className="w-full 2xl:py-8">
           <audio id="audio-player">
             <source id="audio-player-src" />
             <code>
@@ -161,7 +166,9 @@ function Player () {
                 {convertDurationFormat(currentPosition)}
               </p>
               <p className="inline-block ml-auto">
-                {convertDurationFormat(duration)}
+                {isNaN(convertDurationFormat(duration))
+                ? ""
+                : convertDurationFormat(duration)}
               </p>
             </div>
 
@@ -198,4 +205,4 @@ function Player () {
   );
 }
 
-export default Player;
+export default React.memo(Player);
