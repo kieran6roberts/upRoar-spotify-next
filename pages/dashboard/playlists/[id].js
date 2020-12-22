@@ -3,12 +3,12 @@ import { parseCookies } from "nookies";
 import { useCallback } from "react";
 import useSWR from "swr";
 
+import PageHead from "@/components/PageHead/PageHead";
 import Player from "@/components/Player/Player";
 import TrackList from "@/components/TrackList/TrackList";
 import Layout from "@/containers/Layout/Layout";
 import PlayingProvider from "@/context/PlayingContext";
-import { fetcher } from "@/hooks/useFetch";
-import PageHead from "@/components/PageHead/PageHead";
+import { fetcher } from "@/utility/fetcher";
 
 const { publicRuntimeConfig } = getConfig();
 

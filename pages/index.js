@@ -6,8 +6,8 @@ import { VscDebugDisconnect } from "react-icons/vsc";
 
 import Button from "@/components/Button/Button";
 import Card from "@/components/Card/Card";
-import Layout from "@/containers/Layout/Layout";
 import PageHead from "@/components/PageHead/PageHead";
+import Layout from "@/containers/Layout/Layout";
 
 function Home () {
   return (
@@ -15,7 +15,7 @@ function Home () {
     <PageHead
     currentURL="upRoar"
     description="Welcome to upRoar music app. By connecting your account
-    to a spotify profile, you can play your favorite tracks to your hearts 
+    to a spotify profile, you can play your favorite tracks to your hearts
     content or discover new and exciting hits."
     title="upRoar - Music App"
     />

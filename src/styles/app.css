@@ -1,3 +1,51 @@
+:root {
+  --font-head: "Raleway", sans-serif;
+  --font-reg: "Source Sans Pro", sans-serif;
+  --clr-txt: #1a1a1a;
+  --clr-pri: #412dc0;
+  --clr-sec: #ffffff;
+  --clr-acc: #81e6d9;
+  --clr-bg-pri: #ffffff;
+  --clr-bg-sec: #f9fafb;
+  --fxxs: clamp(0.6rem, 0.9vw, 1rem);
+  --fxs: clamp(0.8rem, 1vw, 1.2rem);
+  --fsm: clamp(1rem, 1.2vw, 1.6rem);
+  --fmd: clamp(1.5rem, 1.5vw, 2rem);
+  --flg: clamp(1.8rem, 1.8vw, 2.4rem);
+  --fxl: clamp(2.4rem, 3vw, 4rem);
+  --fxxl: clamp(3rem, 5vw, 7rem);
+  --fxxxl: clamp(4.5rem, 7vw, 8rem);
+}
+
+.light {
+  --clr-txt: #1a1a1a;
+  --clr-pri: #412dc0;
+  --clr-sec: #ffffff;
+  --clr-acc: #81e6d9;
+  --clr-bg-pri: #ffffff;
+  --clr-bg-sec: #f9fafb;
+}
+
+.dark {
+  --clr-txt: #ffffff;
+  --clr-pri: #412dc0;
+  --clr-sec: #f9fafb;
+  --clr-acc: #81e6d9;
+  --clr-bg-pri: #1a1a1a;
+  --clr-bg-sec: #282825;
+}
+
+@media(prefers-color-scheme: dark) {
+  :root {
+    --clr-txt: #ffffff;
+    --clr-pri: #412dc0;
+    --clr-sec: #f9fafb;
+    --clr-acc: #81e6d9;
+    --clr-bg-pri: #1F0A29;
+    --clr-bg-sec: #282825;
+  }
+}
+
 /*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
@@ -621,38 +669,9 @@ video {
        url('/fonts/raleway-v18-latin-900.svg#Raleway') format('svg'); /* Legacy iOS */
 }
 
-:root {
-  --clr-txt: #1a1a1a;
-  --clr-pri: #412dc0;
-  --clr-sec: #ffffff;
-  --clr-acc: #81e6d9;
-  --clr-bg-pri: #ffffff;
-  --clr-bg-sec: #f9fafb;
-  --font-head: "Raleway", sans-serif;
-  --font-reg: "Source Sans Pro", sans-serif;
-  --fxxs: clamp(0.6rem, 0.9vw, 1rem);
-  --fxs: clamp(0.8rem, 1vw, 1.2rem);
-  --fsm: clamp(1rem, 1.2vw, 1.6rem);
-  --fmd: clamp(1.5rem, 1.5vw, 2rem);
-  --flg: clamp(1.8rem, 1.8vw, 2.4rem);
-  --fxl: clamp(2.4rem, 3vw, 4rem);
-  --fxxl: clamp(3rem, 5vw, 7rem);
-  --fxxxl: clamp(4.5rem, 7vw, 8rem);
-}
-
-@media(prefers-color-scheme: dark) {
-  :root {
-    --clr-txt: #ffffff;
-    --clr-pri: #412dc0;
-    --clr-sec: #f9fafb;
-    --clr-acc: #81e6d9;
-    --clr-bg-pri: #1F0A29;
-    --clr-bg-sec: #282825;
-  }
-}
-
 html {
   font-family: var(--font-reg);
+  transition: background-color 1s ease, color 1s ease;
 }
 
 body {

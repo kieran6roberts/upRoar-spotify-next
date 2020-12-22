@@ -11,7 +11,7 @@ function Sidebar ({ active, logoutHandler }) {
 
   return (
     <nav role="navigation">
-      <div className={`fixed text-txt top-4 left-4 right-4 h-4/5 md:3/5 rounded bg-sec z-20 border border-gray-400 transition duration-200 ease-in 
+      <div className={`fixed text-txt top-4 left-4 right-4 h-4/5 md:3/5 rounded bg-pri dark:bg-black z-20 border border-gray-400 transition duration-200 ease-in 
       ${!active
         ? "opacity-0 pointer-events-none transform scale-75"
         : "opacity-1 pointer-events-all transform scale-100"}

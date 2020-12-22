@@ -6,15 +6,15 @@ import { BsSearch } from "react-icons/bs";
 import { MdClear } from "react-icons/md";
 
 import Albums from "@/components/Albums/Albums";
+import PageHead from "@/components/PageHead/PageHead";
 import Player from "@/components/Player/Player";
 import Playlists from "@/components/Playlists/Playlists";
 import TrackList from "@/components/TrackList/TrackList";
 import Layout from "@/containers/Layout/Layout";
 import PlayingProvider from "@/context/PlayingContext";
-import { fetcher } from "@/hooks/useFetch";
 import useForm from "@/hooks/useForm";
+import { fetcher } from "@/utility/fetcher";
 import userSearchValidation from "@/validation/userSearch";
-import PageHead from "@/components/PageHead/PageHead";
 
 const { publicRuntimeConfig } = getConfig();
 

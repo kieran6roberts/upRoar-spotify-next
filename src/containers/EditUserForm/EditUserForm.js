@@ -2,8 +2,8 @@ import getConfig from "next/config";
 import { parseCookies } from "nookies";
 
 import FormInput from "@/components/FormInput/FormInput";
-import { fetcher } from "@/hooks/useFetch";
 import useForm from "@/hooks/useForm";
+import { fetcher } from "@/utility/fetcher";
 import editUserValidation from "@/validation/editUserValidation";
 
 const { publicRuntimeConfig } = getConfig();

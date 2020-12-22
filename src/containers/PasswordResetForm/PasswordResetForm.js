@@ -3,8 +3,8 @@ import Router from "next/router";
 import React from "react";
 
 import FormInput from "@/components/FormInput/FormInput";
-import { fetcher } from "@/hooks/useFetch";
 import useForm from "@/hooks/useForm";
+import { fetcher } from "@/utility/fetcher";
 import passwordValidation from "@/validation/passwordValidation";
 
 const { publicRuntimeConfig } = getConfig();

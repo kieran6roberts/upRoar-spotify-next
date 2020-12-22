@@ -1,8 +1,8 @@
 import React from "react";
 
+import PageHead from "@/components/PageHead/PageHead";
 import Layout from "@/containers/Layout/Layout";
 import LoginForm from "@/containers/LoginForm/LoginForm";
-import PageHead from "@/components/PageHead/PageHead";
 
 function Login () {
   return (

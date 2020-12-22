@@ -1,11 +1,11 @@
 import { parseCookies } from "nookies";
 import React, { useState } from "react";
 
+import PageHead from "@/components/PageHead/PageHead";
 import ChangePasswordForm from "@/containers/ChangePasswordForm/ChangePasswordForm";
 import EditUserForm from "@/containers/EditUserForm/EditUserForm";
 import Layout from "@/containers/Layout/Layout";
-import { fetcher } from "@/hooks/useFetch";
-import PageHead from "@/components/PageHead/PageHead";
+import { fetcher } from "@/utility/fetcher";
 
 function User ({ data: { username, name, created_at, email } }) {
   const [

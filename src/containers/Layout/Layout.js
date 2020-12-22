@@ -8,7 +8,7 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import { useAuth } from "@/context/AuthContext";
 import { useColorTheme, useUpdateColorTheme } from "@/context/ThemeContext";
 
-function Layout ({ children, title }) {
+function Layout ({ children }) {
   const [
     sidebarOpen,
     setSidebarOpen

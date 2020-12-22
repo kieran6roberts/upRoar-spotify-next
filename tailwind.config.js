@@ -9,7 +9,10 @@ module.exports = {
       "./src/containers/**/*.js",
       "./pages/**/*.js"
     ],
-    enabled: true
+    enabled: true,
+    options: {
+      safelist: ["dark, light"]
+    }
   },
   darkMode: "class",
   theme: {

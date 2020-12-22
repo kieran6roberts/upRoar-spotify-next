@@ -7,6 +7,7 @@ module.exports = {
     "^@/context(.*)$": "<rootDir>/src/context/$1",
     "^@/hooks(.*)$": "<rootDir>/src/hooks/$1",
     "^@/pages(.*)$": "<rootDir>/pages/$1",
+    "^@/utility(.*)$": "<rootDir>/src/utility/$1",
     "^@/validation(.*)$": "<rootDir>/src/validation/$1"
   },
   setupFilesAfterEnv: ["<rootDir>/setupTests.js"],

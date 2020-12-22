@@ -6,8 +6,8 @@ import React, { useEffect } from "react";
 
 import FormInput from "@/components/FormInput/FormInput";
 import { useAuth } from "@/context/AuthContext";
-import { fetcher } from "@/hooks/useFetch";
 import useForm from "@/hooks/useForm";
+import { fetcher } from "@/utility/fetcher";
 import registerValidation from "@/validation/registerValidation";
 
 const { publicRuntimeConfig } = getConfig();

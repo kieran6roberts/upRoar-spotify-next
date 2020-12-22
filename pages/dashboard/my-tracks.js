@@ -4,12 +4,12 @@ import { parseCookies } from "nookies";
 import useSWR from "swr";
 
 import Album from "@/components/Album/Album";
+import PageHead from "@/components/PageHead/PageHead";
 import Player from "@/components/Player/Player";
 import Playlists from "@/components/Playlists/Playlists";
 import Layout from "@/containers/Layout/Layout";
 import PlayingProvider from "@/context/PlayingContext";
-import { fetcher } from "@/hooks/useFetch";
-import PageHead from "@/components/PageHead/PageHead";
+import { fetcher } from "@/utility/fetcher";
 
 const { publicRuntimeConfig } = getConfig();
 

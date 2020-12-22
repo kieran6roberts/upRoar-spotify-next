@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 
 import Albums from "@/components/Albums/Albums";
 import Artist from "@/components/Artist/Artist";
+import PageHead from "@/components/PageHead/PageHead";
 import Player from "@/components/Player/Player";
 import Layout from "@/containers/Layout/Layout";
 import PlayingProvider from "@/context/PlayingContext";
-import { fetcher } from "@/hooks/useFetch";
-import PageHead from "@/components/PageHead/PageHead";
+import { fetcher } from "@/utility/fetcher";
 
 const { publicRuntimeConfig } = getConfig();
 

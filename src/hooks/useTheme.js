@@ -3,7 +3,7 @@ import { useMediaQuery } from "react-responsive";
 import createPersistedState from "use-persisted-state";
 
 function useTheme () {
-    const darkMode = "dark";
+    const DARK_CLASS = "dark";
     const useThemeState = createPersistedState("colorPerference");
     const themeSettingPreference = useMediaQuery(
       {
@@ -20,10 +20,10 @@ function useTheme () {
 
     useEffect(() => {
       if (isDark) {
-        document.documentElement.classList.add(darkMode);
+        document.documentElement.classList.add(DARK_CLASS);
       }
       if (!isDark) {
-        document.documentElement.classList.remove(darkMode);
+        document.documentElement.classList.remove(DARK_CLASS);
       }
     }, [isDark]);
 

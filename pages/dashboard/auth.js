@@ -1,11 +1,10 @@
 import Image from "next/image";
 import { parseCookies, setCookie } from "nookies";
 
-import Layout from "@/containers/Layout/Layout";
-import { fetcher } from "@/hooks/useFetch";
 import PageHead from "@/components/PageHead/PageHead";
-
-import spotifyRedirect from "../../src/spotify.js";
+import Layout from "@/containers/Layout/Layout";
+import { fetcher } from "@/utility/fetcher";
+import spotifyRedirect from "@/utility/spotify.js";
 
 function Auth () {
   return (

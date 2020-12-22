@@ -4,7 +4,7 @@ import { destroyCookie, parseCookies } from "nookies";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { validPublicPaths } from "@/containers/AuthRoutes/routes";
-import { fetcher } from "@/hooks/useFetch";
+import { fetcher } from "@/utility/fetcher";
 
 const { publicRuntimeConfig } = getConfig();
 

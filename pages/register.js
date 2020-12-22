@@ -1,8 +1,8 @@
 import React from "react";
 
+import PageHead from "@/components/PageHead/PageHead";
 import Layout from "@/containers/Layout/Layout";
 import RegisterForm from "@/containers/RegisterForm/RegisterForm";
-import PageHead from "@/components/PageHead/PageHead";
 
 function Register () {
   return (
