@@ -39,7 +39,7 @@ function myTracks ({ savedPlaylists, savedAlbums }) {
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL="https://uproar-music.vercel.app/dashboard/my-tracks"
     description="View your favorite tracks with integration from spotify."
     title="upRoar - My tracks"
     />

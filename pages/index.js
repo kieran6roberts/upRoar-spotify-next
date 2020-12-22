@@ -13,7 +13,7 @@ function Home () {
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL="https://uproar-music.vercel.app/"
     description="Welcome to upRoar music app. By connecting your account
     to a spotify profile, you can play your favorite tracks to your hearts
     content or discover new and exciting hits."

@@ -45,7 +45,7 @@ function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL="https://uproar-music.vercel.app/dashboard/discover"
     description="upRoar discover where we recommend you artists based on your
     existing likes. Let's discover together."
     title="upRoar - Discover"

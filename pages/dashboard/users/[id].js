@@ -29,7 +29,7 @@ function User ({ data: { username, name, created_at, email } }) {
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL={`https://uproar-music.vercel.app/dashboard/users/${username}`}
     description="User profile page."
     title="upRoar - My Profile"
     />

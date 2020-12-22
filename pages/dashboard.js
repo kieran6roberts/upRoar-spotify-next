@@ -83,7 +83,7 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL="https://uproar-music.vercel.app/dashboard"
     description="upRoar's dashboard is the place to start your music adventure.
     Play your favorite songs, search for new albums, tracks and playlist or
     let us show you what's new."

@@ -6,7 +6,7 @@ function Reset () {
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL="https://uproar-music.vercel.app/reset"
     description="Enter your new password."
     title="upRoar - New password"
     />

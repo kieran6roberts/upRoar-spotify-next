@@ -13,7 +13,7 @@ function Artists ({ artistsAlbums }) {
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL="https://uproar-music.vercel.app/dashboard/artists/"
     description="upRoar artist."
     title="upRoar - Artist"
     />

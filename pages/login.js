@@ -8,7 +8,7 @@ function Login () {
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL="https://uproar-music.vercel.app/login"
     description="Login to your upRoar music account and get playing your songs."
     title="upRoar - Login"
     />

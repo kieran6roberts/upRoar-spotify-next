@@ -8,7 +8,7 @@ function Register () {
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL="https://uproar-music.vercel.app/register"
     description="Register today for a new upRoar music account and get playing your songs."
     title="upRoar - Register"
     />

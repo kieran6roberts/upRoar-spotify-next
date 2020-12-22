@@ -10,7 +10,7 @@ function Auth () {
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL="https://uproar-music.vercel.app/dashboard/auth"
     description="Link your upRoar music account to an existing spotify profile."
     title="upRoar - Auth"
     />

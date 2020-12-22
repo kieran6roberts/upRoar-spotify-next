@@ -31,7 +31,7 @@ function Playlist ({ queryID, playlistTracks }) {
   return (
     <>
     <PageHead
-    currentURL="upRoar"
+    currentURL="https://uproar-music.vercel.app/dashboard/playlists/"
     description="upRoar playlist."
     title="upRoar - Playlists"
     />
