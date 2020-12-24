@@ -26,26 +26,7 @@ function RegisterForm () {
 
 
   async function userRegistrationHandler () {
-    const [
-      registerUser,
-      registerProfile
-    ] = await Promise.all([
-      fetcher(`${publicRuntimeConfig.API_URL}/auth/local/register`, {
-        body: JSON.stringify({
-          email: inputValues.email,
-          name: inputValues.name,
-          password: inputValues.password,
-          profile: inputValues.username,
-          user: inputValues.username,
-          username: inputValues.username
-        }),
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        method: "POST"
-      }),
-      fetcher(`${publicRuntimeConfig.API_URL}/profiles`, {
+    const registerUser = await fetcher(`${publicRuntimeConfig.API_URL}/auth/local/register`, {
         body: JSON.stringify({
           email: inputValues.email,
           name: inputValues.name,
@@ -58,10 +39,10 @@ function RegisterForm () {
           "Content-Type": "application/json"
         },
         method: "POST"
-      })
-    ]);
+      });
 
-    if (registerUser.statusCode === 400 || registerProfile.statusCode === 400) {
+
+    if (registerUser.statusCode === 400) {
       const error = registerUser.message[0].messages[0].message;
 
       return alert(error);

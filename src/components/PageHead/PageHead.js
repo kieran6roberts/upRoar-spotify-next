@@ -86,7 +86,7 @@ function PageHead ({ title,
             rel="mask-icon"
             />
             <link
-            href="./images/favicon.ico"
+            href="./favicon.ico"
             rel="shortcut icon"
             />
 

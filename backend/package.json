@@ -11,7 +11,11 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "global": "^4.4.0",
+    "heroku": "^7.47.6",
     "knex": "<0.20.0",
+    "pg": "^8.5.1",
+    "pg-connection-string": "^2.4.0",
     "sqlite3": "latest",
     "strapi": "3.3.3",
     "strapi-admin": "3.3.3",
