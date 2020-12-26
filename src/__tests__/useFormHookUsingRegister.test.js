@@ -1,26 +1,20 @@
-import { fireEvent, screen} from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useRouter } from "next/router";
 import * as React from "react";
 
 import RegisterForm from "@/containers/Forms/RegisterForm/RegisterForm";
 
-import { render } from "../../test-utils";
+import { render, server } from "../../test-utils";
 
 jest.mock("next/router");
-jest.mock("@/utility/fetcher", () => ({
-    fetcher: jest.fn().mockResolvedValue({
-        jwt: "mock return jwt",
-        statusCode: 200,
-        user: {
-          username: "kieran"
-        }
-    })
-  }));
 
-describe("Custom hook for register form", () => {
+describe("Custom hook for user register form", () => {
   let expectedRouterPrefetch, expectedRouterPush;
 
+  beforeAll(() => server.listen());
+  afterAll(() => server.close());
+  afterEach(() => server.resetHandlers());
   beforeEach(() => {
     expectedRouterPush = jest.fn();
     expectedRouterPrefetch = jest.fn();
@@ -63,8 +57,9 @@ describe("Custom hook for register form", () => {
 
     fireEvent.submit(screen.getByTestId("register-form"));
 
-    expect(await expectedRouterPush).toHaveBeenCalledTimes(1);
+    expect(expectedRouterPush).toHaveBeenCalledTimes(1);
   });
+
   test("failing submit case warns user", () => {
     render(<RegisterForm />);
 

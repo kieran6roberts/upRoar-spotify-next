@@ -45,7 +45,7 @@ function RegisterForm () {
     if (registerUser.statusCode === 400) {
       const error = registerUser.message[0].messages[0].message;
 
-      return alert(error);
+      throw new Error(error);
     }
 
     setCookie(null, "jwt", registerUser.jwt, {
