@@ -10,7 +10,7 @@ const { publicRuntimeConfig } = getConfig();
 
 function ChangePasswordForm () {
   const stateInit = {
-    confirmPassword: "",
+    confirm: "",
     password: ""
   };
 
@@ -52,7 +52,6 @@ function ChangePasswordForm () {
   return (
     <form
     className="flex flex-col w-full max-w-xl text-txt"
-    data-testid="edit-form"
     method="POST"
     onSubmit={submitHandler}
     >
@@ -72,17 +71,17 @@ function ChangePasswordForm () {
       />
       <label
       className="mb-1 capitalize"
-      htmlFor="confirmPassword"
+      htmlFor="confirm"
       >
          confirm new password
-        {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword}</p>}
+        {errors.confirm && <p className="text-xs text-red-500">{errors.confirm}</p>}
       </label>
       <FormInput
-      id="confirmPassword"
-      name="confirmPassword"
+      id="confirm"
+      name="confirm"
       onChange={inputChangeHandler}
       type="password"
-      value={inputValues.confirmPassword}
+      value={inputValues.confirm}
       />
       <input
       className="px-4 py-2 font-bold uppercase border border-pink-300 rounded cursor-pointer text-txt bg-pri hover:bg-sec focus:outline-none focus:ring-2 focus:ring-purple-400"

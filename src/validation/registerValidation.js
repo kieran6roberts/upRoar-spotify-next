@@ -19,10 +19,10 @@ function registerValidation (values) {
     errors.password = "Password must be between 6 and 16 characters long and contain at least 1 number and 1 uppercase character!";
   }
 
-  if (!values.confirmPassword || typeof values.confirmPassword !== "string") {
+  if (!values.confirm || typeof values.confirm !== "string") {
     errors.confirmPassword = "Password required!";
-  } else if (values.password !== values.confirmPassword) {
-    errors.confirmPassword = "Passwords do not match! Try again";
+  } else if (values.password !== values.confirm) {
+    errors.confirm = "Passwords do not match! Try again";
   }
 
   if (!values.email || typeof values.email !== "string") {

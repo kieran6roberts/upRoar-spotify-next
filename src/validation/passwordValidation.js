@@ -5,10 +5,10 @@ function resetEmailValidation (values) {
     errors.password = "Password required!";
   }
 
-  if (!values.confirmPassword || typeof values.confirmPassword !== "string") {
-    errors.confirmPassword = "Password required!";
-  } else if (values.password !== values.confirmPassword || typeof values.confirmPassword !== "string") {
-    errors.confirmPassword = "Passwords do not match! Try again";
+  if (!values.confirm || typeof values.confirm !== "string") {
+    errors.confirm = "Password required!";
+  } else if (values.password !== values.confirm || typeof values.confirm !== "string") {
+    errors.confirm = "Passwords do not match! Try again";
   }
 
 

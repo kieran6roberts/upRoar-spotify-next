@@ -5,7 +5,7 @@
       "plugin:import/errors",
       "plugin:import/warnings"
     ],
-    "plugins": ["simple-import-sort"],
+    "plugins": ["simple-import-sort", "testing-library"],
     "env": {
       "browser": true,
       "es2020": true,
@@ -39,6 +39,7 @@
       "array-bracket-spacing":"warn",
       "curly": "warn",
       "camelcase": "off",
+      "dot-location": "off",
       "init-declarations": "off",
       "import/no-unresolved": "off",
       "func-style": ["error", "declaration"],
@@ -52,6 +53,7 @@
       "no-console": "warn",
       "no-return-assign": "warn",
       "quotes": ["error", "double"],
+      "object-curly-newline": "off",
       "max-len": 0,
       "max-lines-per-function": 0,
       "no-ternary":"off",
@@ -73,7 +75,7 @@
         { "blankLine": "any",    "prev": ["const", "let", "var"], "next": ["const", "let", "var"]}
       ],
       "object-curly-spacing": ["error", "always"],
-      "one-var": ["error", "never"],
+      "one-var": "off",
       "quote-props": 0,
       "react/jsx-indent": 0,
       "react/jsx-indent-props": [2, 0],

@@ -17,7 +17,7 @@ function RegisterForm () {
   const { setAuthUser } = useAuth();
 
   const stateInit = {
-    confirmPassword: "",
+    confirm: "",
     email: "",
     name: "",
     password: "",
@@ -87,8 +87,9 @@ function RegisterForm () {
       className="mb-1 capitalize xl:mb-3"
       htmlFor="name"
       >
-         name  {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
+         name
       </label>
+         {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
       <FormInput
       id="name"
       name="name"
@@ -100,8 +101,9 @@ function RegisterForm () {
       className="mb-1 capitalize xl:mb-3"
       htmlFor="email"
       >
-         email {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
+         email
       </label>
+         {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
       <FormInput
       id="email"
       name="email"
@@ -114,14 +116,8 @@ function RegisterForm () {
       htmlFor="username"
       >
          username
-        <p className={`text-xs
-          ${errors.username
-            ? "text-red-500"
-            : "text-light-text"}
-          `}
-        >{errors.username ?? "*Must be between 5 and 15 charcters long"}
-        </p>
       </label>
+      {errors.username && <p className="text-xs text-red-500">{errors.username}</p>}
       <FormInput
       id="username"
       name="username"
@@ -134,14 +130,8 @@ function RegisterForm () {
       htmlFor="password"
       >
          password
-        <p className={`text-xs
-          ${errors.password
-            ? "text-red-500"
-            : "text-light-text"}
-          `}
-        >{errors.password ?? "*Must be between 6 and 16 characters long and contain at least 1 number and 1 uppercase character"}
-        </p>
       </label>
+      {errors.password && <p className="text-xs text-red-500">{errors.password}</p>}
       <FormInput
       id="password"
       name="password"
@@ -151,16 +141,18 @@ function RegisterForm () {
       />
       <label
       className="mb-1 capitalize xl:mb-3"
-      htmlFor="confirmPassword"
+      htmlFor="confirm"
       >
-         confirm password  {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword}</p>}
+         confirm password
       </label>
+         {errors.confirm && <p className="text-xs text-red-500">{errors.confirm}</p>}
       <FormInput
-      id="confirm password"
-      name="confirmPassword"
+      data-testid="confirm"
+      id="confirm"
+      name="confirm"
       onChange={inputChangeHandler}
       type="password"
-      value={inputValues.confirmPassword}
+      value={inputValues.confirm}
       />
       <p className="mb-8">
           Already have an account?

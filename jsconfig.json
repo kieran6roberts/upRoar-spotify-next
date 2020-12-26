@@ -10,5 +10,6 @@
       "@/pages/*": ["pages/*"],
       "@/utility/*": ["src/utility/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "backend"]
 }

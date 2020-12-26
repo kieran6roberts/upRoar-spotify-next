@@ -1,6 +1,6 @@
 module.exports = {
   clearMocks: true,
-  coverageDirectory: "src/.coverage",
+  coverageDirectory: "<rootDir>/src/.coverage",
   moduleNameMapper: {
     "^@/components(.*)$": "<rootDir>/src/components/$1",
     "^@/containers(.*)$": "<rootDir>/src/containers/$1",
@@ -10,6 +10,8 @@ module.exports = {
     "^@/utility(.*)$": "<rootDir>/src/utility/$1",
     "^@/validation(.*)$": "<rootDir>/src/validation/$1"
   },
+  resetMocks: true,
+  restoreMocks: true,
   setupFilesAfterEnv: ["<rootDir>/setupTests.js"],
   testPathIgnorePatterns: [
     "<rootDir>/.next/",
