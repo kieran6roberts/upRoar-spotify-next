@@ -2,13 +2,13 @@ import React from "react";
 
 import Album from "@/components/Albums/Album/Album";
 
-function Albums (albums) {
+function Albums (items) {
   let newReleaseAlbums;
 
-  if (albums.albums) {
-    newReleaseAlbums = albums.albums;
+  if (items.albums) {
+    newReleaseAlbums = items.albums;
   } else {
-    newReleaseAlbums = albums.tracks.items;
+    newReleaseAlbums = items.tracks.items;
   }
 
   return (

@@ -30,7 +30,7 @@ const server = setupServer(
     rest.post("*", (req, res, ctx) => {
       console.error(`Please add request handler for ${req.url.toString()}`);
 
-      return res(ctx.status(500), ctx.json({ error: "Please add request handler"}));
+      return res(ctx.status(500), ctx.json({ error: "Please add request handler" }));
     })
   );
 

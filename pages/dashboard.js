@@ -29,7 +29,6 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
     newReleasesItems = newReleases.albums.items;
   }
 
-
   const fetchQuery = useCallback(async () => {
     const type = "type=track,album";
     const encodedQuery = formatQuery();
@@ -97,6 +96,7 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
               <div className="w-full m-auto border-b-2">
                 <button
                 className="px-2 py-4 mr-2 md:px-4 text-txt"
+                data-testid="search"
                 onClick={submitHandler}
                 type="submit"
                 >
@@ -104,14 +104,19 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
                 </button>
                 <button
                 className={`py-2 px-1 md:px-2 bg-sec text-txt 
-                  ${inputValues.search
+                ${inputValues.search
                   ? "visible pointer-events-auto"
                   : "invisible pointer-events-none"}`}
+                name="clear"
                 onClick={resetResultsHandler}
                 type="reset"
                 >
                   <MdClear />
                 </button>
+                <label
+                aria-label="search"
+                htmlFor="search"
+                />
                 <input
                 className="w-4/6 px-2 py-2 mr-auto text-xs md:px-4 md:w-5/6 bg-pri text-txt focus:outline-none focus:ring-3 focus:ring-pri"
                 id="search"

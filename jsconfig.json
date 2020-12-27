@@ -8,7 +8,8 @@
       "@/hooks/*": ["src/hooks/*"],
       "@/validation/*": ["src/validation/*"],
       "@/pages/*": ["pages/*"],
-      "@/utility/*": ["src/utility/*"]
+      "@/utility/*": ["src/utility/*"],
+      "@/testMockData/*": ["src/testMockData/*"]
     }
   },
   "exclude": ["node_modules", "backend"]
