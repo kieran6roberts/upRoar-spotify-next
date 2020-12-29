@@ -5,6 +5,7 @@ import { setCookie } from "nookies";
 import React, { useEffect } from "react";
 
 import FormInput from "@/components/FormInput/FormInput";
+import LoadingFetch from "@/components/LoadingFetch/LoadingFetch";
 import { useAuth } from "@/context/AuthContext";
 import useForm from "@/hooks/useForm";
 import { fetcher } from "@/utility/fetcher";
@@ -41,11 +42,12 @@ function RegisterForm () {
         method: "POST"
       });
 
+    setLoading(false);
 
-    if (registerUser.statusCode === 400) {
+    if (registerUser.statusCode >= 300) {
       const error = registerUser.message[0].messages[0].message;
 
-      throw new Error(error);
+      return alert(error);
     }
 
     setCookie(null, "jwt", registerUser.jwt, {
@@ -71,13 +73,17 @@ function RegisterForm () {
   const {
     inputValues,
     errors,
+    loading,
     inputChangeHandler,
+    setLoading,
     submitHandler
   } = useForm({ stateInit,
     validate: registerValidation,
     submitFunc: userRegistrationHandler });
 
   return (
+    <>
+     {loading && <LoadingFetch />}
     <form
     className="flex flex-col w-full max-w-5xl m-auto text-sm text-txt"
     data-testid="register-form"
@@ -157,7 +163,7 @@ function RegisterForm () {
       <p className="mb-8">
           Already have an account?
         <Link href="/login">
-          <a className="ml-1 text-pink-400">
+          <a className="ml-1 text-sm text-pink-400">
               Sign in.
           </a>
         </Link>
@@ -170,6 +176,7 @@ function RegisterForm () {
       value="submit"
       />
     </form>
+    </>
   );
 }
 

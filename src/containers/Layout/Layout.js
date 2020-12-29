@@ -80,11 +80,12 @@ function Layout ({ children }) {
                     Music App
                 </h2>
               </div>
-              <div
+              <button
               className="flex items-center w-16 h-8 p-1 ml-auto bg-gray-400 cursor-pointer select-none group rounded-2xl"
               onClick={() => {
                   setIsDark(!isDark);
                 }}
+              type="button"
               >
                 <div
                 className={`w-6 h-6 cursor-pointer bg-pri py-0.5 px-0.5 rounded-full group:transition-transform duration-200 ease-in transform 
@@ -93,50 +94,54 @@ function Layout ({ children }) {
                   : "translate-x-0"}`}
                 id="theme-toggle"
                 >
+                  {isDark
+                  ?
                   <Image
-                  alt="moon"
+                  alt="moon indicating dark mode"
                   height={20}
-                  src={`${isDark
-                    ? "/images/toggle-dark.svg"
-                    : "/images/toggle-light.svg"}`}
+                  src="/images/toggle-dark.svg"
                   width={20}
                   />
+                  :
+                  <Image
+                  alt="sun indicating light mode"
+                  height={20}
+                  src="/images/toggle-light.svg"
+                  width={20}
+                  />}
                 </div>
-              </div>
+              </button>
               <div className="">
                 <ul className="hidden mx-8 uppercase md:flex">
                   <li className="">
-                    <Link
-                    href={isLoggedIn
-                      ? `/dashboard/users/${authUser}`
-                      : "/login"}
+                    {isLoggedIn
+                    ? <Link
+                    href={`/dashboard/users/${authUser}`}
                     passHref
-                    >
+                      >
                       <a className="block px-4 py-1 text-sm transition duration-150 ease-in border border-gray-500 rounded text-txt md:px-6 hover:bg-sec">
-                        {!isLoggedIn
-                        ? "login"
-                        : "profile"}
+                        profile
                       </a>
-                    </Link>
+                      </Link>
+                    : <Link
+                    href="/login"
+                    passHref
+                      >
+                      <a className="block px-4 py-1 text-sm transition duration-150 ease-in border border-gray-500 rounded text-txt md:px-6 hover:bg-sec">
+                        login
+                      </a>
+                      </Link>}
                   </li>
                   <li className="">
                     {!isLoggedIn
                       ? <Link
-                      href="register"
+                      href="/register"
                       passHref
                         >
                         <a
                         className="block px-4 py-1 ml-4 text-sm transition duration-150 ease-in bg-pink-300 border border-gray-500 rounded text-txt md:px-6 hover:bg-pink-400"
-                        href={isLoggedIn
-                          ? null
-                          : "/register"}
-                        onClick={isLoggedIn
-                          ? logoutHandler
-                          : null}
                         >
-                          {isLoggedIn
-                          ? "logout"
-                          : "signUp"}
+                          sign up
                         </a>
                         </Link>
                       : <button
@@ -159,6 +164,7 @@ function Layout ({ children }) {
             {children}
             <div
             className="fixed z-50 flex flex-col items-center justify-center w-12 h-12 transition ease-in border-2 border-gray-500 rounded-full cursor-pointer 2xl:w-24 2xl:h-24 group bg-pri bottom-2 md:bottom-4 2xl:bottom-24 2xl:right-32 right-2 md:right-8 hover:bg-sec duration-150ms"
+            data-testid="sidebar-toggle"
             onClick={toggleSidebarOpen}
             >
               <span className="block h-0.5 w-4/6 bg-txt cursor-pointer group-hover:bg-acc" />

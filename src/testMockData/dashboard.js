@@ -44,7 +44,7 @@ const fetchSuccessfulData = {
         }
     },
     token: {
-        error: "error"
+        jwt: "mock jwt"
     },
     topTracks: {
         items: [
@@ -101,27 +101,27 @@ const dashboardSearchbarData = {
             items: [
                 {
                     album: {
-                        images: [{ url: "https://toptrackalbum1-image.com" }],
-                        name: "top track album 1",
-                        release_date: "top track album 1 release date"
+                        images: [{ url: "https://foalsalbum1-image.com" }],
+                        name: "foals album 1",
+                        release_date: "foals album 1 release date"
                     },
-                    artists: [{ name: "top track artist 1" }],
-                    external_urls: { spotify: "https://toptracktrack1.com" },
-                    id: "top track track 1",
-                    name: "top track track 1 name",
-                    preview_url: "top track preview 1"
+                    artists: [{ name: "foals artist 1" }],
+                    external_urls: { spotify: "https://foalstrack1.com" },
+                    id: "foals track 1",
+                    name: "foals track 1 name",
+                    preview_url: "foals preview 1"
                 },
                 {
                     album: {
-                        images: [{ url: "https://toptrackalbum2-image.com" }],
-                        name: "top track album 2",
-                        release_date: "top track album 2 release date"
+                        images: [{ url: "https://foalsalbum2-image.com" }],
+                        name: "foals album 2",
+                        release_date: "foals album 2 release date"
                     },
-                    artists: [{ name: "top track artist 2" }],
-                    external_urls: { spotify: "https://toptracktrack2.com" },
-                    id: "top track 2",
-                    name: "top track 2 name",
-                    preview_url: "preview 2"
+                    artists: [{ name: "foals artist 2" }],
+                    external_urls: { spotify: "https://foalstrack2.com" },
+                    id: "foals track 2",
+                    name: "foals track 2 name",
+                    preview_url: "foals preview 2"
                 }
             ]
         }

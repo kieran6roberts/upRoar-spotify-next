@@ -9,7 +9,7 @@ module.exports = {
       "./src/containers/**/*.js",
       "./pages/**/*.js"
     ],
-    enabled: true,
+    enabled: false,
     options: {
       safelist: ["dark, light"]
     }
@@ -37,7 +37,20 @@ module.exports = {
         pri: "var(--clr-bg-pri)",
         sec: "var(--clr-bg-sec)",
         txt: "var(--clr-txt)"
-      }
+      },
+      animation: {
+        bounceFirst: "bounce 1500ms ease-in-out infinite",
+        bounceSecond: "bounce 1500ms ease-in-out 200ms infinite",
+        bounceThird: "bounce 1500ms ease-in-out 400ms infinite"
+      },
+      keyframes: {
+        bounce: {
+          "0%": { transform: "translateY(0)" },
+          "33%": { transform: "translateY(4px)" },
+          "66%": { transform: "translateY(-4px)" },
+          "100%": { transform: "translateY(0)" }
+        }
+       }
     }
   },
   variants: {

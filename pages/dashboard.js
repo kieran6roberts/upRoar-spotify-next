@@ -49,9 +49,7 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
       method: "GET"
      });
 
-    setResults(data);
-
-    return null;
+    return setResults(data);
   });
 
   const {
@@ -71,7 +69,7 @@ function Dashboard ({ userInfo, topTracks, newReleases, token, featuredPlaylists
   const formatQuery = useCallback(() => {
     const { search } = inputValues;
 
-    return search.trim().replaceAll(" ", "%20");
+    return search.trim().replace(/\s/g, "%20");
   });
 
   const resetResultsHandler = useCallback(() => {

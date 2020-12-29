@@ -1,6 +1,6 @@
 import "whatwg-fetch";
 
-import { configure, screen } from "@testing-library/react";
+import { act, configure, fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -11,10 +11,15 @@ import { dashboardSearchbarData, fetchErrorData, fetchSuccessfulData } from "@/t
 
 import { render, rest, server } from "../../test-utils";
 
+Object.defineProperty(window.document, "cookie", {
+    value: "jwt=jwt;spaccess=access;sprefresh=refresh",
+    writable: true
+  });
+
 jest.mock("next/router");
 
 describe("auth user dashboard page", () => {
-    let expectedPathname, expectedRouterPush;
+    let expectedPathname, expectedRouterPrefetch, expectedRouterPush;
     const jsdomPause = window.HTMLMediaElement.prototype.pause;
 
     beforeAll(() => server.listen());
@@ -24,12 +29,14 @@ describe("auth user dashboard page", () => {
         window.HTMLMediaElement.prototype.pause = jsdomPause;
     });
     beforeEach(() => {
-      configure({ throwSuggestions: true });
+      configure({ throwSuggestions: false });
       window.HTMLMediaElement.prototype.pause = jest.fn();
-      expectedRouterPush = jest.fn();
       expectedPathname = "/dashboard";
+      expectedRouterPush = jest.fn();
+      expectedRouterPrefetch = jest.fn();
       useRouter.mockReturnValue({
           pathname: expectedPathname,
+          prefetch: expectedRouterPrefetch,
           push: expectedRouterPush
        });
         rest.get("https://api.spotify.com/v1/browse", (req, res, ctx) => {
@@ -51,10 +58,9 @@ describe("auth user dashboard page", () => {
     });
 
     test("<Dashboard {...props} /> renders with info", () => {
-        render(
-        <PlayingContext>
+        render(<PlayingContext>
             <Dashboard {...fetchSuccessfulData} />
-        </PlayingContext>);
+               </PlayingContext>);
 
         expect(screen.getByRole("heading", { name: /playlist 1 name/ui })).toBeInTheDocument();
         expect(screen.getByText(/playlist 1 description/ui)).toBeInTheDocument();
@@ -65,16 +71,28 @@ describe("auth user dashboard page", () => {
     });
 
     test("<Dashboard {..props} /> searchbar feature", async () => {
-        render(
-        <PlayingContext>
+        render(<PlayingContext>
             <Dashboard {...fetchSuccessfulData} />
-        </PlayingContext>);
+               </PlayingContext>);
 
         rest.get("https://api.spotify.com/v1/search", (req, res, ctx) => {
             return res(ctx.status(200), ctx.json(dashboardSearchbarData));
         });
 
-        userEvent.type(screen.getByRole("textbox", "search"), "foals");
+        expect(expectedRouterPush).not.toHaveBeenCalled();
+
+        userEvent.type(screen.getByRole("textbox"), "foals");
+
         expect(screen.getByRole("textbox")).toHaveValue("foals");
+
+        // FireEvent.click(screen.getByTestId("search"));
+
+        // Await waitFor(() => screen.getByText("foals"));
+
+        /*
+         * Expect(screen.getByText("foals")).toBeInTheDocument();
+         * waitFor(() => expect(screen.findByText(/foals/gui)).toBeInTheDocument());
+         */
+
     });
 });

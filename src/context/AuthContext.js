@@ -42,22 +42,21 @@ function AuthProvider ({ children }) {
         }
       }
 
-      const response = await fetcher(`${publicRuntimeConfig.API_URL}/users/me`, {
-        headers: {
-          Authorization: `Bearer ${jwt}`
-        }
-      });
-
-      if (!response) {
-        destroyCookie(null, "jwt", {
-          path: "/"
+        const response = await fetcher(`${publicRuntimeConfig.API_URL}/users/me`, {
+          headers: {
+            Authorization: `Bearer ${jwt}`
+          }
         });
-        setAuthUser(null);
+
+        if (!response) {
+          destroyCookie(null, "jwt", {
+            path: "/"
+          });
+          setAuthUser(null);
+        }
+
+        setAuthUser(response.username);
       }
-
-      setAuthUser(response.username);
-
-    }
   }
 
   useEffect(() => {

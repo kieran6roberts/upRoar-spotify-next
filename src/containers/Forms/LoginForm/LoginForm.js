@@ -5,6 +5,7 @@ import { setCookie } from "nookies";
 import React, { useEffect } from "react";
 
 import FormInput from "@/components/FormInput/FormInput";
+import LoadingFetch from "@/components/LoadingFetch/LoadingFetch";
 import { useAuth } from "@/context/AuthContext";
 import useForm from "@/hooks/useForm";
 import { fetcher } from "@/utility/fetcher";
@@ -36,7 +37,9 @@ function LoginForm () {
 
     const postLoginUser = await fetcher(`${publicRuntimeConfig.API_URL}/auth/local`, postLoginOptions);
 
-    if (postLoginUser.statusCode === 400) {
+    setLoading(false);
+
+    if (postLoginUser.statusCode >= 300) {
       const error = postLoginUser.message[0].messages[0].message;
 
       return alert(error);
@@ -59,7 +62,6 @@ function LoginForm () {
     return null;
   }
 
-
   useEffect(() => {
     router.prefetch("/dashboard/auth");
   }, []);
@@ -68,12 +70,16 @@ function LoginForm () {
     inputValues,
     errors,
     inputChangeHandler,
+    loading,
+    setLoading,
     submitHandler
   } = useForm({ stateInit,
     validate: loginValidation,
     submitFunc: fetchUser });
 
   return (
+    <>
+    {loading && <LoadingFetch />}
     <form
     className="flex flex-col w-full max-w-5xl m-auto text-sm text-txt"
     data-testid="login-form"
@@ -111,7 +117,7 @@ function LoginForm () {
       <p className="mb-8">
           Don't have an account?
         <Link href="/register">
-          <a className="ml-1 text-xs text-pink-400">
+          <a className="ml-1 text-sm text-pink-400">
               Sign Up.
           </a>
         </Link>
@@ -124,6 +130,7 @@ function LoginForm () {
       value="submit"
       />
     </form>
+    </>
   );
 }
 

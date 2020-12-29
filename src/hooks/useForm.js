@@ -13,6 +13,10 @@ function useForm ({ stateInit = {}, validate, submitFunc }) {
     submitting,
     setSubmitting
   ] = useState(false);
+  const [
+    loading,
+    setLoading
+  ] = useState(false);
 
   function inputChangeHandler (event) {
     const { value, name } = event.target;
@@ -36,6 +40,7 @@ function useForm ({ stateInit = {}, validate, submitFunc }) {
   useEffect(() => {
     if (isObjectEmpty(errors) && submitting) {
       submitFunc();
+      setLoading(true);
     }
   }, [
     submitting,
@@ -46,7 +51,9 @@ function useForm ({ stateInit = {}, validate, submitFunc }) {
     errors,
     inputChangeHandler,
     inputValues,
+    loading,
     setInputValues,
+    setLoading,
     submitHandler,
     submitting
   };

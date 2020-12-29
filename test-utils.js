@@ -8,7 +8,7 @@ import AuthProvider from "@/context/AuthContext";
 import ThemeProvider from "@/context/ThemeContext";
 
 const server = setupServer(
-    rest.post("/auth/local/register", (req, res, ctx) => {
+    rest.post("/local/register", (req, res, ctx) => {
       return res(ctx.status(200), ctx.json({
           jwt: "mock jwt",
             statusCode: 200,
@@ -25,6 +25,9 @@ const server = setupServer(
         }));
     }),
     rest.get("https://api.spotify.com/v1/me", (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json({ id: "username" }));
+    }),
+    rest.get("https://api.spotify.com/users/me", (req, res, ctx) => {
         return res(ctx.status(200), ctx.json({ id: "username" }));
     }),
     rest.post("*", (req, res, ctx) => {
