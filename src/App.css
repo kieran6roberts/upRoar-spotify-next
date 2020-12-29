@@ -752,6 +752,11 @@ h1,
   }
 }
 
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+}
+
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
@@ -837,6 +842,11 @@ h1,
   background-color: var(--clr-bg-sec);
 }
 
+.dark .dark\:bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+}
+
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -874,6 +884,10 @@ h1,
 
 .to-pink-400 {
   --tw-gradient-to: #f472b6;
+}
+
+.bg-opacity-40 {
+  --tw-bg-opacity: 0.4;
 }
 
 .bg-opacity-50 {
@@ -1036,6 +1050,10 @@ h1,
   height: 0.25rem;
 }
 
+.h-2 {
+  height: 0.5rem;
+}
+
 .h-4 {
   height: 1rem;
 }
@@ -1078,6 +1096,10 @@ h1,
 
 .h-0\.5 {
   height: 0.125rem;
+}
+
+.h-1\/5 {
+  height: 20%;
 }
 
 .h-4\/5 {
@@ -1144,6 +1166,11 @@ h1,
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .mx-3 {
@@ -1650,6 +1677,10 @@ h1,
   visibility: hidden;
 }
 
+.w-2 {
+  width: 0.5rem;
+}
+
 .w-6 {
   width: 1.5rem;
 }
@@ -1680,6 +1711,10 @@ h1,
 
 .w-2\/4 {
   width: 50%;
+}
+
+.w-1\/5 {
+  width: 20%;
 }
 
 .w-2\/5 {
@@ -1842,6 +1877,22 @@ h1,
     -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
             animation-timing-function: cubic-bezier(0,0,0.2,1);
   }
+
+  0% {
+    transform: translateY(0);
+  }
+
+  33% {
+    transform: translateY(4px);
+  }
+
+  66% {
+    transform: translateY(-4px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @keyframes bounce {
@@ -1856,6 +1907,37 @@ h1,
     -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
             animation-timing-function: cubic-bezier(0,0,0.2,1);
   }
+
+  0% {
+    transform: translateY(0);
+  }
+
+  33% {
+    transform: translateY(4px);
+  }
+
+  66% {
+    transform: translateY(-4px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-bounceFirst {
+  -webkit-animation: bounce 1500ms ease-in-out infinite;
+          animation: bounce 1500ms ease-in-out infinite;
+}
+
+.animate-bounceSecond {
+  -webkit-animation: bounce 1500ms ease-in-out 200ms infinite;
+          animation: bounce 1500ms ease-in-out 200ms infinite;
+}
+
+.animate-bounceThird {
+  -webkit-animation: bounce 1500ms ease-in-out 400ms infinite;
+          animation: bounce 1500ms ease-in-out 400ms infinite;
 }
 
 @media (min-width: 640px) {

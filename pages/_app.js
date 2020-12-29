@@ -1,4 +1,4 @@
-import "../src/styles/app.css";
+import "../src/App.css";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
