@@ -34,8 +34,7 @@ function usePlayer ({ initDuration, initCurrentPosition }) {
     audioPlayer.addEventListener("timeupdate", setAudioTime);
 
     if (playing) {
-      audioPlayer.play().
-      catch((err) => console.error(err));
+      audioPlayer.play();
     } else {
       audioPlayer.pause();
     }

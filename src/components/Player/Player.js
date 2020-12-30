@@ -93,7 +93,8 @@ function Player () {
   }
 
   return (
-    <div className={`w-full ${!playerOpen
+    <div
+    className={`w-full ${!playerOpen
     ? "opacity-80"
     : "opacity-100 pb-8 pt-4"} text-txt text-sm px-4 2xl:px-12 lg:px-16 py-1 2xl:py-8 fixed bottom-0 left-0 z-10 bg-pri border-t-2`}
     >
@@ -121,18 +122,24 @@ function Player () {
         type="range"
         />
       </div>
-      <div className={`flex ${playerOpen
+      <div
+      className={`flex ${playerOpen
         ? "h-32 2xl:h-56"
         : "h-0"}`}
+      data-testid="player-container"
       >
         <div className="w-full 2xl:py-8">
           <audio id="audio-player">
-            <source id="audio-player-src" />
+            <source
+            data-testid="player-src"
+            id="audio-player-src" />
             <code>
                 audio
             </code>
           </audio>
-          <p className="text-sm text-center capitalize">
+          <p 
+          className="text-sm text-center capitalize"
+          data-testid="player-track">
             {currentTrack
             ? currentTrack.trackName
             : "no track"}
@@ -150,6 +157,7 @@ function Player () {
             >
               <input
               className="absolute w-full"
+              data-testid="player-duration"
               id="track-input"
               max="30"
               min="0"
@@ -180,6 +188,7 @@ function Player () {
                 <BiSkipPrevious className="text-lg cursor-pointer" />
               </button>
               <button
+              data-testid="player-play"
               onClick={() => currentTrack && setPlaying(!playing)}
               type="button"
               >

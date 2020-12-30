@@ -57,8 +57,8 @@ const fetchSuccessfulData = {
                 artists: [{ name: "top track artist 1" }],
                 external_urls: { spotify: "https://toptracktrack1.com" },
                 id: "top track track 1",
-                name: "top track track 1 name",
-                preview_url: "top track preview 1"
+                name: "top track 1 name",
+                preview_url: "https://actions.google.com/sounds/v1/alarms/bugle_tune.ogg"
             },
             {
                 album: {
@@ -70,7 +70,7 @@ const fetchSuccessfulData = {
                 external_urls: { spotify: "https://toptracktrack2.com" },
                 id: "top track 2",
                 name: "top track 2 name",
-                preview_url: "preview 2"
+                preview_url: "https://actions.google.com/sounds/v1/ambiences/arcade_room.ogg"
             }
         ]
     },
