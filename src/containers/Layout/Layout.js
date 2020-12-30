@@ -95,20 +95,18 @@ function Layout ({ children }) {
                 id="theme-toggle"
                 >
                   {isDark
-                  ?
-                  <Image
+                  ? <Image
                   alt="moon indicating dark mode"
                   height={20}
                   src="/images/toggle-dark.svg"
                   width={20}
-                  />
-                  :
-                  <Image
+                    />
+                  : <Image
                   alt="sun indicating light mode"
                   height={20}
                   src="/images/toggle-light.svg"
                   width={20}
-                  />}
+                    />}
                 </div>
               </button>
               <div className="">

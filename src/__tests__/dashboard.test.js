@@ -58,10 +58,9 @@ describe("auth user dashboard page", () => {
     });
 
     test("<Dashboard {...props} /> renders with info", () => {
-        render(
-        <PlayingContext>
+        render(<PlayingContext>
             <Dashboard {...fetchSuccessfulData} />
-        </PlayingContext>);
+               </PlayingContext>);
 
         expect(screen.getByRole("heading", { name: /playlist 1 name/ui })).toBeInTheDocument();
         expect(screen.getByText(/playlist 1 description/ui)).toBeInTheDocument();

@@ -132,14 +132,16 @@ function Player () {
           <audio id="audio-player">
             <source
             data-testid="player-src"
-            id="audio-player-src" />
+            id="audio-player-src"
+            />
             <code>
                 audio
             </code>
           </audio>
-          <p 
+          <p
           className="text-sm text-center capitalize"
-          data-testid="player-track">
+          data-testid="player-track"
+          >
             {currentTrack
             ? currentTrack.trackName
             : "no track"}

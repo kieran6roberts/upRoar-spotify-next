@@ -14,6 +14,6 @@ const scopes = [
   "user-library-read"
 ];
 
-const spotifyRedirect = `${publicRuntimeConfig.SPOTIFY_AUTH_API}/authorize?client_id=${publicRuntimeConfig.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=https%3A%2F%2Fuproar-music.vercel.app%2Fdashboard%2Fauth&scope=${scopes.join("%20")}&state=34fFs29kd09`;
+const spotifyRedirect = `${publicRuntimeConfig.SPOTIFY_AUTH_API}/authorize?client_id=${publicRuntimeConfig.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${publicRuntimeConfig.REDIRECT_URI}&scope=${scopes.join("%20")}&state=34fFs29kd09`;
 
 export default spotifyRedirect;

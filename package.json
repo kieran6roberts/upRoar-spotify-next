@@ -7,8 +7,7 @@
     "lint": "eslint --ext .js ./",
     "lint-fix": "eslint --fix --ext .js ./",
     "tailwind": "npx tailwindcss build src/styles/tailwind.css -o src/styles/app.css",
-    "prestart": "postcss src/styles/app.css -o src/App.css",
-    "build": "yarn tailwind && yarn prestart && next build",
+    "build": "yarn tailwind && next build",
     "start": "next start",
     "test": "jest"
   },

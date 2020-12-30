@@ -26,11 +26,10 @@ describe("<Player /> with playing context", () => {
     test("renders", () => {
         const { topTracks: { items: tracks } } = fetchSuccessfulData;
 
-        render(
-        <PlayingProvider>
+        render(<PlayingProvider>
             <TrackList tracks={tracks} />
             <Player />
-        </PlayingProvider>);
+               </PlayingProvider>);
 
         expect(screen.getByTestId("player-container")).toBeInTheDocument();
         expect(screen.getAllByAltText(/album cover/ui)[0]).toBeInTheDocument();
@@ -42,13 +41,12 @@ describe("<Player /> with playing context", () => {
     test("<Player /> opens on play, and track btn play pause", async () => {
         const { topTracks: { items: tracks } } = fetchSuccessfulData;
 
-        render(
-        <PlayingProvider>
+        render(<PlayingProvider>
             <TrackList tracks={tracks} />
             <Player />
-        </PlayingProvider>);
+               </PlayingProvider>);
 
-        const [ trackPlayBtn ] = screen.getAllByRole("button");
+        const [trackPlayBtn] = screen.getAllByRole("button");
 
         expect(screen.getByTestId("player-container")).toHaveClass("h-0");
 
@@ -68,13 +66,16 @@ describe("<Player /> with playing context", () => {
     test("<Player /> controls and audio src", () => {
         const { topTracks: { items: tracks } } = fetchSuccessfulData;
 
-        render(
-        <PlayingProvider>
+        render(<PlayingProvider>
             <TrackList tracks={tracks} />
             <Player />
-        </PlayingProvider>);
+               </PlayingProvider>);
 
-        const [trackPlayBtn, , , playerPrev , playerPlay, playerNext] = screen.getAllByRole("button");
+        const [
+trackPlayBtn, , , playerPrev,
+playerPlay,
+playerNext
+] = screen.getAllByRole("button");
 
         userEvent.click(trackPlayBtn);
 
