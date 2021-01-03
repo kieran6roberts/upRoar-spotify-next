@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { AiOutlineLogout } from "react-icons/ai";
 import { BiHomeAlt } from "react-icons/bi";
 import { CgPlayTrackNextR, CgProfile } from "react-icons/cg";
 import { GiCompactDisc } from "react-icons/gi";
@@ -14,15 +15,21 @@ function Sidebar ({ active, logoutHandler }) {
     id="sidebar"
     role="navigation"
     >
+      {active &&
       <div
-      className={`fixed text-txt top-4 2xl:top-12 2xl:left-40 2xl:right-40 2xl:h-3/5 left-4 right-4 h-4/5 md:3/5 rounded bg-pri dark:bg-black z-20 border border-gray-400 transition duration-200 ease-in 
+      aria-label="modal"
+      className="fixed top-0 bottom-0 left-0 right-0 z-10 bg-black bg-opacity-50"
+      />
+    }
+      <div
+      className={`fixed text-txt pt-4 pb-8 top-4 2xl:top-12 2xl:left-40 2xl:right-40 2xl:h-3/5 left-4 md:left-12 md:right-12 right-4 h-auto md:3/5 rounded-lg bg-pri dark:bg-black z-20 border border-gray-400 transition duration-200 ease-in 
       ${!active
         ? "opacity-0 pointer-events-none transform scale-75 invisible"
         : "opacity-1 pointer-events-all transform scale-100 visible"}
       `}
       data-testid="sidebar"
       >
-        <h2 className="py-2 text-center text-md text-txt">
+        <h2 className="pb-2 text-center text-md text-txt">
             upRoar
         </h2>
         <div className="h-0.5 w-4/5 bg-gradient-to-r from-pink-400 via-yellow-200 to-purple-400 my-1 mx-auto" />
@@ -43,7 +50,7 @@ function Sidebar ({ active, logoutHandler }) {
                 : "/login"}
               passHref
               >
-                <a className="flex items-center px-4 py-1 rounded hover:bg-gray-100 hover:text-pri">
+                <a className="flex items-center p-1 m-1 rounded md:p-4 hover:bg-gray-100 hover:text-pri">
                   <BiHomeAlt className="mr-2 text-purple-400" />
                   {authUser
                   ? "home"
@@ -58,7 +65,7 @@ function Sidebar ({ active, logoutHandler }) {
                 : "/register"}
               passHref
               >
-                <a className="flex items-center px-2 py-1 rounded hover:bg-gray-100 hover:text-pri">
+                <a className="flex items-center p-1 m-1 rounded md:p-4 hover:bg-gray-100 hover:text-pri">
                   <GiCompactDisc className="mr-2 text-yellow-400" />
                   {authUser
                   ? "discover"
@@ -72,7 +79,7 @@ function Sidebar ({ active, logoutHandler }) {
                 href="/dashboard/my-tracks"
                 passHref
                 >
-                  <a className="flex items-center px-2 py-1 rounded hover:bg-gray-100 hover:text-pri">
+                  <a className="flex items-center p-1 m-1 rounded md:p-4 hover:bg-gray-100 hover:text-pri">
                     <CgPlayTrackNextR className="mr-2 text-pink-400" />
                       my tracks
                   </a>
@@ -91,7 +98,7 @@ function Sidebar ({ active, logoutHandler }) {
                  href={`/dashboard/users/${authUser}`}
                  passHref
                  >
-                   <a className="flex items-center px-2 py-1 rounded hover:bg-gray-100 hover:text-pri">
+                   <a className="flex items-center p-1 m-1 rounded md:p-4 hover:bg-gray-100 hover:text-pri">
                      <CgProfile className="mr-2 text-yellow-400" />
                       profile
                    </a>
@@ -99,11 +106,11 @@ function Sidebar ({ active, logoutHandler }) {
                </li>
                <li className="flex justify-center flex-auto mx-1 md:mx-4">
                  <a
-                 className="flex items-center px-2 py-1 rounded focus:outline hover:bg-gray-100 hover:text-pri"
+                 className="flex items-center p-1 m-1 rounded md:p-4 focus:outline hover:bg-gray-100 hover:text-pri"
                  onClick={logoutHandler}
                  role="button"
                  >
-                   <CgProfile className="mr-2 text-yellow-400" />
+                   <AiOutlineLogout className="mr-2 text-pink-400" />
                     logout
                  </a>
                </li>

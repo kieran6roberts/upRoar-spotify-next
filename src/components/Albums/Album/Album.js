@@ -6,7 +6,7 @@ function Album ({ name, artist, image, id }) {
     href={`/dashboard/albums/${id}`}
     passHref
     >
-      <a>
+      <a className="focus:outline-none focus:ring-2 focus:ring-pink-200">
         <div className="relative flex flex-col items-center justify-center w-56 h-56 p-8 text-sm font-bold text-center text-white transition 2xl:h-80 2xl:w-80 opacity-70 hover:opacity-100">
           <img
           alt="album cover"

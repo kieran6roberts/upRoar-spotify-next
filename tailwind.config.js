@@ -11,7 +11,7 @@ module.exports = {
     ],
     enabled: true,
     options: {
-      safelist: ["dark, light"]
+      safelist: ["dark", "light"]
     }
   },
   darkMode: "class",
@@ -36,6 +36,9 @@ module.exports = {
       backgroundColor: {
         pri: "var(--clr-bg-pri)",
         sec: "var(--clr-bg-sec)",
+        txt: "var(--clr-txt)"
+      },
+      borderColor: {
         txt: "var(--clr-txt)"
       },
       animation: {

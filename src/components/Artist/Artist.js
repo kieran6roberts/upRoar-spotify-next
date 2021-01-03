@@ -6,7 +6,7 @@ function Artist ({ id, name, image, followers, genre }) {
     href={`/dashboard/artists/${id}`}
     passHref
     >
-      <a className="">
+      <a className="focus:outline-none focus:ring-2 focus:ring-pink-200">
         <div className="relative flex flex-col items-center justify-center max-w-2xl p-8 m-auto overflow-hidden text-sm font-bold text-center text-white transition h-60 w-52 2xl:h-72 2xl:w-72 bg-pri opacity-70 hover:opacity-100 ">
           <img
           alt="album cover"

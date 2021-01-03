@@ -3,7 +3,7 @@ import React from "react";
 
 function Footer () {
   return (
-    <footer className="p-8 mt-20 border-t-2 border-gray-100 xl:mt-auto">
+    <footer className="p-8 mt-4 border-t-2 border-gray-100 xl:mt-auto">
       <p className="font-bold text-center text-md text-txt">
           upRoar Music App
       </p>

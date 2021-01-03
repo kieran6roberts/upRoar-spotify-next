@@ -42,6 +42,8 @@ function LoginForm () {
     if (postLoginUser.statusCode >= 300) {
       const error = postLoginUser.message[0].messages[0].message;
 
+      errors.login = error;
+
       return alert(error);
     }
 
@@ -114,6 +116,7 @@ function LoginForm () {
       type="password"
       value={inputValues.password}
       />
+      {errors.login && <p className="mb-1 text-xs text-red-500">{errors.login} Try Again</p>}
       <p className="mb-8">
           Don't have an account?
         <Link href="/register">
@@ -127,7 +130,7 @@ function LoginForm () {
       id="submit"
       name="submit"
       type="submit"
-      value="submit"
+      value="login"
       />
     </form>
     </>

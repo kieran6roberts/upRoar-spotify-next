@@ -46,6 +46,7 @@ function User ({ data: { username, name, created_at, email } }) {
             <ul className="flex-col mb-20 text-sm justify-evenly text-txt md:mb-0">
               <li className="mb-8 md:mb-16 xl:mb-24">
                 <button
+                className="focus:outline-none focus:ring-2 focus:ring-pink-200"
                 onClick={() => setCurrentTab("overview")}
                 type="button"
                 >
@@ -56,6 +57,7 @@ function User ({ data: { username, name, created_at, email } }) {
               </li>
               <li className="mb-8 md:mb-16 xl:mb-24">
                 <button
+                className="focus:outline-none focus:ring-2 focus:ring-pink-200"
                 onClick={() => setCurrentTab("edit profile")}
                 type="button"
                 >
@@ -66,6 +68,7 @@ function User ({ data: { username, name, created_at, email } }) {
               </li>
               <li className="mb-8 md:mb-16 xl:mb-24">
                 <button
+                className="focus:outline-none focus:ring-2 focus:ring-pink-200"
                 onClick={() => setCurrentTab("change password")}
                 type="button"
                 >

@@ -22,7 +22,7 @@ function Home () {
     <Layout title="Home">
       <main>
         <section
-        className="pt-8"
+        className="pt-16"
         id="home-hero"
         >
           <div className="uppercase">

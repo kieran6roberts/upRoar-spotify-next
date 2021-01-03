@@ -47,6 +47,8 @@ function RegisterForm () {
     if (registerUser.statusCode >= 300) {
       const error = registerUser.message[0].messages[0].message;
 
+      errors.register = error;
+
       return alert(error);
     }
 
@@ -160,6 +162,7 @@ function RegisterForm () {
       type="password"
       value={inputValues.confirm}
       />
+      {errors.register && <p className="mb-1 text-xs text-red-500">{errors.register} Try Again</p>}
       <p className="mb-8">
           Already have an account?
         <Link href="/login">
@@ -173,7 +176,7 @@ function RegisterForm () {
       id="submit"
       name="submit"
       type="submit"
-      value="submit"
+      value="sign up"
       />
     </form>
     </>

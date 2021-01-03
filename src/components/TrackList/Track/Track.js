@@ -25,7 +25,7 @@ function Track ({ id,
         width={120}
         />
         <button
-        className="absolute top-0 flex items-center justify-center w-24 h-24 -mt-12 -ml-12 cursor-pointer left-2/4 top-2/4"
+        className="absolute top-0 flex items-center justify-center w-24 h-24 -mt-12 -ml-12 cursor-pointer left-2/4 top-2/4 focus:outline-none focus:ring-2 focus:ring-pink-200"
         id={id}
         onClick={() => setAudioSrc({ trackName,
             artist,
@@ -50,7 +50,7 @@ function Track ({ id,
         <p className="text-xs">
             find the full version here
           <a
-          className="ml-1 text-green-500"
+          className="ml-1 text-green-500 focus:outline-none focus:ring-2 focus:ring-pink-200"
           href={spotifyLink}
           >
             to spotify

@@ -72,7 +72,7 @@ export async function getServerSideProps (ctx) {
       client_secret: process.env.SPOTIFY_CLIENT_SECRET,
       code,
       grant_type: "authorization_code",
-      redirect_uri: "https://uproar-music.vercel.app/dashboard/auth"
+      redirect_uri: process.env.REDIRECT_URI
     }),
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"

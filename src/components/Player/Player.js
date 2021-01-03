@@ -96,10 +96,10 @@ function Player () {
     <div
     className={`w-full ${!playerOpen
     ? "opacity-80"
-    : "opacity-100 pb-8 pt-4"} text-txt text-sm px-4 2xl:px-12 lg:px-16 py-1 2xl:py-8 fixed bottom-0 left-0 z-10 bg-pri border-t-2`}
+    : "opacity-100 pb-8 pt-4"} bg-sec text-txt text-sm py-4 px-4 2xl:px-12 lg:px-16 py-1 2xl:py-8 fixed bottom-0 left-0 z-10 bg-pri border-t-2`}
     >
       <button
-      className="p-2 mr-4 border-2 rounded-full 2xl:p-4 text-txt"
+      className="p-2 mr-4 border-2 rounded-full bg-pri border-txt 2xl:p-4 focus:outline-none focus:ring-2 focus:ring-pink-200"
       onClick={() => setPlayerOpen(!playerOpen)}
       type="button"
       >
@@ -113,7 +113,7 @@ function Player () {
         <input
         className={`${!playerOpen
         ? "hidden"
-        : "block"}`}
+        : "block focus:outline-none focus:ring-2 focus:ring-pink-200"}`}
         id="input-volume"
         max="1"
         min="0"
@@ -139,7 +139,7 @@ function Player () {
             </code>
           </audio>
           <p
-          className="text-sm text-center capitalize"
+          className="mt-3 text-sm text-center capitalize"
           data-testid="player-track"
           >
             {currentTrack
@@ -190,6 +190,7 @@ function Player () {
                 <BiSkipPrevious className="text-lg cursor-pointer" />
               </button>
               <button
+              className="focus:outline-none focus:ring-2 focus:ring-pink-200"
               data-testid="player-play"
               onClick={() => currentTrack && setPlaying(!playing)}
               type="button"
@@ -202,7 +203,8 @@ function Player () {
                   className="mx-8 text-lg cursor-pointer"
                     />}
               </button>
-              <button
+              <button 
+              className="focus:outline-none focus:ring-2 focus:ring-pink-200"
               onClick={() => currentTrack && tracklist && playNextTrack()}
               type="button"
               >
