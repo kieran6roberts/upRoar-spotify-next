@@ -1340,6 +1340,10 @@ h1,
   margin-left: -3rem;
 }
 
+.max-h-80 {
+  max-height: 20rem;
+}
+
 .max-w-xl {
   max-width: 36rem;
 }
@@ -1761,10 +1765,6 @@ h1,
 
 .w-2\/4 {
   width: 50%;
-}
-
-.w-1\/5 {
-  width: 20%;
 }
 
 .w-2\/5 {
