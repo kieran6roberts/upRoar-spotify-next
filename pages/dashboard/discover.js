@@ -19,27 +19,41 @@ function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
   ] = useState(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetch () {
       const token = parseCookies(null).spaccess;
       const newReleaseQuery = "/v1/browse/new-releases?offset=0&limit=15";
-      const newReleases = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}${newReleaseQuery}`, {
-        headers: {
-          "Accept": "application/json",
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        method: "GET"
-      });
-      let newReleasesItems;
 
-      if (!newReleases.error) {
-        newReleasesItems = newReleases.albums;
+      try {
+        const newReleases = await fetcher(`${publicRuntimeConfig.SPOTIFY_API}${newReleaseQuery}`, {
+          headers: {
+            "Accept": "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          method: "GET",
+          signal: controller.signal
+        });
+        let newReleasesItems;
+
+        if (!newReleases.error) {
+          newReleasesItems = newReleases.albums;
+        }
+        setData(newReleasesItems);
+
+      } catch (error) {
+          if (controller.signal.aborted) {
+            console.error(error);
+          }
       }
-
-      setData(newReleasesItems);
     }
 
     fetch();
+
+    return function cleanup () {
+       controller.abort();
+    };
   }, []);
 
   return (
@@ -60,9 +74,15 @@ function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
             <p className="mt-8 mb-4 uppercase text-md text-txt">
                 the latest and greatest form the world of music
             </p>
+            {userLikedArtists ?
             <p className="my-12 text-sm text-pink-300 uppercase">
-                Based on your saved album by {userLikedArtists && userLikedArtists[0]}
+              Based on your saved album by {userLikedArtists[0]}
             </p>
+            :
+            <p className="my-12 text-sm text-pink-300 uppercase">
+                Unable to find user liked albums
+            </p>
+            }
             <ul className="grid grid-cols-1 gap-x-2 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {relatedArtist1
               ? relatedArtist1.map((artist) =>
@@ -75,12 +95,15 @@ function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
                   name={artist.name}
                   />
               </li>)
-              : <div className="text-sm uppercase text-txt">no artists</div>}
+              : <p className="text-sm uppercase text-txt">no artists</p>}
             </ul >
-            {userLikedArtists &&
+            {userLikedArtists ?
             <p className="my-20 text-sm text-pink-300 uppercase">
-                Based on your saved album by {userLikedArtists[1]}
-            </p>}
+              Based on your saved album by {userLikedArtists[1]}
+            </p>
+            :
+            null
+            }
             <ul className="grid grid-cols-1 gap-x-2 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {relatedArtist2
               ? relatedArtist2.map((artist) =>
@@ -94,11 +117,16 @@ function Discover ({ relatedArtist1, relatedArtist2, userLikedArtists }) {
                 </li>)
                 : null}
             </ul>
-            {data &&
+            {data ?
             <p className="my-16 text-lg text-txt">
                 Check out the new releases!
-            </p>}
-            {data && <Albums tracks={data} />}
+            </p>
+            : null
+            }
+            {data ?
+             <Albums tracks={data} />
+            :
+            null}
             <Player />
           </section>
         </main>

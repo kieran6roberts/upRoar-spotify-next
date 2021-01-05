@@ -23,44 +23,56 @@ function AuthProvider ({ children }) {
   const router = useRouter();
   const { pathname } = router;
 
-  async function checkIsUserAuth () {
-    if (typeof window === "undefined") {
-      return;
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function checkIsUserAuth () {
+      if (typeof window === "undefined") {
+        return;
+      }
+  
+      const { jwt, spaccess, sprefresh } = parseCookies(null);
+  
+      if (!jwt) {
+        if (!validPublicPaths.includes(pathname)) {
+  
+          router.push("/login");
+        }
+      } else {
+        if (!spaccess && !sprefresh) {
+          if (pathname !== authSpotify) {
+            router.push("/dashboard/auth");
+          }
+        }
+
+        try {
+          const response = await fetcher(`${publicRuntimeConfig.API_URL}/users/me`, {
+            headers: {
+              Authorization: `Bearer ${jwt}`
+            }
+          });
+  
+          if (!response) {
+            destroyCookie(null, "jwt", {
+              path: "/"
+            });
+            setAuthUser(null);
+          }
+
+          setAuthUser(response.username);
+      } catch (error) {
+          if (controller.signal.aborted) {
+            console.error(error);
+          }
+        }
+      }
     }
 
-    const { jwt, spaccess, sprefresh } = parseCookies(null);
-
-    if (!jwt) {
-      if (!validPublicPaths.includes(pathname)) {
-
-        router.push("/login");
-      }
-    } else {
-      if (!spaccess && !sprefresh) {
-        if (pathname !== authSpotify) {
-          router.push("/dashboard/auth");
-        }
-      }
-
-        const response = await fetcher(`${publicRuntimeConfig.API_URL}/users/me`, {
-          headers: {
-            Authorization: `Bearer ${jwt}`
-          }
-        });
-
-        if (!response) {
-          destroyCookie(null, "jwt", {
-            path: "/"
-          });
-          setAuthUser(null);
-        }
-
-        setAuthUser(response.username);
-      }
-  }
-
-  useEffect(() => {
     checkIsUserAuth();
+
+    return function cleanup () {
+      controller.abort();
+    };
   }, [authUser]);
 
   return (

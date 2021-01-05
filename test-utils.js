@@ -25,7 +25,7 @@ const server = setupServer(
         }));
     }),
     rest.get("https://api.spotify.com/v1/me", (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json({ id: "username" }));
+        return res(ctx.status(200), ctx.json({ id: "username", items: { item: "1" }}));
     }),
     rest.get("https://api.spotify.com/users/me", (req, res, ctx) => {
         return res(ctx.status(200), ctx.json({ id: "username" }));
