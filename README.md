@@ -1,8 +1,20 @@
+![upRoar logo](/public/images/favicon-32x32.png?raw=true "upRoar logo")
 # upRoar - Music App
+![GitHub top language](https://img.shields.io/github/languages/top/kieran6roberts/upRoar-spotify-next)
+![Lines of code](https://img.shields.io/tokei/lines/github/kieran6roberts/upRoar-spotify-next)
+![GitHub last commit](https://img.shields.io/github/last-commit/kieran6roberts/upRoar-spotify-next)
+![dev dependencies](https://img.shields.io/david/dev/kieran6roberts/upRoar-spotify-next)
+
+<br />
 
 upRoar integrates with spotify using their api allowing users to listen to their favorite tracks, add tracks to playlists and create their customized music experience. It uses the react framework Next.js for it's hybrid rendering and production optimizations and integrates with strapi to register users and allow authentication.
 
+<br /><br />
+
+
 ![upRoar landing page](/public/images/uproar-home.webp?raw=true "upRoar landing page with dark theme")
+
+<br /><br />
 
 ## Table of contents
 * [Project Objectives](#project-objectives)
@@ -19,6 +31,10 @@ It would also require me to use cookies to store user jwt's and implement server
 
 The application itself should be performant, responsive and be able to fallback when there are errors fetching data.
 
+![upRoar logo](/public/images/favicon-32x32.png?raw=true "upRoar logo")
+
+<br />
+
 ## Primary Technologies
 
 * next 10.0.2
@@ -26,6 +42,10 @@ The application itself should be performant, responsive and be able to fallback 
 * tailwindcss 2.0.1
 * nookies 2.5.0
 * jest 26.6.3
+
+![upRoar logo](/public/images/favicon-32x32.png?raw=true "upRoar logo")
+
+<br />
 
 ## Getting Started
 
@@ -48,6 +68,10 @@ and then create the `.env` based on the example `.env.example` once again. This 
 
 More information about using the spotify [web api](https://developer.spotify.com/documentation/web-api/).
 
+![upRoar logo](/public/images/favicon-32x32.png?raw=true "upRoar logo")
+
+<br />
+
 ## Running Tests
 
 To run the applications integration test use the command
@@ -56,6 +80,8 @@ yarn test
 ```
 These test run the applications key features such as the music player controls,
 form hooks, data fetching and auth context.
+
+<br />
 
 ## Author
 * Kieran Roberts
