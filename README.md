@@ -1,5 +1,5 @@
 ![upRoar logo](/public/images/favicon-32x32.png?raw=true "upRoar logo")
-# upRoar - Music App
+# ARCHIVED (Outdated) - upRoar - Music App
 ![GitHub top language](https://img.shields.io/github/languages/top/kieran6roberts/upRoar-spotify-next)
 ![Lines of code](https://img.shields.io/tokei/lines/github/kieran6roberts/upRoar-spotify-next)
 ![GitHub last commit](https://img.shields.io/github/last-commit/kieran6roberts/upRoar-spotify-next)
